@@ -46,6 +46,7 @@
     .type1-buttons {
         display: flex;
         gap: 1rem;
+        flex-direction: column;
 
         @media (max-width: 768px) {
             justify-content: center;

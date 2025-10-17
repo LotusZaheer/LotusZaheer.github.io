@@ -36,7 +36,6 @@
         "message": "Message",
         "phone": "Phone",
         "messagePlaceholder": "Write your message here...",
-        "message": "Message",
         "policy": "I agree to the processing of my personal data in accordance with the privacy policy.",
         "send": "Send Message"
     },
@@ -61,5 +60,8 @@
             "description": "React version of the modern interactive graphing calculator, allowing real-time visualization and customization of mathematical functions with an intuitive, responsive, and minimalist interface.",
             "role": "Frontend Developer"
         }
+    },
+    "about": {
+        "downloadCV": "Download CV"
     }
 }

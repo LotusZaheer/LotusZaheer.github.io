@@ -6,12 +6,19 @@
             {{ 'home.description' | translate }}
         </p>
         <div class="type1-buttons">
-            <a href="#projects" class="btn btn-primary" (click)="scrollToSection('projects')">
-                {{ 'home.viewProjects' | translate }}
-            </a>
-            <a href="#contact" class="btn btn-outline" (click)="scrollToSection('contact')">
-                {{ 'home.contact' | translate }}
-            </a>
+            <div class="buttons-row" style="display: flex; gap: 1rem; justify-content: center; margin-bottom: 1rem;">
+                <a href="#contact" class="btn btn-outline" (click)="scrollToSection('contact')">
+                    {{ 'home.contact' | translate }}
+                </a>
+                <a href="#" class="btn btn-outline" (click)="downloadCV(); $event.preventDefault()">
+                    {{ 'about.downloadCV' | translate }}
+                </a>
+            </div>
+            <div class="buttons-row" style="display: flex; justify-content: center;">
+                <a href="#projects" class="btn btn-primary" (click)="scrollToSection('projects')">
+                    {{ 'home.viewProjects' | translate }}
+                </a>
+            </div>
         </div>
     </div>
     <div class="type1-image">

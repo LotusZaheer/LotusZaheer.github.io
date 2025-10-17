@@ -60,5 +60,8 @@
             "description": "Versión en React de la calculadora gráfica interactiva moderna, que permite visualizar y personalizar funciones matemáticas en tiempo real con una interfaz intuitiva, responsiva y minimalista.",
             "role": "Desarrollador Frontend"
         }
+    },
+    "about": {
+        "downloadCV": "Descargar CV"
     }
 }

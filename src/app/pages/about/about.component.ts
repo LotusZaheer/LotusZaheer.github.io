@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { animateNameRewrite } from '../../shared/functions/utils';
 
 @Component({
@@ -21,7 +21,7 @@ export class AboutComponent implements OnInit {
     private targetName = '';
     private blinkChar = '■';
 
-    constructor() { }
+    constructor(private translateService: TranslateService) { }
 
     ngOnInit() {
         this.currentName = this.nameA;
@@ -49,5 +49,19 @@ export class AboutComponent implements OnInit {
         if (element) {
             element.scrollIntoView({ behavior: 'smooth' });
         }
+    }
+
+    downloadCV() {
+        const currentLanguage = this.translateService.currentLang || this.translateService.defaultLang || 'es';
+        const fileName = currentLanguage === 'en' ? 'ENG_HV_Andres_Uribe_Garcia.pdf' : 'ESP_HV_Andres_Uribe_Garcia.pdf';
+        const pdfPath = `assets/pdf/${fileName}`;
+
+        // Crear un enlace temporal para descargar el archivo
+        const link = document.createElement('a');
+        link.href = pdfPath;
+        link.download = fileName;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     }
 } 
