@@ -8,9 +8,9 @@ export interface SocialNetwork {
 export const socialNetworks: SocialNetwork[] = [
     {
         name: 'LinkedIn',
-        nick: 'andresuribeg',
+        nick: 'andresfuribeg',
         iconPath: 'assets/images/networks/linkedin.svg',
-        url: 'https://www.linkedin.com/in/andresuribeg/'
+        url: 'https://www.linkedin.com/in/andresfuribeg/'
     },
     {
         name: 'Email',
@@ -20,7 +20,7 @@ export const socialNetworks: SocialNetwork[] = [
     },
     {
         name: 'WhatsApp',
-        nick: '301 656 1380',
+        nick: 'WhatsApp',
         iconPath: 'assets/images/networks/whatsapp.svg',
         url: 'https://wa.me/573016561380'
     }
