@@ -140,7 +140,9 @@ a:hover {
 }
 
 .btn {
-  display: inline-block;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   padding: 0.8rem 1.5rem;
   border-radius: $border-radius;
   border: none;
@@ -169,10 +171,6 @@ a:hover {
   }
 
   &-outline {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     background-color: transparent;
     border: 2px solid $accent-color;
     color: $accent-color;

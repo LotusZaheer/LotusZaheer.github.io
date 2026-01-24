@@ -65,7 +65,7 @@
         a {
             color: $text-secondary;
             text-decoration: none;
-            font-size: $size-md;
+            font-size: $size-md; // 1.1rem
             font-weight: 500;
             padding: 0.5rem 0;
             position: relative;
@@ -90,6 +90,26 @@
             &:hover::after,
             &.active::after {
                 width: 100%;
+            }
+
+            // Estilos específicos para el botón CV
+            &.btn-cv {
+                font-size: $size-sm; // 0.8rem
+                padding: 0.5rem 1.2rem;
+                color: $text-primary;
+                background-color: $primary-color;
+                border-radius: $border-radius;
+                
+                // Reset del underline
+                &::after {
+                    content: none;
+                }
+
+                &:hover {
+                    background-color: $secondary-color;
+                    color: $text-primary;
+                    transform: translateY(-2px); // Pequeña animación de elevación
+                }
             }
         }
     }

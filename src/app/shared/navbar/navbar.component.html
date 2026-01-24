@@ -12,6 +12,7 @@
                     [class.active]="activeSection === 'projects'">{{ 'sections.projects' | translate }}</a></li>
             <li><a href="#contact" (click)="scrollToSection('contact'); mobileMenuOpen = false"
                     [class.active]="activeSection === 'contact'">{{ 'sections.contact' | translate }}</a></li>
+            <li><a href="#" (click)="downloadCV(); mobileMenuOpen = false; $event.preventDefault()" class="btn btn-primary btn-cv">{{ 'about.downloadCV' | translate }}</a></li>
         </ul>
         <div class="navbar-mobile-toggle" [class.active]="mobileMenuOpen" (click)="toggleMobileMenu()">
             <span></span>

@@ -39,6 +39,20 @@ export class NavbarComponent implements OnInit, OnDestroy {
     }
   }
 
+  downloadCV() {
+    const currentLanguage = this.translate.currentLang || this.translate.defaultLang || 'es';
+    const fileName = currentLanguage === 'en' ? 'ENG_HV_Andres_Uribe_Garcia.pdf' : 'ESP_HV_Andres_Uribe_Garcia.pdf';
+    const pdfPath = `assets/pdf/${fileName}`;
+
+    // Crear un enlace temporal para descargar el archivo
+    const link = document.createElement('a');
+    link.href = pdfPath;
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
   nameA = 'Andrés Uribe';
   nameB = '@LotusZaheer';
   private currentName = '';
