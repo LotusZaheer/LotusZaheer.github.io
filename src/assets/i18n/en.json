@@ -49,16 +49,6 @@
             "title": "FAMPAS - Santander Elderly and Parkinson Foundation",
             "description": "Development of the institutional website frontend using Angular. I implemented reusable components, responsive styles in SCSS, and modular route management. Docker was used for consistent development environments and simplified deployment",
             "role": "Frontend Developer"
-        },
-        "grafcalc-angular": {
-            "title": "GrafCalc - Graphing Calculator",
-            "description": "Modern interactive graphing calculator that allows real-time visualization of mathematical functions with an intuitive and customizable interface.",
-            "role": "Frontend Developer"
-        },
-        "grafcalc-react": {
-            "title": "GrafCalc React - Graphing Calculator",
-            "description": "React version of the modern interactive graphing calculator, allowing real-time visualization and customization of mathematical functions with an intuitive, responsive, and minimalist interface.",
-            "role": "Frontend Developer"
         }
     },
     "about": {

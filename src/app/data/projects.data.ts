@@ -73,42 +73,5 @@ export const projects: Project[] = [
     featured: true,
     currentImageIndex: 0,
     progress: 0
-  },
-
-  {
-    id: 2,
-    title: 'projects.grafcalc-angular.title',
-    description: 'projects.grafcalc-angular.description',
-    frameworks: ['Angular'],
-    libraries: ['Math.js', 'Canvas'],
-    languages: ['TypeScript'],
-    markupStyles: ['SCSS', 'HTML5'],
-    role: 'Desarrollador Frontend',
-    images: [
-      './assets/images/projects/grafcalc-1.png',
-    ],
-    liveUrl: 'https://lotuszaheer.github.io/grafcalc-angular/',
-    repoUrl: 'https://github.com/lotuszaheer/grafcalc-angular/',
-    featured: true,
-    currentImageIndex: 0,
-    progress: 0
-  },
-  {
-    id: 3,
-    title: 'projects.grafcalc-react.title',
-    description: 'projects.grafcalc-react.description',
-    frameworks: ['React', 'Vite'],
-    libraries: ['Math.js', 'Canvas'],
-    languages: ['TypeScript'],
-    markupStyles: ['TailwindCSS', 'HTML5'],
-    role: 'Desarrollador Frontend',
-    images: [
-      './assets/images/projects/grafcalc-react-1.png',
-    ],
-    //liveUrl: 'https://lotuszaheer.github.io/grafcalc-react/',
-    repoUrl: 'https://github.com/lotuszaheer/grafcalc-react/',
-    featured: true,
-    currentImageIndex: 0,
-    progress: 0
   }
 ];

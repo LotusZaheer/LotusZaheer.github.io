@@ -49,16 +49,6 @@
             "title": "FAMPAS - Fundación Adulto Mayor y Parkinson Santander",
             "description": "Desarrollo del frontend de la página institucional usando Angular. Implementé componentes reutilizables, estilos responsivos en SCSS y gestión modular de rutas. Se utilizó Docker para entornos de desarrollo consistentes y despliegue simplificado",
             "role": "Desarrollador Frontend"
-        },
-        "grafcalc-angular": {
-            "title": "GrafCalc - Calculadora de Gráficas",
-            "description": "Calculadora gráfica interactiva moderna que permite visualizar funciones matemáticas en tiempo real con una interfaz intuitiva y personalizable.",
-            "role": "Desarrollador Frontend"
-        },
-        "grafcalc-react": {
-            "title": "GrafCalc React - Calculadora de Gráficas",
-            "description": "Versión en React de la calculadora gráfica interactiva moderna, que permite visualizar y personalizar funciones matemáticas en tiempo real con una interfaz intuitiva, responsiva y minimalista.",
-            "role": "Desarrollador Frontend"
         }
     },
     "about": {
