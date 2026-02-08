@@ -1,52 +1,112 @@
-<div class="contact-container">
-    <form class="contact-form" action="https://formsubmit.co/andresfelipeuribe11@gmail.com" method="POST">
-        <div class="form-group">
-            <label for="nombre">{{ 'contact.name' | translate }}</label>
-            <input type="text" id="nombre" name="nombre" required [placeholder]="'contact.name' | translate">
-        </div>
-        <div class="form-group">
-            <label for="apellido">{{ 'contact.lastName' | translate }}</label>
-            <input type="text" id="apellido" name="apellido" required [placeholder]="'contact.lastName' | translate">
-        </div>
-        <div class="form-group">
-            <label for="empresa">{{ 'contact.company' | translate }}</label>
-            <input type="text" id="empresa" name="empresa" [placeholder]="'contact.company' | translate">
-        </div>
-        <div class="form-group">
-            <label for="email">{{ 'contact.email' | translate }}</label>
-            <input type="email" id="email" name="email" required [placeholder]="'contact.email' | translate">
-        </div>
-        <div class="form-group">
-            <label for="telefono">{{ 'contact.phone' | translate }}</label>
-            <div class="phone-input">
-                <span class="country-code">+57</span>
-                <input type="tel" id="telefono" name="telefono" required [placeholder]="'contact.phone' | translate">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="mensaje">{{ 'contact.message' | translate }}</label>
-            <textarea id="mensaje" name="mensaje" required [placeholder]="'contact.messagePlaceholder' | translate"
-                maxlength="500"></textarea>
-        </div>
-        <div class="form-group checkbox">
-            <input type="checkbox" id="politica" name="aceptoPolitica" required>
-            <label for="politica">{{ 'contact.policy' | translate }}</label>
+<div class="contact-card">
+    <!-- Left Sidebar: Social Media -->
+    <div class="contact-sidebar">
+        <div class="sidebar-header">
+            <h3 class="sidebar-title">{{ 'contact.socialTitle' | translate }}</h3>
+            <p class="sidebar-description">{{ 'contact.socialDescription' | translate }}</p>
         </div>
 
-        <input type="hidden" name="_next" value="https://lotuszaheer.github.io/#contact">
-        <input type="hidden" name="_captcha" value="false">
-
-        <button type="submit" class="btn btn-primary">{{ 'contact.send' | translate }}</button>
-    </form>
-
-    <div class="tech-category">
-        <div class="tech-icons">
+        <div class="social-links">
             @for (network of socialNetworks; track network.name) {
-            <a class="tech-icon" [href]="network.url" target="_blank">
-                <img [src]="network.iconPath" [alt]="network.name" class="tech-image">
-                <span>{{ network.nick }}</span>
+            <a [href]="network.url" target="_blank" class="social-item">
+                <div class="icon-box">
+                    <img [src]="network.iconPath" [alt]="network.name" class="social-icon">
+                </div>
+                <div class="social-info">
+                    <span class="social-name">{{ network.name }}</span>
+                    <span class="social-nick">{{ network.nick }}</span>
+                </div>
             </a>
             }
         </div>
+    </div>
+
+    <!-- Right Content: Form -->
+    <div class="contact-form-container">
+        <form class="modern-form" [formGroup]="contactForm" (ngSubmit)="onSubmit()"
+            action="https://formsubmit.co/andresfelipeuribe11@gmail.com" method="POST">
+            <div class="form-grid">
+                <div class="form-group full-width">
+                    <label for="nombreCompleto">{{ 'contact.fullName' | translate }}</label>
+                    <input type="text" id="nombreCompleto" name="nombreCompleto" formControlName="nombreCompleto"
+                        required [placeholder]="'contact.fullName' | translate">
+                </div>
+
+                <div class="form-group half-width">
+                    <label for="email">{{ 'contact.email' | translate }}</label>
+                    <input type="email" id="email" name="email" formControlName="email" required
+                        [placeholder]="'contact.email' | translate">
+                </div>
+
+                <div class="form-group half-width">
+                    <label for="telefono">{{ 'contact.phone' | translate }}</label>
+                    <div class="phone-input-wrapper">
+                        <div class="country-selector" [class.open]="isDropdownOpen">
+                            <div class="selected-country" (click)="toggleDropdown()">
+                                <img [src]="'https://flagcdn.com/' + selectedCountry.flag + '.svg'"
+                                    [alt]="selectedCountry.name" class="flag-icon">
+                                <span class="prefix">{{ selectedCountry.code }}</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            @if (isDropdownOpen) {
+                            <div class="country-dropdown">
+                                <div class="search-container" (click)="$event.stopPropagation()">
+                                    <i class="fas fa-search"></i>
+                                    <input #searchBox type="text" [(ngModel)]="searchQuery" (input)="filterCountries()"
+                                        [ngModelOptions]="{standalone: true}"
+                                        [placeholder]="'contact.searchCountry' | translate">
+                                </div>
+                                <div class="options-container">
+                                    @for (country of filteredCountries; track country.flag) {
+                                    <div class="country-option" [class.active]="country.flag === selectedCountry.flag"
+                                        (click)="selectCountry(country)">
+                                        <img [src]="'https://flagcdn.com/' + country.flag + '.svg'" [alt]="country.name"
+                                            class="flag-icon">
+                                        <span class="country-name">{{ country.name }}</span>
+                                        <span class="country-code">{{ country.code }}</span>
+                                    </div>
+                                    }
+                                    @if (filteredCountries.length === 0) {
+                                    <div class="no-results">No results found</div>
+                                    }
+                                </div>
+                            </div>
+                            }
+                        </div>
+                        <input type="tel" id="telefono" name="telefono" formControlName="telefono" required
+                            [placeholder]="'contact.phone' | translate">
+                    </div>
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="empresa">{{ 'contact.company' | translate }}</label>
+                    <input type="text" id="empresa" name="empresa" formControlName="empresa"
+                        [placeholder]="'contact.company' | translate">
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="mensaje">{{ 'contact.message' | translate }}</label>
+                    <textarea id="mensaje" name="mensaje" formControlName="mensaje" required
+                        [placeholder]="'contact.messagePlaceholder' | translate" maxlength="500"></textarea>
+                </div>
+            </div>
+
+            <div class="form-footer">
+                <div class="policy-checkbox">
+                    <input type="checkbox" id="politica" name="aceptoPolitica" formControlName="aceptoPolitica"
+                        required>
+                    <label for="politica">{{ 'contact.policy' | translate }}</label>
+                </div>
+
+                <button type="submit" class="submit-button" [disabled]="contactForm.invalid">
+                    {{ 'contact.send' | translate }}
+                    <span class="arrow">→</span>
+                </button>
+            </div>
+
+            <!-- FormSubmit Hidden Config -->
+            <input type="hidden" name="_next" value="https://lotuszaheer.github.io/#contact">
+            <input type="hidden" name="_captcha" value="false">
+        </form>
     </div>
 </div>

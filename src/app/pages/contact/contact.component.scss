@@ -1,150 +1,393 @@
 @use "../../../styles/_variables" as *;
 
-.contact-container {
-    max-width: 800px;
+.contact-card {
+    display: flex;
+    max-width: 1000px;
     margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
-}
-
-.contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    background-color: $background-card;
-    padding: 2rem;
+    background: $background-card;
     border-radius: $border-radius-card;
+    overflow: hidden;
     box-shadow: $shadow-card;
+    border: 1px solid rgba($accent-color, 0.1);
+    backdrop-filter: blur(10px);
 
-    .form-group {
-        display: flex;
+    @media (max-width: 900px) {
         flex-direction: column;
-        gap: 0.5rem;
-
-        label {
-            color: $text-primary;
-            font-weight: 500;
-            font-size: $size-base;
-        }
-
-        input,
-        textarea {
-            padding: 0.8rem;
-            border-radius: $border-radius;
-            border: 1px solid $background-card-light;
-            background-color: $background-dark;
-            color: $text-primary;
-            font-size: $size-base;
-            transition: all 0.3s ease;
-
-            &:focus {
-                outline: none;
-                border-color: $accent-color;
-                box-shadow: 0 0 0 2px rgba($accent-color, 0.2);
-            }
-
-            &::placeholder {
-                color: rgba($text-secondary, 0.5);
-            }
-        }
-
-        textarea {
-            min-height: 150px;
-            resize: vertical;
-        }
-
-        &.checkbox {
-            flex-direction: row;
-            align-items: center;
-            gap: 0.5rem;
-
-            input[type="checkbox"] {
-                width: 20px;
-                height: 20px;
-                cursor: pointer;
-            }
-
-            label {
-                cursor: pointer;
-                font-size: $size-sm;
-            }
-        }
-    }
-
-    .phone-input {
-        display: flex;
-        align-items: center;
-        width: 100%;
-
-        .country-code {
-            color: $text-secondary;
-            padding: 0.5rem;
-            border-radius: $border-radius;
-            width: 20%;
-            font-size: $size-base;
-        }
-
-        input {
-            width: 80%;
-        }
-    }
-
-    button[type="submit"] {
-        margin-top: 1rem;
-        width: 100%;
-        padding: 1rem;
-        font-size: $size-md;
-
-        &:disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
-        }
     }
 }
 
-.tech-category {
-    .tech-icons {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1rem;
-        justify-content: center;
+// Left Sidebar
+.contact-sidebar {
+    flex: 0 0 320px;
+    padding: 2.5rem;
+    background: linear-gradient(135deg, rgba($primary-color, 0.1), rgba($accent-color, 0.05));
+    border-right: 1px solid rgba($accent-color, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    @media (max-width: 900px) {
+        flex: none;
+        padding: 2rem;
+        border-right: none;
+        border-bottom: 1px solid rgba($accent-color, 0.1);
     }
 }
 
-.tech-icon {
-    padding: 0.7rem 1.5rem;
-    background-color: $background-dark;
-    border-radius: 30px;
-    color: $accent-color;
-    font-weight: 500;
-    border: 1px solid $background-card-light;
-    transition: all 0.3s ease;
+.sidebar-title {
+    font-size: $size-xl;
+    color: $text-primary;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.sidebar-description {
+    font-size: $size-sm;
+    color: $text-secondary;
+    line-height: 1.5;
+}
+
+.social-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.social-item {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-
-    .tech-image {
-        width: 24px;
-        height: 24px;
-        object-fit: contain;
-    }
-
-    span {
-        color: $text-secondary;
-        font-size: $size-sm;
-    }
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: $border-radius;
+    background: rgba($background-dark, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     &:hover {
-        transform: translateY(-5px);
-        box-shadow: $shadow-card-hover;
-        border-color: $accent-color;
-        background-color: rgba($accent-color, 0.1);
+        background: rgba($accent-color, 0.1);
+        border-color: rgba($accent-color, 0.3);
+        transform: translateX(5px);
+
+        .icon-box {
+            transform: scale(1.1);
+            background: $accent-color;
+        }
+
+        .social-name {
+            color: $accent-color;
+        }
     }
 }
 
-@media (max-width: 768px) {
-    .contact-form {
-        padding: 1.5rem;
+.icon-box {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba($background-dark, 0.8);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+
+    .social-icon {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+.social-info {
+    display: flex;
+    flex-direction: column;
+
+    .social-name {
+        font-size: $size-sm;
+        font-weight: 600;
+        color: $text-primary;
+        transition: color 0.3s ease;
+    }
+
+    .social-nick {
+        font-size: $size-xs;
+        color: $text-secondary;
+    }
+}
+
+// Right Form
+.contact-form-container {
+    flex: 1;
+    padding: 2.5rem;
+    background: rgba($background-card, 0.3);
+
+    @media (max-width: 900px) {
+        padding: 2rem;
+    }
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem; // Reduced from 1.5rem
+
+    @media (max-width: 600px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+
+    &.full-width {
+        grid-column: 1 / -1;
+    }
+
+    label {
+        font-size: $size-xs;
+        font-weight: 600;
+        color: rgba($text-primary, 0.7);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    input,
+    textarea {
+        background: rgba($background-dark, 0.7);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        padding: 0 1rem; // Vertical padding removed as we use height
+        height: 2.4rem; // Fixed height for consistency
+        color: $text-primary;
+        font-size: $size-sm;
+        transition: all 0.3s ease;
+        line-height: 2.4rem; // Center text vertically
+        display: block;
+        width: 100%;
+
+        &:focus {
+            outline: none;
+            border-color: $accent-color;
+            background: rgba($background-dark, 0.9);
+            box-shadow: 0 0 0 4px rgba($accent-color, 0.1);
+        }
+
+        &::placeholder {
+            color: rgba($text-secondary, 0.3);
+        }
+    }
+
+    textarea {
+        height: auto;
+        min-height: 120px;
+        padding: 0.8rem 1rem; // Restored padding for textarea
+        line-height: 1.5;
+        resize: vertical;
+    }
+}
+
+.phone-input-wrapper {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    position: relative;
+
+    .country-selector {
+        position: relative;
+        height: 2.4rem;
+
+        .selected-country {
+            background: rgba($background-dark, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 0 0.75rem;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 95px;
+
+            &:hover {
+                border-color: rgba($accent-color, 0.5);
+                background: rgba($background-dark, 0.9);
+            }
+
+            .prefix {
+                font-size: $size-sm;
+                color: $text-secondary;
+                flex: 1;
+            }
+
+            i {
+                font-size: 0.7rem;
+                color: rgba($text-secondary, 0.5);
+                transition: transform 0.3s ease;
+            }
+        }
+
+        &.open {
+            .selected-country {
+                border-color: $accent-color;
+
+                i {
+                    transform: rotate(180deg);
+                }
+            }
+        }
+    }
+
+    .flag-icon {
+        width: 20px;
+        height: 14px;
+        object-fit: cover;
+        border-radius: 2px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    }
+
+    .country-dropdown {
+        position: absolute;
+        top: calc(100% + 5px);
+        left: 0;
+        width: 200px;
+        max-height: 250px;
+        overflow-y: auto;
+        background: $background-card;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        z-index: 1001;
+        box-shadow: $shadow-card-hover;
+        backdrop-filter: blur(10px);
+
+        &::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: rgba($accent-color, 0.2);
+            border-radius: 2px;
+        }
+    }
+
+    .country-option {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.6rem 1rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover {
+            background: rgba($accent-color, 0.1);
+        }
+
+        &.active {
+            background: rgba($accent-color, 0.2);
+
+            .country-name {
+                color: $accent-color;
+            }
+        }
+
+        .flag-icon {
+            flex-shrink: 0;
+        }
+
+        .country-name {
+            flex: 1;
+            font-size: $size-sm;
+            color: $text-primary;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .country-code {
+            font-size: $size-xs;
+            color: $text-secondary;
+            font-weight: 500;
+        }
+    }
+
+    input {
+        flex: 1;
+    }
+}
+
+.form-footer {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+
+    @media (max-width: 600px) {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+.policy-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        accent-color: $accent-color;
+        cursor: pointer;
+    }
+
+    label {
+        font-size: $size-xs;
+        color: $text-secondary;
+        line-height: 1.4;
+        cursor: pointer;
+    }
+}
+
+.submit-button {
+    background: $gradient-primary;
+    color: white;
+    padding: 0.6rem 1.5rem; // Reduced from 0.8rem 2rem
+    border-radius: $border-radius-card; // Matched with form inputs (8px)
+    border: none;
+    font-size: 0.75rem; // Slightly smaller than $size-sm
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+
+    &:hover:not(:disabled) {
+        transform: translateY(-2px) scale(1.02);
+        box-shadow: 0 6px 20px rgba($accent-color, 0.3);
+    }
+
+    &:active:not(:disabled) {
+        transform: translateY(0);
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        filter: grayscale(1);
+    }
+
+    .arrow {
+        font-size: 1.2rem;
+        transition: transform 0.3s ease;
+    }
+
+    &:hover .arrow {
+        transform: translateX(4px);
     }
 }
