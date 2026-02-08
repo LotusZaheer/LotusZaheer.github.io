@@ -1,48 +1,68 @@
 @use "../../../styles/_variables" as *;
 
-.section-title {
-    color: $text-primary;
-    font-size: $size-3xl;
-    margin-bottom: 2rem;
-    text-align: center;
-    position: relative;
+// Section titles now handled globally in styles.scss
 
-    &::after {
-        content: '';
-        position: absolute;
-        bottom: -1rem;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 80px;
-        height: 4px;
-        background: $gradient-primary;
-        border-radius: 2px;
+.tech-stack {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem; // Compact for mobile
+
+    @media (min-width: 768px) {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+
+    @media (min-width: 1200px) {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2.5rem;
+    }
+
+    @media (max-height: 800px) {
+        gap: 1rem;
     }
 }
 
-.tech-stack {
+.tech-category {
+    background-color: rgba($background-card, 0.4);
+    border: 1px solid rgba($accent-color, 0.05);
+    border-radius: $border-radius-card;
+    padding: 1.2rem;
     display: flex;
     flex-direction: column;
-    gap: 3rem;
-}
+    align-items: center;
+    transition: all 0.3s ease;
+    height: 100%;
 
-.tech-category {
+    &:hover {
+        background-color: rgba($background-card, 0.6);
+        border-color: rgba($accent-color, 0.2);
+        box-shadow: $shadow-card;
+    }
+
     h3 {
-        font-size: $size-xl;
-        margin-bottom: 1.5rem;
+        font-size: $size-sm;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 1rem;
         text-align: center;
+        color: rgba($text-primary, 0.8);
+
+        @media (max-height: 800px) {
+            margin-bottom: 0.6rem;
+            font-size: $size-xs;
+        }
     }
 }
 
 .tech-icons {
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: 0.8rem; // Reduced from 1rem
     justify-content: center;
 }
 
 .tech-icon {
-    padding: 0.7rem 1.5rem;
+    padding: 0.5rem 1.2rem; // Reduced from 0.7rem 1.5rem
     background-color: $background-dark;
     border-radius: 30px;
     color: $accent-color;
@@ -54,18 +74,18 @@
     gap: 0.5rem;
 
     .tech-image {
-        width: 24px;
-        height: 24px;
+        width: 20px; // Reduced from 24px
+        height: 20px;
         object-fit: contain;
     }
 
     span {
         color: $text-secondary;
-        font-size: $size-sm;
+        font-size: $size-xs; // Reduced from $size-sm
     }
 
     &:hover {
-        transform: translateY(-5px);
+        transform: translateY(-3px); // Reduced from -5px
         box-shadow: $shadow-card-hover;
         border-color: $accent-color;
         background-color: rgba($accent-color, 0.1);
@@ -74,10 +94,6 @@
 
 // Responsive Design
 @media (max-width: 768px) {
-    .section-title {
-        font-size: $size-2xl;
-    }
-
     .tech-icons {
         gap: 0.8rem;
     }
@@ -105,6 +121,36 @@
 
         span {
             font-size: $size-xs;
+        }
+    }
+}
+
+@media (max-width: 480px),
+(max-height: 700px) {
+    .tech-icon {
+        padding: 0.3rem 0.8rem; // Ultra compact
+        gap: 0.3rem;
+
+        .tech-image {
+            width: 16px;
+            height: 16px;
+        }
+
+        span {
+            font-size: 0.7rem; // $size-xs
+        }
+    }
+
+    .tech-icons {
+        gap: 0.5rem;
+    }
+
+    .tech-category {
+        padding: 0.8rem;
+
+        h3 {
+            font-size: $size-xs;
+            margin-bottom: 0.5rem;
         }
     }
 }
