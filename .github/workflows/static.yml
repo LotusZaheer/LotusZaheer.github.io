@@ -42,15 +42,15 @@ jobs:
         run: npm ci
 
       - name: Build Angular App
-        run: npm run build -- --base-href=/
+        run: npm run build
 
       - name: Create 404.html
         run: |
-          if [ -f docs/index.html ]; then
-            cp docs/index.html docs/404.html
-            echo "404.html created successfully"
+          if [ -d docs/browser ]; then
+            cp docs/browser/index.html docs/browser/404.html
+            echo "404.html created successfully in docs/browser"
           else
-            echo "Error: index.html not found in docs directory"
+            echo "Error: browser directory not found in docs/"
             ls -la docs/
           fi
 
@@ -61,7 +61,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload only the docs directory
-          path: "docs"
+          path: "docs/browser"
 
       - name: Deploy to GitHub Pages
         id: deployment
