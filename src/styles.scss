@@ -74,15 +74,42 @@ h6 {
 }
 
 h1 {
-  font-size: $size-4xl;
+  font-size: $size-3xl; // Reduced from 4xl
 }
 
 h2 {
-  font-size: $size-3xl;
+  font-size: $size-2xl; // Reduced from 3xl
 }
 
 h3 {
+  font-size: $size-xl; // Reduced from 2xl
+}
+
+.section-title {
+  color: $text-primary;
   font-size: $size-2xl;
+  text-align: center;
+  position: relative;
+  width: fit-content;
+  margin: 0 auto 1.5rem; // Centered and reduced bottom margin
+  padding-bottom: 0.2rem; // Closer proximity to underline
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; // Much closer to text
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%; // Length depends on text width
+    height: 4px;
+    background: $gradient-primary;
+    border-radius: 2px;
+  }
+
+  @media (max-height: 800px) {
+    font-size: $size-xl;
+    margin-bottom: 1rem;
+  }
 }
 
 p {
