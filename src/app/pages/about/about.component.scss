@@ -16,25 +16,35 @@
     flex: 1;
 
     h1 {
-        font-size: $size-5xl;
-        margin-bottom: 1rem;
+        font-size: 3.5rem; // Reduced from $size-5xl (4rem)
+        margin-bottom: 0.5rem; // Reduced from 1rem
 
         @media (max-width: 768px) {
             font-size: $size-4xl;
             min-width: 330px;
         }
+
+        // Laptop specific adjustment
+        @media (max-height: 800px) {
+            font-size: 3rem;
+        }
     }
 
     h2 {
-        font-size: $size-2xl;
+        font-size: $size-xl; // Reduced from $size-2xl (2rem)
         color: $primary-color;
-        margin-bottom: 1.5rem;
+        margin-bottom: 1rem; // Reduced from 1.5rem
         font-weight: 400;
+
+        @media (max-height: 800px) {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+        }
     }
 
     .type1-description {
-        font-size: $size-lg;
-        margin-bottom: 2rem;
+        font-size: $size-md; // Reduced from $size-lg
+        margin-bottom: 1.5rem; // Reduced from 2rem
         max-width: 500px;
         color: $text-secondary;
 
@@ -46,7 +56,7 @@
     .type1-buttons {
         display: flex;
         gap: 1rem;
-        flex-direction: column;
+        flex-direction: row; // Changed to row based on user request "reposiciona los botones" - implicitly back to side-by-side or better flow? The original was flex with gap 1rem.
 
         @media (max-width: 768px) {
             justify-content: center;
@@ -69,6 +79,11 @@
         justify-content: center;
         align-items: center;
         padding: 5px;
+
+        @media (max-height: 800px) {
+            width: 250px; // Slightly reduced for laptops but bigger than 200px
+            height: 250px;
+        }
 
         .profile-placeholder {
             width: 100%;

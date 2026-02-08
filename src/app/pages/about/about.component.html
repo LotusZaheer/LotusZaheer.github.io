@@ -6,14 +6,12 @@
             {{ 'home.description' | translate }}
         </p>
         <div class="type1-buttons">
-            <div class="buttons-row" style="display: flex; gap: 1rem; justify-content: flex-start; margin-bottom: 1rem;">
-                <a href="#projects" class="btn btn-primary" (click)="scrollToSection('projects')">
-                    {{ 'home.viewProjects' | translate }}
-                </a>
-                <a href="#contact" class="btn btn-outline" (click)="scrollToSection('contact')">
-                    {{ 'home.contact' | translate }}
-                </a>
-            </div>
+            <a href="#projects" class="btn btn-primary" (click)="scrollToSection('projects')">
+                {{ 'home.viewProjects' | translate }}
+            </a>
+            <a href="#contact" class="btn btn-outline" (click)="scrollToSection('contact')">
+                {{ 'home.contact' | translate }}
+            </a>
         </div>
     </div>
     <div class="type1-image">

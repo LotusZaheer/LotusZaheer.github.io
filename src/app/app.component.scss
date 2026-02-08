@@ -10,7 +10,7 @@
 }
 
 .main-content {
-    padding-top: 100px;
+    padding-top: 0; // Removed 100px padding to fix initial gap
     padding-bottom: 50px;
     max-width: 1200px;
     margin: 0 auto;
