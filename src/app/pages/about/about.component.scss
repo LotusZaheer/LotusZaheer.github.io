@@ -16,40 +16,41 @@
     flex: 1;
 
     h1 {
-        font-size: 3.5rem; // Reduced from $size-5xl (4rem)
-        margin-bottom: 0.5rem; // Reduced from 1rem
+        font-size: 2.4rem; // +20% from 2rem ($size-2xl)
+        margin-bottom: 0.5rem;
 
         @media (max-width: 768px) {
-            font-size: $size-4xl;
+            font-size: $size-2xl;
             min-width: 330px;
         }
 
         // Laptop specific adjustment
         @media (max-height: 800px) {
-            font-size: 3rem;
+            font-size: 2rem;
         }
     }
 
     h2 {
-        font-size: $size-xl; // Reduced from $size-2xl (2rem)
+        font-size: 1.35rem; // +20% from 1.1rem ($size-md)
         color: $primary-color;
-        margin-bottom: 1rem; // Reduced from 1.5rem
-        font-weight: 400;
+        margin-bottom: 0.8rem;
+        font-weight: 500; // Consistent with tech-icons font weight
 
         @media (max-height: 800px) {
-            font-size: 1.3rem;
-            margin-bottom: 0.8rem;
+            font-size: 1.15rem;
+            margin-bottom: 0.5rem;
         }
     }
 
     .type1-description {
-        font-size: $size-md; // Reduced from $size-lg
-        margin-bottom: 1.5rem; // Reduced from 2rem
+        font-size: 1rem; // +20% from 0.8rem ($size-sm)
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
         max-width: 500px;
         color: $text-secondary;
 
         @media (max-width: 768px) {
-            margin: 0 auto 2rem;
+            margin: 0 auto 1.5rem;
         }
     }
 
@@ -57,6 +58,11 @@
         display: flex;
         gap: 1rem;
         flex-direction: row; // Changed to row based on user request "reposiciona los botones" - implicitly back to side-by-side or better flow? The original was flex with gap 1rem.
+
+        .btn {
+            font-size: $size-sm; // Further reduced to small
+            padding: 0.6rem 1.2rem; // Tighter padding than global default
+        }
 
         @media (max-width: 768px) {
             justify-content: center;
