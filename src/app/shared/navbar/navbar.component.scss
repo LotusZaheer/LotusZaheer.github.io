@@ -18,13 +18,13 @@
     justify-content: space-between;
     align-items: center;
     padding: 0 2rem;
-    height: 70px;
+    height: 60px; // Reduced from 70px
     max-width: 1200px;
     margin: 0 auto;
 }
 
 .navbar-logo {
-    font-size: $size-xl;
+    font-size: $size-base; // Reduced from $size-xl for better balance
     font-weight: 700;
 
     a {
@@ -45,8 +45,8 @@
     }
 
     img {
-        height: 3rem;
-        width: 3rem;
+        height: 2.2rem; // Reduced from 3rem
+        width: 2.2rem;
         filter: drop-shadow(0 0 2px $text-secondary);
     }
 }
@@ -65,7 +65,7 @@
         a {
             color: $text-secondary;
             text-decoration: none;
-            font-size: $size-md; // 1.1rem
+            font-size: 0.95rem; // Reduced from $size-md (1.125rem)
             font-weight: 500;
             padding: 0.5rem 0;
             position: relative;
@@ -99,7 +99,7 @@
                 color: $text-primary;
                 background-color: $primary-color;
                 border-radius: $border-radius;
-                
+
                 // Reset del underline
                 &::after {
                     content: none;
@@ -249,7 +249,7 @@
         &.active {
             transform: translateY(0);
             opacity: 1;
-            top: 70px;
+            top: 60px; // Adjusted for new navbar height
         }
 
         li {
