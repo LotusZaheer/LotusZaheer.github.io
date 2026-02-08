@@ -7,14 +7,14 @@
         </div>
 
         <div class="social-links">
-            @for (network of socialNetworks; track network.name) {
-            <a [href]="network.url" target="_blank" class="social-item">
+            @for (method of contactMethods; track method.name) {
+            <a [href]="method.url" target="_blank" class="social-item">
                 <div class="icon-box">
-                    <img [src]="network.iconPath" [alt]="network.name" class="social-icon">
+                    <img [src]="method.iconPath" [alt]="method.name" class="social-icon">
                 </div>
                 <div class="social-info">
-                    <span class="social-name">{{ network.name }}</span>
-                    <span class="social-nick">{{ network.nick }}</span>
+                    <span class="social-name">{{ method.name }}</span>
+                    <span class="social-nick">{{ method.nick }}</span>
                 </div>
             </a>
             }

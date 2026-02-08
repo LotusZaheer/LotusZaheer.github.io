@@ -57,15 +57,48 @@
     .type1-buttons {
         display: flex;
         gap: 1rem;
-        flex-direction: row; // Changed to row based on user request "reposiciona los botones" - implicitly back to side-by-side or better flow? The original was flex with gap 1rem.
+        flex-direction: row;
 
         .btn {
-            font-size: $size-sm; // Further reduced to small
-            padding: 0.6rem 1.2rem; // Tighter padding than global default
+            font-size: $size-sm;
+            padding: 0.6rem 1.2rem;
         }
 
         @media (max-width: 768px) {
             justify-content: center;
+        }
+    }
+
+    .social-icons {
+        display: flex;
+        gap: 1rem;
+        margin-top: 2rem;
+
+        @media (max-width: 768px) {
+            justify-content: center;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+            img {
+                width: 20px;
+                height: 20px;
+                object-fit: contain;
+            }
+
+            &:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            }
         }
     }
 }

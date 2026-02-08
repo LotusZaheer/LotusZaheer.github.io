@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { animateNameRewrite } from '../../shared/functions/utils';
+import { socialNetworks } from '../../data/social-networks.data';
 
 @Component({
     selector: 'app-about',
@@ -14,6 +15,7 @@ import { animateNameRewrite } from '../../shared/functions/utils';
     styleUrl: './about.component.scss'
 })
 export class AboutComponent implements OnInit {
+    socialNetworks = socialNetworks;
     nameA = '@LotusZaheer';
     nameB = 'Andrés Uribe';
     displayName = ''; //intercambiar por home.name
