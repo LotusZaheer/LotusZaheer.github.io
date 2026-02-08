@@ -29,15 +29,18 @@
         "viewCode": "Ver código"
     },
     "contact": {
-        "name": "Nombre",
-        "lastName": "Apellido",
+        "fullName": "Nombre completo",
         "email": "Correo electrónico",
         "company": "Empresa",
         "message": "Mensaje",
         "phone": "Teléfono",
         "messagePlaceholder": "Escribe tu mensaje aquí...",
         "policy": "Acepto el tratamiento de mis datos personales de acuerdo con la política de privacidad.",
-        "send": "Enviar mensaje"
+        "send": "Enviar mensaje",
+        "socialTitle": "Medios de contacto",
+        "socialDescription": "Sígueme en mis redes sociales o contáctame directamente.",
+        "searchCountry": "Buscar país",
+        "noResults": "No se encontraron resultados"
     },
     "projects": {
         "beatride": {

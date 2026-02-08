@@ -29,15 +29,18 @@
         "viewCode": "View code"
     },
     "contact": {
-        "name": "Name",
-        "lastName": "Last Name",
+        "fullName": "Full Name",
         "email": "Email",
         "company": "Company",
         "message": "Message",
         "phone": "Phone",
         "messagePlaceholder": "Write your message here...",
         "policy": "I agree to the processing of my personal data in accordance with the privacy policy.",
-        "send": "Send Message"
+        "send": "Send Message",
+        "socialTitle": "Connect with me",
+        "socialDescription": "Follow me on social media or reach out directly.",
+        "searchCountry": "Search country",
+        "noResults": "No results found"
     },
     "projects": {
         "beatride": {
