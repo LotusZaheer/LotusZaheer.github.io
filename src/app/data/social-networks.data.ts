@@ -11,17 +11,5 @@ export const socialNetworks: SocialNetwork[] = [
         nick: 'andresfuribeg',
         iconPath: 'assets/images/networks/linkedin.svg',
         url: 'https://www.linkedin.com/in/andresfuribeg/'
-    },
-    {
-        name: 'LinkedIn',
-        nick: 'andresfuribeg',
-        iconPath: 'assets/images/networks/linkedin.svg',
-        url: 'https://www.linkedin.com/in/andresfuribeg/'
-    },
-    {
-        name: 'LinkedIn',
-        nick: 'andresfuribeg',
-        iconPath: 'assets/images/networks/linkedin.svg',
-        url: 'https://www.linkedin.com/in/andresfuribeg/'
-    },
+    }
 ]; 
