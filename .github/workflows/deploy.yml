@@ -35,6 +35,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Create Environment Files
+        run: |
+          mkdir -p src/environments
+          echo "export const environment = { production: false, supabase: { url: '', key: '' }, secrets: { projectPassword: '' } };" > src/environments/environment.ts
+          echo "export const environment = { production: true, supabase: { url: '${{ secrets.SUPABASE_URL }}', key: '${{ secrets.SUPABASE_ANON_KEY }}' }, secrets: { projectPassword: '${{ secrets.PROJECT_PASSWORD }}' } };" > src/environments/environment.prod.ts
+
       - name: Build (production)
         run: npm run build -- --configuration=production --base-href=/
 

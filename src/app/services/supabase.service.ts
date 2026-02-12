@@ -1,0 +1,80 @@
+import { Injectable } from '@angular/core';
+import { createClient, SupabaseClient, User } from '@supabase/supabase-js';
+import { environment } from '../../environments/environment';
+import { from, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class SupabaseService {
+  private supabase: SupabaseClient;
+
+  constructor() {
+    this.supabase = createClient(environment.supabase.url, environment.supabase.key);
+  }
+
+  // --- Auth ---
+  async signIn(password: string): Promise<boolean> {
+    if (password === environment.secrets.projectPassword) {
+      localStorage.setItem('cms_auth', 'true');
+      return true;
+    }
+    return false;
+  }
+
+  isAuthenticated(): boolean {
+    return localStorage.getItem('cms_auth') === 'true';
+  }
+
+  signOut() {
+    localStorage.removeItem('cms_auth');
+  }
+
+  // --- Projects ---
+  getProjects(): Observable<any[]> {
+    return from(this.supabase.from('projects').select('*').order('id', { ascending: true })).pipe(
+      map(response => response.data || [])
+    );
+  }
+
+  async createProject(project: any) {
+    return this.supabase.from('projects').insert(project);
+  }
+
+  async updateProject(id: number, project: any) {
+    return this.supabase.from('projects').update(project).eq('id', id);
+  }
+
+  async deleteProject(id: number) {
+    return this.supabase.from('projects').delete().eq('id', id);
+  }
+
+  // --- Social Networks ---
+  getSocialNetworks(): Observable<any[]> {
+    return from(this.supabase.from('social_networks').select('*')).pipe(
+      map(response => response.data || [])
+    );
+  }
+
+  // --- Contact Methods ---
+  getContactMethods(): Observable<any[]> {
+    return from(this.supabase.from('contact_methods').select('*')).pipe(
+      map(response => response.data || [])
+    );
+  }
+
+  // --- Storage (Images) ---
+  async uploadImage(file: File): Promise<string | null> {
+    const fileName = `projects/${Date.now()}_${file.name}`;
+    const { data, error } = await this.supabase.storage.from('portfolio-assets').upload(fileName, file);
+
+    if (error) {
+      console.error('Upload error:', error);
+      return null;
+    }
+
+    const { data: publicUrlData } = this.supabase.storage.from('portfolio-assets').getPublicUrl(fileName);
+    return publicUrlData.publicUrl;
+  }
+}

@@ -4,3 +4,4 @@
 /.angular
 /.vscode
 /dist
+/src/environments
