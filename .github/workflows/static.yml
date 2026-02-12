@@ -15,8 +15,7 @@ permissions:
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+# Allow only one concurrent deployment
 concurrency:
   group: "pages"
   cancel-in-progress: false
@@ -33,35 +32,35 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: "18"
+          node-version: "20"
           cache: "npm"
 
       - name: Install dependencies
         run: npm ci
 
       - name: Build Angular App
-        run: npm run build
+        run: npm run build -- --configuration=production
 
+      # Optional: fallback for 404 (SPA support)
       - name: Create 404.html
         run: |
-          if [ -d docs/browser ]; then
-            cp docs/browser/index.html docs/browser/404.html
-            echo "404.html created successfully in docs/browser"
+          if [ -d dist/portfolio/browser ]; then
+            cp dist/portfolio/browser/index.html dist/portfolio/browser/404.html
           else
-            echo "Error: browser directory not found in docs/"
-            ls -la docs/
+            echo "Directory dist/portfolio/browser does not exist"
+            ls -la dist/portfolio
+            exit 1
           fi
 
       - name: Setup Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v4
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload only the docs directory
-          path: "docs/browser"
+          path: "dist/portfolio/browser"
 
       - name: Deploy to GitHub Pages
         id: deployment
