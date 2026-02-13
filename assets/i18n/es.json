@@ -1,0 +1,60 @@
+{
+    "home": {
+        "greeting": "¡Hola! Soy",
+        "name": "Andrés Uribe",
+        "title": "Desarrollador Web",
+        "description": "Soy ingeniero de sistemas con experiencia en análisis de datos y desarrollo de software para resolver desafíos geoespaciales. Con conocimientos en procesamiento de datos con Python, C++ y SQL, utilizando herramientas como pandas, numpy, scipy, or-tools, entre otras. Con amplia experiencia en desarrollo web utilizando tecnologías como Angular, Node.js, FastAPI y React.",
+        "viewProjects": "Ver Proyectos",
+        "contact": "Contacto"
+    },
+    "sections": {
+        "about": "Sobre mi",
+        "skills": "Habilidades",
+        "projects": "Proyectos",
+        "contact": "Contacto"
+    },
+    "skills": {
+        "title": "Habilidades",
+        "languages": "Lenguajes",
+        "frameworks": "Frameworks",
+        "markupStyles": "Markup y Estilos",
+        "libraries": "Librerías",
+        "platforms": "Plataformas",
+        "apis": "APIs"
+    },
+    "others": {
+        "company": "Compañía",
+        "role": "Rol",
+        "viewSite": "Ver sitio",
+        "viewCode": "Ver código"
+    },
+    "contact": {
+        "fullName": "Nombre completo",
+        "email": "Correo electrónico",
+        "company": "Empresa",
+        "message": "Mensaje",
+        "phone": "Teléfono",
+        "messagePlaceholder": "Escribe tu mensaje aquí...",
+        "policy": "Acepto el tratamiento de mis datos personales de acuerdo con la política de privacidad.",
+        "send": "Enviar mensaje",
+        "socialTitle": "Medios de contacto",
+        "socialDescription": "Sígueme en mis redes sociales o contáctame directamente.",
+        "searchCountry": "Buscar país",
+        "noResults": "No se encontraron resultados"
+    },
+    "projects": {
+        "beatride": {
+            "title": "Beatride – Plataforma de Ruteo Comercial y Logístico",
+            "description": "Beatride es una plataforma orientada a optimizar el Route to Market (RTM), permitiendo la creación de rutas eficientes para equipos comerciales y logísticos. Participé en el desarrollo frontend con Angular e integración optimizada de Google Maps. También desarrollé scripts para el backend en C++ (usando OR-Tools) e integrados con Python mediante ctypes, para realizar cálculos logísticos basados en datos geoespaciales.",
+            "role": "Desarrollador Full Stack"
+        },
+        "fampas": {
+            "title": "FAMPAS - Fundación Adulto Mayor y Parkinson Santander",
+            "description": "Desarrollo del frontend de la página institucional usando Angular. Implementé componentes reutilizables, estilos responsivos en SCSS y gestión modular de rutas. Se utilizó Docker para entornos de desarrollo consistentes y despliegue simplificado",
+            "role": "Desarrollador Frontend"
+        }
+    },
+    "about": {
+        "downloadCV": "Descargar CV"
+    }
+}
