@@ -19,7 +19,20 @@
                     <input [(ngModel)]="form.nick" placeholder="@usuario" />
                 </div>
                 <div class="form-group">
-                    <label>Ruta del Icono</label>
+                    <label>Icono (Imagen)</label>
+                    <div class="upload-container">
+                        <!-- Prioritize uploaded icon, fallback to iconPath if it looks like a path -->
+                        <img *ngIf="form.icon || (form.iconPath && form.iconPath.includes('/'))"
+                            [src]="form.icon || form.iconPath" class="icon-preview" />
+                        <label class="upload-btn">
+                            <span class="material-icons">upload_file</span>
+                            <input type="file" (change)="onFileSelected($event)" accept="image/*" hidden />
+                        </label>
+                    </div>
+                    <small class="hint" *ngIf="!form.icon">Sube una imagen o usa la ruta de abajo</small>
+                </div>
+                <div class="form-group">
+                    <label>Ruta del Icono (FontAwesome/Existente)</label>
                     <input [(ngModel)]="form.iconPath" placeholder="assets/images/networks/..." />
                 </div>
                 <div class="form-group">
@@ -43,6 +56,7 @@
         <table *ngIf="items.length > 0">
             <thead>
                 <tr>
+                    <th>Icono</th>
                     <th>Nombre</th>
                     <th>Nick</th>
                     <th>URL</th>
@@ -51,6 +65,11 @@
             </thead>
             <tbody>
                 <tr *ngFor="let item of items">
+                    <td>
+                        <img *ngIf="item.icon || (item.iconPath && item.iconPath.includes('/'))"
+                            [src]="item.icon || item.iconPath" class="table-icon" />
+                        <span *ngIf="!item.icon && !item.iconPath">—</span>
+                    </td>
                     <td>{{ item.name }}</td>
                     <td>{{ item.nick || '—' }}</td>
                     <td><a [href]="item.url" target="_blank">{{ item.url | slice:0:40 }}...</a></td>

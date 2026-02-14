@@ -17,7 +17,7 @@
         <div class="social-icons">
             @for (network of socialNetworks; track network.name) {
             <a [href]="network.url" target="_blank" class="social-icon">
-                <img [src]="network.iconPath" [alt]="network.name">
+                <img [src]="network.icon || network.iconPath" [alt]="network.name">
             </a>
             }
         </div>

@@ -1,1 +1,75 @@
-@import '../project-manager/project-manager.component.scss';
+@use '../cms-shared' as cms;
+
+.manager {
+    @include cms.manager-base;
+}
+
+.manager-header {
+    @include cms.header-base;
+}
+
+@include cms.table-base;
+@include cms.form-base;
+@include cms.button-icons-base;
+
+.empty-state {
+    padding: 3rem;
+    text-align: center;
+    color: cms.$text-secondary;
+    border: 1px dashed cms.$border-color;
+    border-radius: 4px;
+}
+
+.upload-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 0.5rem;
+
+    .icon-preview {
+        width: 48px;
+        height: 48px;
+        object-fit: contain;
+        background: #111;
+        border: 1px solid cms.$border-color;
+        border-radius: 4px;
+        padding: 4px;
+    }
+
+    .upload-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: #222;
+        border: 1px solid cms.$border-color;
+        border-radius: 4px;
+        cursor: pointer;
+        color: cms.$text-secondary;
+        transition: all 0.2s;
+
+        &:hover {
+            border-color: cms.$accent-blue;
+            color: cms.$accent-blue;
+        }
+    }
+}
+
+.table-icon {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    vertical-align: middle;
+}
+
+.opacity-50 {
+    opacity: 0.5;
+}
+
+.hint {
+    display: block;
+    margin-top: 0.25rem;
+    color: cms.$text-secondary;
+    font-size: 0.75rem;
+}

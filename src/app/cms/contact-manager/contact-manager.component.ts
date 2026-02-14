@@ -17,7 +17,7 @@ export class ContactManagerComponent implements OnInit {
     loading = false;
     saving = false;
 
-    form = { name: '', nick: '', iconPath: '', url: '' };
+    form = { name: '', nick: '', iconPath: '', url: '', icon: '' };
 
     constructor(private supabase: SupabaseService) { }
 
@@ -31,15 +31,33 @@ export class ContactManagerComponent implements OnInit {
         });
     }
 
+    async onFileSelected(event: any) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        this.saving = true;
+        const url = await this.supabase.uploadImage(file, 'contact');
+        if (url) {
+            this.form.icon = url;
+        }
+        this.saving = false;
+    }
+
     openNew() {
         this.editing = null;
-        this.form = { name: '', nick: '', iconPath: '', url: '' };
+        this.form = { name: '', nick: '', iconPath: '', url: '', icon: '' };
         this.showForm = true;
     }
 
     openEdit(item: any) {
         this.editing = item;
-        this.form = { name: item.name, nick: item.nick || '', iconPath: item.iconPath || '', url: item.url || '' };
+        this.form = {
+            name: item.name,
+            nick: item.nick || '',
+            iconPath: item.iconPath || '',
+            url: item.url || '',
+            icon: item.icon || ''
+        };
         this.showForm = true;
     }
 
@@ -49,6 +67,8 @@ export class ContactManagerComponent implements OnInit {
     }
 
     async save() {
+        if (!this.form.name) return;
+
         this.saving = true;
         if (this.editing) {
             await this.supabase.updateContactMethod(this.editing.id, this.form);
