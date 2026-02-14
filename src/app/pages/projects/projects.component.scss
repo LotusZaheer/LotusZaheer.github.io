@@ -3,7 +3,7 @@
 
 .projects-container {
     padding: 1rem;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
 }
 
@@ -20,12 +20,23 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 1.5rem; // Reduced from 2rem
+    gap: 1.5rem;
     padding: 1rem 0;
+    justify-content: space-between;
+
+    // Fix for last row with space-between (prevents single item from flying to the right)
+    &::after {
+        content: "";
+        flex: 1 1 calc(33.33% - 1rem);
+        max-width: calc(33.33% - 1rem);
+    }
 }
 
 .project-card {
-    flex: 0 1 calc(50% - 0.75rem); // Adjusted for new gap
+    position: relative;
+    flex: 1 1 calc(33.33% - 1rem);
+    min-width: 320px; // Increased to ensure only 3 fit
+    max-width: calc(33.33% - 1rem);
     background: $background-card;
     border-radius: $border-radius-card;
     overflow: hidden;
@@ -64,7 +75,7 @@
         height: 100%;
         object-fit: cover;
         object-position: top left;
-        transition: opacity 0.3s ease;
+        transition: transform 0.5s ease;
     }
 
     .fallback-content {
@@ -104,46 +115,118 @@
 }
 
 .project-content {
+    position: relative;
     flex: 1;
-    padding: 1rem; // Reduced from 1.5rem
+    padding: 1.25rem;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+    background: $background-card;
+    min-height: 100px; // Ensure space for main info
 }
 
-.project-title {
-    color: $text-primary;
-    font-size: 1.1rem; // $size-md
-    margin-bottom: 0.5rem; // Reduced
+.main-info {
+    transition: transform 0.3s ease, opacity 0.3s ease;
+
+    .project-title {
+        color: $text-primary;
+        font-size: 1.25rem;
+        margin-bottom: 0.25rem;
+        font-weight: 700;
+    }
+
+    .detail-section {
+        margin-bottom: 0.25rem;
+
+        .company-name {
+            color: $accent-color;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .role-name {
+            color: $text-secondary;
+            font-size: 0.85rem;
+            margin: 0;
+            opacity: 0.8;
+        }
+    }
+}
+
+.hover-info {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(26, 26, 26, 0.98); // Slightly more opaque
+    backdrop-filter: blur(12px); // Increased blur
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    transform: translateY(10%);
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    pointer-events: none;
+    z-index: 20;
+}
+
+.project-card:hover {
+    .main-info {
+        opacity: 0; // Hide main info completely
+        transform: translateY(-20px);
+    }
+
+    .hover-info {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+    }
+
+    .project-image {
+        transform: scale(1.1);
+        filter: grayscale(1) brightness(0.3);
+    }
 }
 
 .project-description {
     color: $text-secondary;
-    font-size: 0.85rem; // Slightly smaller
-    margin-bottom: 1rem; // Reduced from 1.5rem
-    line-height: 1.5; // Tighter
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+    line-clamp: 3;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .project-details {
-    margin-bottom: 1rem; // Reduced from 1.5rem
     flex: 1;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+
+    /* Custom Scrollbar for the small reveal area */
+    &::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 2px;
+    }
 
     .detail-section {
-        margin-bottom: 0.8rem; // Reduced from 1rem
+        margin-bottom: 0.75rem;
 
         h4 {
             color: $text-primary;
-            margin-bottom: 0.3rem; // Reduced
-            font-size: 0.9rem; // Slightly smaller
-        }
-
-        p {
-            color: $text-secondary;
+            margin-bottom: 0.25rem;
             font-size: 0.8rem;
-        }
-
-        a {
-            color: $accent-color;
-            text-decoration: underline;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            opacity: 0.7;
         }
     }
 }
@@ -151,21 +234,22 @@
 .tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: 0.4rem;
 
     .tag {
-        background: $background-light;
-        padding: 0.3rem 0.8rem;
-        border-radius: $border-radius;
-        font-size: $size-sm;
+        background: rgba(255, 255, 255, 0.05);
+        padding: 0.2rem 0.6rem;
+        border-radius: 4px;
+        font-size: 0.7rem;
         display: flex;
         align-items: center;
-        gap: 0.5rem;
+        gap: 0.4rem;
         color: $text-secondary;
+        border: 1px solid rgba(255, 255, 255, 0.1);
 
         .tech-icon {
-            width: 20px;
-            height: 20px;
+            width: 14px;
+            height: 14px;
             object-fit: contain;
         }
     }
@@ -173,89 +257,116 @@
 
 .project-links {
     display: flex;
-    gap: 0.75rem;
-    position: relative;
-    z-index: 3;
-    bottom: 0;
-    flex-direction: row;
-    padding: 0.75rem;
-    justify-content: space-evenly;
-    align-items: center;
-    background: $background-card-50;
-    transition: all 0.3s ease;
-    height: 3rem; // Reduced from 3.5rem
+    gap: 0.5rem;
+    margin-top: auto;
+    padding-top: 0.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 
     .link-button {
-
+        flex: 1;
         display: flex;
-        flex-direction: row;
         justify-content: center;
         align-items: center;
-        padding: 0.5rem 0.75rem;
-        text-align: center;
+        padding: 0.5rem;
         background: $secondary-color;
         color: #FFFFFF;
         text-decoration: none;
         border-radius: 4px;
-        transition: background-color 0.3s ease;
-        font-size: 0.8rem;
-
+        transition: all 0.3s ease;
+        font-size: 0.75rem;
+        font-weight: 600;
 
         img {
-            height: 1rem;
-            width: 1rem;
-            margin: 0rem 0.2rem;
+            height: 0.9rem;
+            width: 0.9rem;
+            margin-right: 0.4rem;
         }
 
         &:hover {
-            border: 2px solid $text-secondary;
             background: $accent-color;
-            box-shadow: 0 3px 3px $text-secondary;
+            transform: translateY(-2px);
         }
     }
 
     .link-repo {
-        background: $text-secondary;
-        color: $background-card;
-        border: 2px solid $secondary-color;
+        background: transparent;
+        border: 1px solid $secondary-color;
 
         &:hover {
-            border: 2px solid $accent-color;
-            background: $text-secondary;
-            box-shadow: 0 3px 3px $accent-color;
+            background: rgba($secondary-color, 0.1);
         }
     }
+}
 
+@media (max-width: 992px) {
+    .projects-list::after {
+        flex: 1 1 calc(50% - 0.5rem);
+        max-width: calc(50% - 0.5rem);
+    }
+
+    .project-card {
+        flex: 1 1 calc(50% - 0.5rem);
+        max-width: calc(50% - 0.5rem);
+    }
+
+    /* On tablet/mobile, we disable the hover effect and show info normally */
+    .hover-info {
+        position: relative;
+        opacity: 1;
+        transform: none;
+        background: transparent;
+        backdrop-filter: none;
+        padding: 0 1.25rem 1.25rem;
+        pointer-events: auto;
+    }
+
+    .main-info {
+        opacity: 1 !important;
+        transform: none !important;
+        padding-bottom: 0.5rem;
+    }
+
+    .project-card:hover .project-image {
+        transform: none;
+    }
 }
 
 @media (max-width: 720px) {
-
-
     .projects-list {
         flex-direction: column;
     }
 
+    .project-card {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
 }
-
 
 @media (max-width: 480px) {
     .project-content {
-        padding: 1rem;
+        padding: 0.75rem;
+    }
+
+    .hover-info {
+        padding: 0 0.75rem 0.75rem;
     }
 
     .project-title {
-        font-size: $size-lg;
+        font-size: 1.1rem;
     }
 
     .project-image-carousel {
         .fallback-content .project-initial {
-            font-size: $size-5xl;
+            font-size: $size-4xl;
         }
     }
 
     .tags {
+        gap: 0.25rem;
+
         .tag {
-            font-size: $size-xs;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
         }
     }
 }

@@ -36,28 +36,21 @@
         </div>
 
         <div class="project-content">
-            <h3 class="project-title">{{ project.title | translate }}</h3>
+            <div class="main-info">
+                <h3 class="project-title">{{ project.title | translate }}</h3>
+                <div class="detail-section" *ngIf="project.company">
+                    <p class="company-name">{{ project.company }}</p>
+                </div>
+                <div class="detail-section">
+                    <p class="role-name">{{ project.role | translate }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="hover-info">
             <p class="project-description">{{ project.description | translate }}</p>
 
             <div class="project-details">
-
-                <div class="detail-section" *ngIf="project.company">
-                    <h4>{{ 'others.company' | translate }}</h4>
-                    <a *ngIf="project.companyUrl; else noLink" [href]="project.companyUrl" target="_blank"
-                        rel="noopener noreferrer">
-                        {{ project.company }}
-                    </a>
-                    <ng-template #noLink>
-                        <p>{{ project.company }}</p>
-                    </ng-template>
-                </div>
-
-
-                <div class="detail-section">
-                    <h4>{{ 'others.role' | translate }}</h4>
-                    <p>{{ project.role | translate }}</p>
-                </div>
-
                 <!-- NEW DYNAMIC SKILLS DISPLAY -->
                 @for (group of project.groupedSkills; track group.name) {
                 <div class="detail-section">
@@ -65,7 +58,6 @@
                     <div class="tags">
                         @for (skill of group.skills; track skill.id) {
                         <span class="tag">
-                            <!-- Try to find icon: DB first, then static map -->
                             @if (skill.icon || getIcon(skill.name)) {
                             <img [src]="skill.icon || getIcon(skill.name)" [alt]="skill.name" class="tech-icon">
                             }
@@ -75,47 +67,22 @@
                     </div>
                 </div>
                 }
+            </div>
 
-                <!-- LEGACY FALLBACK (Only show if NO grouped skills but HAS legacy data) -->
-                @if (project.groupedSkills.length === 0) {
-                <div class="detail-section" *ngIf="project.languages?.length">
-                    <h4>Lenguajes</h4>
-                    <div class="tags">
-                        <span class="tag" *ngFor="let item of project.languages">{{ item }}</span>
-                    </div>
-                </div>
-                <div class="detail-section" *ngIf="project.frameworks?.length">
-                    <h4>Frameworks</h4>
-                    <div class="tags">
-                        <span class="tag" *ngFor="let item of project.frameworks">{{ item }}</span>
-                    </div>
-                </div>
-                <div class="detail-section" *ngIf="project.libraries?.length">
-                    <h4>Librerías</h4>
-                    <div class="tags">
-                        <span class="tag" *ngFor="let item of project.libraries">{{ item }}</span>
-                    </div>
-                </div>
-                <div class="detail-section" *ngIf="project.apis?.length">
-                    <h4>APIs</h4>
-                    <div class="tags">
-                        <span class="tag" *ngFor="let item of project.apis">{{ item }}</span>
-                    </div>
-                </div>
-                <div class="detail-section" *ngIf="project.platforms?.length">
-                    <h4>Plataformas</h4>
-                    <div class="tags">
-                        <span class="tag" *ngFor="let item of project.platforms">{{ item }}</span>
-                    </div>
-                </div>
-                <div class="detail-section" *ngIf="project.markupStyles?.length">
-                    <h4>Markup/Estilos</h4>
-                    <div class="tags">
-                        <span class="tag" *ngFor="let item of project.markupStyles">{{ item }}</span>
-                    </div>
-                </div>
+            <div class="project-links">
+                @if (project.liveUrl) {
+                <a [href]="project.liveUrl" target="_blank" class="link-button">
+                    <img src="assets/images/web.png">
+                    {{ 'others.viewSite' | translate }}
+                </a>
                 }
 
+                @if (project.repoUrl) {
+                <a [href]="project.repoUrl" target="_blank" class="link-button link-repo">
+                    <img src="assets/images/github.svg">
+                    {{ 'others.viewCode' | translate }}
+                </a>
+                }
             </div>
         </div>
     </article>
