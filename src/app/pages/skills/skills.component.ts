@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { projects } from '../../data/projects.data';
+import { SupabaseService } from '../../services/supabase.service';
 import { languageIcons, markupStyleIcons, libraryIcons, frameworkIcons, platformIcons, apiIcons, TechIcon } from '../../data/tech-icons.data';
 
 @Component({
@@ -29,13 +29,15 @@ export class SkillsComponent implements OnInit {
     platformIcons = platformIcons;
     apiIcons = apiIcons;
 
-    constructor() { }
+    constructor(private supabase: SupabaseService) { }
 
     ngOnInit() {
-        this.updateTechStack();
+        this.supabase.getProjects().subscribe(projects => {
+            this.updateTechStack(projects);
+        });
     }
 
-    private updateTechStack() {
+    private updateTechStack(projects: any[]) {
         const allLanguages = new Set<string>();
         const allMarkup = new Set<string>();
         const allFrameworks = new Set<string>();
@@ -44,12 +46,12 @@ export class SkillsComponent implements OnInit {
         const allApis = new Set<string>();
 
         projects.forEach(project => {
-            project.languages?.forEach(l => allLanguages.add(l));
-            project.markupStyles?.forEach(m => allMarkup.add(m));
-            project.frameworks?.forEach(f => allFrameworks.add(f));
-            project.libraries?.forEach(lib => allLibraries.add(lib));
-            project.platforms?.forEach(p => allPlatforms.add(p));
-            project.apis?.forEach(a => allApis.add(a));
+            project.languages?.forEach((l: string) => allLanguages.add(l));
+            project.markupStyles?.forEach((m: string) => allMarkup.add(m));
+            project.frameworks?.forEach((f: string) => allFrameworks.add(f));
+            project.libraries?.forEach((lib: string) => allLibraries.add(lib));
+            project.platforms?.forEach((p: string) => allPlatforms.add(p));
+            project.apis?.forEach((a: string) => allApis.add(a));
         });
 
         this.languages = Array.from(allLanguages).sort();
@@ -64,4 +66,4 @@ export class SkillsComponent implements OnInit {
         const icon = icons.find(icon => icon.name === name);
         return icon ? icon.iconPath : null;
     }
-} 
+}

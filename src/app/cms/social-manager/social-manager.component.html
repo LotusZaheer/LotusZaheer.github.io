@@ -1,0 +1,66 @@
+<div class="manager">
+    <div class="manager-header">
+        <h1>Redes Sociales</h1>
+        <button class="btn-add" (click)="openNew()">+ Nueva Red</button>
+    </div>
+
+    <div class="form-overlay" *ngIf="showForm">
+        <div class="form-panel">
+            <h2>{{ editing ? 'Editar' : 'Nueva' }} Red Social</h2>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input [(ngModel)]="form.name" placeholder="LinkedIn" />
+                </div>
+                <div class="form-group">
+                    <label>Nick / Usuario</label>
+                    <input [(ngModel)]="form.nick" placeholder="@usuario" />
+                </div>
+                <div class="form-group">
+                    <label>Ruta del Icono</label>
+                    <input [(ngModel)]="form.iconPath" placeholder="assets/images/networks/..." />
+                </div>
+                <div class="form-group">
+                    <label>URL</label>
+                    <input [(ngModel)]="form.url" placeholder="https://..." />
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="btn-cancel" (click)="cancel()">Cancelar</button>
+                <button class="btn-save" (click)="save()" [disabled]="saving">
+                    {{ saving ? 'Guardando...' : 'Guardar' }}
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-container" *ngIf="!loading; else loadingTpl">
+        <div class="empty-state" *ngIf="items.length === 0">
+            <p>No hay redes sociales aún.</p>
+        </div>
+        <table *ngIf="items.length > 0">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Nick</th>
+                    <th>URL</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of items">
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.nick || '—' }}</td>
+                    <td><a [href]="item.url" target="_blank">{{ item.url | slice:0:40 }}...</a></td>
+                    <td class="actions">
+                        <button class="btn-edit" (click)="openEdit(item)">✏️</button>
+                        <button class="btn-delete" (click)="delete(item.id)">🗑️</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <ng-template #loadingTpl>
+        <div class="loading">Cargando...</div>
+    </ng-template>
+</div>

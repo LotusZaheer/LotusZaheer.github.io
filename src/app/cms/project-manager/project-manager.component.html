@@ -1,0 +1,122 @@
+<div class="manager">
+    <div class="manager-header">
+        <h1>Proyectos</h1>
+        <button class="btn-add" (click)="openNew()">+ Nuevo Proyecto</button>
+    </div>
+
+    <!-- Form -->
+    <div class="form-overlay" *ngIf="showForm">
+        <div class="form-panel">
+            <h2>{{ editing ? 'Editar' : 'Nuevo' }} Proyecto</h2>
+
+            <div class="form-grid">
+                <div class="form-group full">
+                    <label>Título</label>
+                    <input [(ngModel)]="form.title" placeholder="Título del proyecto" />
+                </div>
+                <div class="form-group full">
+                    <label>Descripción</label>
+                    <textarea [(ngModel)]="form.description" rows="3" placeholder="Descripción del proyecto"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Empresa</label>
+                    <input [(ngModel)]="form.company" placeholder="Nombre empresa" />
+                </div>
+                <div class="form-group">
+                    <label>URL Empresa</label>
+                    <input [(ngModel)]="form.companyUrl" placeholder="https://..." />
+                </div>
+                <div class="form-group">
+                    <label>Rol</label>
+                    <input [(ngModel)]="form.role" placeholder="Tu rol" />
+                </div>
+                <div class="form-group">
+                    <label>URL en vivo</label>
+                    <input [(ngModel)]="form.liveUrl" placeholder="https://..." />
+                </div>
+                <div class="form-group">
+                    <label>Repositorio</label>
+                    <input [(ngModel)]="form.repoUrl" placeholder="https://github.com/..." />
+                </div>
+                <div class="form-group">
+                    <label>Frameworks (separados por coma)</label>
+                    <input [(ngModel)]="form.frameworks" placeholder="Angular, React" />
+                </div>
+                <div class="form-group">
+                    <label>APIs (separados por coma)</label>
+                    <input [(ngModel)]="form.apis" placeholder="Google Maps API" />
+                </div>
+                <div class="form-group">
+                    <label>Librerías (separados por coma)</label>
+                    <input [(ngModel)]="form.libraries" placeholder="RxJS, Lodash" />
+                </div>
+                <div class="form-group">
+                    <label>Plataformas (separados por coma)</label>
+                    <input [(ngModel)]="form.platforms" placeholder="Docker, AWS" />
+                </div>
+                <div class="form-group">
+                    <label>Lenguajes (separados por coma)</label>
+                    <input [(ngModel)]="form.languages" placeholder="TypeScript, Python" />
+                </div>
+                <div class="form-group">
+                    <label>Markup/Estilos (separados por coma)</label>
+                    <input [(ngModel)]="form.markupStyles" placeholder="SCSS, HTML5" />
+                </div>
+                <div class="form-group full">
+                    <label>Imágenes (URLs separadas por coma)</label>
+                    <textarea [(ngModel)]="form.images" rows="2" placeholder="url1, url2, url3"></textarea>
+                    <div class="upload-row">
+                        <label class="upload-btn">
+                            📁 Subir imagen
+                            <input type="file" accept="image/*" (change)="onImageUpload($event)" hidden />
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group checkbox-group">
+                    <label>
+                        <input type="checkbox" [(ngModel)]="form.featured" />
+                        Destacado
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button class="btn-cancel" (click)="cancel()">Cancelar</button>
+                <button class="btn-save" (click)="save()" [disabled]="saving">
+                    {{ saving ? 'Guardando...' : 'Guardar' }}
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Table -->
+    <div class="table-container" *ngIf="!loading; else loadingTpl">
+        <div class="empty-state" *ngIf="projects.length === 0">
+            <p>No hay proyectos aún. ¡Agrega el primero!</p>
+        </div>
+        <table *ngIf="projects.length > 0">
+            <thead>
+                <tr>
+                    <th>Título</th>
+                    <th>Empresa</th>
+                    <th>Destacado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let p of projects">
+                    <td>{{ p.title }}</td>
+                    <td>{{ p.company || '—' }}</td>
+                    <td><span class="badge" [class.active]="p.featured">{{ p.featured ? 'Sí' : 'No' }}</span></td>
+                    <td class="actions">
+                        <button class="btn-edit" (click)="openEdit(p)">✏️</button>
+                        <button class="btn-delete" (click)="delete(p.id)">🗑️</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <ng-template #loadingTpl>
+        <div class="loading">Cargando proyectos...</div>
+    </ng-template>
+</div>

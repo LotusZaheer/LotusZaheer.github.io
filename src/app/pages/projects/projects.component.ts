@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { Project, projects } from '../../data/projects.data';
+import { Project } from '../../data/projects.data';
+import { SupabaseService } from '../../services/supabase.service';
 import { languageIcons, markupStyleIcons, libraryIcons, frameworkIcons, platformIcons, apiIcons, TechIcon } from '../../data/tech-icons.data';
 
 @Component({
@@ -34,10 +35,19 @@ export class ProjectsComponent implements OnInit, OnDestroy {
     'linear-gradient(135deg, #FFA93C 0%, #004466 100%)'
   ];
 
-  projects: Project[] = projects;
+  projects: Project[] = [];
+
+  constructor(private supabase: SupabaseService) { }
 
   ngOnInit() {
-    this.startCarousels();
+    this.supabase.getProjects().subscribe(data => {
+      this.projects = data.map((p: any) => ({
+        ...p,
+        currentImageIndex: p.currentImageIndex || 0,
+        progress: p.progress || 0
+      }));
+      this.startCarousels();
+    });
   }
 
   ngOnDestroy() {

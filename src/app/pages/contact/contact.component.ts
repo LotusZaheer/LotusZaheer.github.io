@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
-import { contactMethods } from '../../data/contact-methods.data';
+import { SupabaseService } from '../../services/supabase.service';
 import { countries, Country } from '../../data/countries.data';
 
 @Component({
@@ -21,7 +21,7 @@ import { countries, Country } from '../../data/countries.data';
 export class ContactComponent implements OnInit {
     @ViewChild('searchBox') searchBox?: ElementRef;
 
-    contactMethods = contactMethods;
+    contactMethods: any[] = [];
     allCountries = countries;
     filteredCountries = countries;
     selectedCountry: Country = countries[0];
@@ -32,7 +32,8 @@ export class ContactComponent implements OnInit {
     constructor(
         private fb: FormBuilder,
         private translate: TranslateService,
-        private http: HttpClient
+        private http: HttpClient,
+        private supabase: SupabaseService
     ) {
         this.contactForm = this.fb.group({
             nombreCompleto: ['', [Validators.required, Validators.minLength(3)]],
@@ -50,6 +51,10 @@ export class ContactComponent implements OnInit {
         const browserLang = this.translate.getBrowserLang();
         this.translate.use(browserLang?.match(/es|en/) ? browserLang : 'es');
         this.detectCountry();
+
+        this.supabase.getContactMethods().subscribe(data => {
+            this.contactMethods = data;
+        });
     }
 
     detectCountry() {

@@ -52,16 +52,40 @@ export class SupabaseService {
 
   // --- Social Networks ---
   getSocialNetworks(): Observable<any[]> {
-    return from(this.supabase.from('social_networks').select('*')).pipe(
+    return from(this.supabase.from('social_networks').select('*').order('id', { ascending: true })).pipe(
       map(response => response.data || [])
     );
   }
 
+  async createSocialNetwork(data: any) {
+    return this.supabase.from('social_networks').insert(data);
+  }
+
+  async updateSocialNetwork(id: number, data: any) {
+    return this.supabase.from('social_networks').update(data).eq('id', id);
+  }
+
+  async deleteSocialNetwork(id: number) {
+    return this.supabase.from('social_networks').delete().eq('id', id);
+  }
+
   // --- Contact Methods ---
   getContactMethods(): Observable<any[]> {
-    return from(this.supabase.from('contact_methods').select('*')).pipe(
+    return from(this.supabase.from('contact_methods').select('*').order('id', { ascending: true })).pipe(
       map(response => response.data || [])
     );
+  }
+
+  async createContactMethod(data: any) {
+    return this.supabase.from('contact_methods').insert(data);
+  }
+
+  async updateContactMethod(id: number, data: any) {
+    return this.supabase.from('contact_methods').update(data).eq('id', id);
+  }
+
+  async deleteContactMethod(id: number) {
+    return this.supabase.from('contact_methods').delete().eq('id', id);
   }
 
   // --- Storage (Images) ---

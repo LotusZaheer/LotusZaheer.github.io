@@ -1,0 +1,30 @@
+<div class="dashboard">
+    <h1>Dashboard</h1>
+    <p class="subtitle">Panel de administración de tu portafolio</p>
+
+    <div class="stats-grid">
+        <a routerLink="/cms/projects" class="stat-card">
+            <span class="stat-icon">💼</span>
+            <div class="stat-info">
+                <span class="stat-count">{{ projectCount }}</span>
+                <span class="stat-label">Proyectos</span>
+            </div>
+        </a>
+
+        <a routerLink="/cms/social" class="stat-card">
+            <span class="stat-icon">🌐</span>
+            <div class="stat-info">
+                <span class="stat-count">{{ socialCount }}</span>
+                <span class="stat-label">Redes Sociales</span>
+            </div>
+        </a>
+
+        <a routerLink="/cms/contacts" class="stat-card">
+            <span class="stat-icon">📧</span>
+            <div class="stat-info">
+                <span class="stat-count">{{ contactCount }}</span>
+                <span class="stat-label">Métodos de Contacto</span>
+            </div>
+        </a>
+    </div>
+</div>

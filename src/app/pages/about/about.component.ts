@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { animateNameRewrite } from '../../shared/functions/utils';
-import { socialNetworks } from '../../data/social-networks.data';
+import { SupabaseService } from '../../services/supabase.service';
 
 @Component({
     selector: 'app-about',
@@ -15,7 +15,7 @@ import { socialNetworks } from '../../data/social-networks.data';
     styleUrl: './about.component.scss'
 })
 export class AboutComponent implements OnInit {
-    socialNetworks = socialNetworks;
+    socialNetworks: any[] = [];
     nameA = '@LotusZaheer';
     nameB = 'Andrés Uribe';
     displayName = ''; //intercambiar por home.name
@@ -23,13 +23,20 @@ export class AboutComponent implements OnInit {
     private targetName = '';
     private blinkChar = '■';
 
-    constructor(private translateService: TranslateService) { }
+    constructor(
+        private translateService: TranslateService,
+        private supabase: SupabaseService
+    ) { }
 
     ngOnInit() {
         this.currentName = this.nameA;
         this.targetName = this.nameB;
         this.displayName = this.currentName;
         this.runAnimation();
+
+        this.supabase.getSocialNetworks().subscribe(data => {
+            this.socialNetworks = data;
+        });
     }
 
     runAnimation() {
@@ -66,4 +73,4 @@ export class AboutComponent implements OnInit {
         link.click();
         document.body.removeChild(link);
     }
-} 
+}
