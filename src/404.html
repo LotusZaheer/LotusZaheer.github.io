@@ -3,22 +3,35 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Redirigiendo...</title>
-    <script>
-        // Redirección para GitHub Pages con SPA
-        const segment = 1;
-        const l = window.location;
-        const redirectUrl = l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+    <title>SITIO WEB LotusZaheer</title>
+    <script type="text/javascript">
+        // Single Page Apps for GitHub Pages
+        // https://github.com/rafrex/spa-github-pages
+        // This script takes the current URL and saves the path and query
+        // string in sessionStorage, and then redirects the browser
+        // to the root url.
+        //
+        // Note: Only 1 segment for User/Org sites (root domain)
+        // Note: 2 segments for Project sites (e.g. /my-project/)
+
+        var segment = 0; // Set to 0 for User/Org sites, 1 for Project sites
+
+        var l = window.location;
+        sessionStorage.redirect = l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
             l.pathname.split('/').slice(0, 1 + segment).join('/') + '/?p=/' +
             l.pathname.slice(1).split('/').slice(segment).join('/').replace(/&/g, '~and~') +
             (l.search ? '&q=' + l.search.slice(1).replace(/&/g, '~and~') : '') +
             l.hash;
-        window.location.href = redirectUrl;
+
+        // Redirect to root
+        l.replace(
+            l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+            l.pathname.split('/').slice(0, 1 + segment).join('/') + '/'
+        );
     </script>
 </head>
 
 <body>
-    <p>Redirigiendo...</p>
 </body>
 
 </html>
