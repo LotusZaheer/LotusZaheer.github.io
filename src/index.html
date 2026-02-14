@@ -10,14 +10,27 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!-- Script para GitHub Pages SPA -->
   <script type="text/javascript">
-    // Redirección para rutas en GitHub Pages
-    (function () {
-      const redirect = sessionStorage.redirect;
-      delete sessionStorage.redirect;
-      if (redirect && redirect != location.href) {
-        history.replaceState(null, null, redirect);
+    // Este script maneja la redirección desde 404.html para SPA
+    (function (l) {
+      if (l.search[1] === 'p') {
+        var decoded = l.search.slice(1).split('&').map(function (s) {
+          return s.replace(/~and~/g, '&')
+        }).filter(function (s) {
+          return s !== ''
+        }).reduce(function (obj, p) {
+          var kv = p.split('=');
+          obj[kv[0]] = kv[1];
+          return obj;
+        }, {});
+        if (decoded.p !== undefined) {
+          window.history.replaceState(null, null,
+            l.pathname.slice(0, -1) + (decoded.p || '') +
+            (decoded.q ? ('?' + decoded.q) : '') +
+            l.hash
+          );
+        }
       }
-    })();
+    }(window.location));
   </script>
 </head>
 
