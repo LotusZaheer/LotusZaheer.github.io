@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 
 @Component({
@@ -11,4 +12,10 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 })
 export class AppComponent {
   title = 'portfolio';
+
+  constructor(private translate: TranslateService) {
+    this.translate.setDefaultLang('es');
+    const browserLang = this.translate.getBrowserLang();
+    this.translate.use(browserLang?.match(/es|en/) ? browserLang : 'es');
+  }
 }

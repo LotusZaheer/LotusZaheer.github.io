@@ -20,8 +20,12 @@ export class CmsLoginComponent {
         private supabase: SupabaseService,
         private router: Router
     ) {
+        console.log('CmsLogin: Constructor');
         if (this.supabase.isAuthenticated()) {
+            console.log('CmsLogin: Authenticated, redirecting to /cms');
             this.router.navigate(['/cms']);
+        } else {
+            console.log('CmsLogin: Not authenticated');
         }
     }
 
