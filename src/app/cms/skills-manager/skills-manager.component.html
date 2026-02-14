@@ -1,0 +1,63 @@
+<div class="manager">
+    <div class="manager-header">
+        <h1>Gestor de Habilidades</h1>
+    </div>
+
+    <div class="skills-layout">
+        <!-- CATEGORIES COLUMN -->
+        <div class="column categories-col">
+            <div class="col-header">
+                <h2>Categorías</h2>
+                <div class="add-form">
+                    <input [(ngModel)]="newCategoryName" placeholder="Nueva Categoría..." (keyup.enter)="addCategory()">
+                    <button class="btn-icon" (click)="addCategory()" [disabled]="!newCategoryName">
+                        <span class="material-icons">add</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="list">
+                <div *ngFor="let cat of categories" class="list-item" [class.active]="selectedCategory?.id === cat.id"
+                    (click)="selectCategory(cat)">
+                    <span class="name">{{ cat.name | translate }}</span>
+                    <button class="btn-icon delete" (click)="deleteCategory(cat.id); $event.stopPropagation()">
+                        <span class="material-icons">delete</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SKILLS COLUMN -->
+        <div class="column skills-col">
+            <div class="col-header">
+                <h2>Habilidades {{ selectedCategory ? '(' + (selectedCategory.name | translate) + ')' : '(Todas)' }}
+                </h2>
+                <div class="add-form" *ngIf="selectedCategory">
+                    <input [(ngModel)]="newSkillName" placeholder="Nueva Habilidad..." (keyup.enter)="addSkill()">
+
+                    <label class="file-upload">
+                        <input type="file" (change)="onFileSelected($event)" accept="image/*" class="hidden-input">
+                        <span class="material-icons">{{ selectedFile ? 'check_circle' : 'image' }}</span>
+                    </label>
+
+                    <button class="btn-icon" (click)="addSkill()" [disabled]="!newSkillName">
+                        <span class="material-icons">add</span>
+                    </button>
+                </div>
+                <div class="alert" *ngIf="!selectedCategory">
+                    Selecciona una categoría para agregar habilidades.
+                </div>
+            </div>
+
+            <div class="skills-grid">
+                <div *ngFor="let skill of filteredSkills" class="skill-chip">
+                    <img *ngIf="skill.icon" [src]="skill.icon" class="skill-icon-mini" [alt]="skill.name">
+                    <span class="name">{{ skill.name | translate }}</span>
+                    <button class="btn-icon delete-small" (click)="deleteSkill(skill.id)">
+                        <span class="material-icons">close</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

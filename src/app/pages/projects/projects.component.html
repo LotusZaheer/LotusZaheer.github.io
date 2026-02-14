@@ -16,7 +16,7 @@
                 <div class="project-links">
                     @if (project.liveUrl) {
                     <a [href]="project.liveUrl" target="_blank" class="link-button">
-                        <img src="assets/images/web.png" >
+                        <img src="assets/images/web.png">
                         {{ 'others.viewSite' | translate }}
                     </a>
                     }
@@ -29,7 +29,7 @@
                     }
                 </div>
 
-                <div class="carousel-progress">
+                <div class="carousel-progress" *ngIf="project.images?.length > 1">
                     <div class="progress-bar" [style.width.%]="getProgressWidth(project)"></div>
                 </div>
             </div>
@@ -40,7 +40,6 @@
             <p class="project-description">{{ project.description | translate }}</p>
 
             <div class="project-details">
-
 
                 <div class="detail-section" *ngIf="project.company">
                     <h4>{{ 'others.company' | translate }}</h4>
@@ -59,96 +58,63 @@
                     <p>{{ project.role | translate }}</p>
                 </div>
 
-                <!-- Lenguajes -->
+                <!-- NEW DYNAMIC SKILLS DISPLAY -->
+                @for (group of project.groupedSkills; track group.name) {
                 <div class="detail-section">
-                    <h4>{{ 'skills.languages' | translate }}</h4>
+                    <h4>{{ group.name | translate }}</h4>
                     <div class="tags">
-                        @for (lang of project.languages; track lang) {
+                        @for (skill of group.skills; track skill.id) {
                         <span class="tag">
-                            @if (getIcon(lang, languageIcons)) {
-                            <img [src]="getIcon(lang, languageIcons)" [alt]="lang" class="tech-icon">
+                            <!-- Try to find icon: DB first, then static map -->
+                            @if (skill.icon || getIcon(skill.name)) {
+                            <img [src]="skill.icon || getIcon(skill.name)" [alt]="skill.name" class="tech-icon">
                             }
-                            {{ lang }}
+                            {{ skill.name | translate }}
                         </span>
                         }
                     </div>
                 </div>
+                }
 
-                <!-- Frameworks -->
+                <!-- LEGACY FALLBACK (Only show if NO grouped skills but HAS legacy data) -->
+                @if (project.groupedSkills.length === 0) {
+                <div class="detail-section" *ngIf="project.languages?.length">
+                    <h4>Lenguajes</h4>
+                    <div class="tags">
+                        <span class="tag" *ngFor="let item of project.languages">{{ item }}</span>
+                    </div>
+                </div>
                 <div class="detail-section" *ngIf="project.frameworks?.length">
-                    <h4>{{ 'skills.frameworks' | translate }}</h4>
+                    <h4>Frameworks</h4>
                     <div class="tags">
-                        @for (fw of project.frameworks; track fw) {
-                        <span class="tag">
-                            @if (getIcon(fw, frameworkIcons)) {
-                            <img [src]="getIcon(fw, frameworkIcons)" [alt]="fw" class="tech-icon">
-                            }
-                            {{ fw }}
-                        </span>
-                        }
+                        <span class="tag" *ngFor="let item of project.frameworks">{{ item }}</span>
                     </div>
                 </div>
-
-
-                <!-- Marcas y estilos -->
-                <div class="detail-section">
-                    <h4>{{ 'skills.markupStyles' | translate }}</h4>
-                    <div class="tags">
-                        @for (style of project.markupStyles; track style) {
-                        <span class="tag">
-                            @if (getIcon(style, markupStyleIcons)) {
-                            <img [src]="getIcon(style, markupStyleIcons)" [alt]="style" class="tech-icon">
-                            }
-                            {{ style }}
-                        </span>
-                        }
-                    </div>
-                </div>
-
-                <!-- Librerías -->
                 <div class="detail-section" *ngIf="project.libraries?.length">
-                    <h4>{{ 'skills.libraries' | translate }}</h4>
+                    <h4>Librerías</h4>
                     <div class="tags">
-                        @for (lib of project.libraries; track lib) {
-                        <span class="tag">
-                            @if (getIcon(lib, libraryIcons)) {
-                            <img [src]="getIcon(lib, libraryIcons)" [alt]="lib" class="tech-icon">
-                            }
-                            {{ lib }}
-                        </span>
-                        }
+                        <span class="tag" *ngFor="let item of project.libraries">{{ item }}</span>
                     </div>
                 </div>
-
-                <!-- Plataformas -->
-                <div class="detail-section" *ngIf="project.platforms?.length">
-                    <h4>{{ 'skills.platforms' | translate }}</h4>
-                    <div class="tags">
-                        @for (plat of project.platforms; track plat) {
-                        <span class="tag">
-                            @if (getIcon(plat, platformIcons)) {
-                            <img [src]="getIcon(plat, platformIcons)" [alt]="plat" class="tech-icon">
-                            }
-                            {{ plat }}
-                        </span>
-                        }
-                    </div>
-                </div>
-
-                <!-- APIs -->
                 <div class="detail-section" *ngIf="project.apis?.length">
-                    <h4>{{ 'skills.apis' | translate }}</h4>
+                    <h4>APIs</h4>
                     <div class="tags">
-                        @for (api of project.apis; track api) {
-                        <span class="tag">
-                            @if (getIcon(api, apiIcons)) {
-                            <img [src]="getIcon(api, apiIcons)" [alt]="api" class="tech-icon">
-                            }
-                            {{ api }}
-                        </span>
-                        }
+                        <span class="tag" *ngFor="let item of project.apis">{{ item }}</span>
                     </div>
                 </div>
+                <div class="detail-section" *ngIf="project.platforms?.length">
+                    <h4>Plataformas</h4>
+                    <div class="tags">
+                        <span class="tag" *ngFor="let item of project.platforms">{{ item }}</span>
+                    </div>
+                </div>
+                <div class="detail-section" *ngIf="project.markupStyles?.length">
+                    <h4>Markup/Estilos</h4>
+                    <div class="tags">
+                        <span class="tag" *ngFor="let item of project.markupStyles">{{ item }}</span>
+                    </div>
+                </div>
+                }
 
             </div>
         </div>

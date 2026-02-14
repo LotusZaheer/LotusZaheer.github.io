@@ -3,21 +3,93 @@
 
 $sidebar-width: 240px;
 $sidebar-collapsed: 70px;
+$mobile-header-height: 60px;
 
 // Use global variables mapping to CMS specific
 $cms-bg: $background-dark;
-$cms-sidebar-bg: $background-card;
-$cms-border: rgba(255, 255, 255, 0.1);
-$cms-text: $text-primary;
-$cms-text-muted: $text-secondary;
-$cms-accent: $accent-color;
+$cms-sidebar-bg: #141414; // Matching dark card bg
+$cms-border: #2a2a2a;
+$cms-text: #ededed;
+$cms-text-muted: #888;
+$cms-accent: #04B2D9; // Brand Blue
 
 .cms-wrapper {
     display: flex;
     min-height: 100vh;
     background: $cms-bg;
     color: $cms-text;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Inter', system-ui, sans-serif;
+}
+
+// Mobile-only header
+.mobile-header {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: $mobile-header-height;
+    background: $cms-sidebar-bg;
+    border-bottom: 1px solid $cms-border;
+    z-index: 150;
+    align-items: center;
+    padding: 0 1rem;
+    gap: 1rem;
+
+    .menu-toggle {
+        background: transparent;
+        border: none;
+        color: $cms-text;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 5px;
+        border-radius: 4px;
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .material-icons {
+            font-size: 24px;
+        }
+    }
+
+    .brand-logo {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin: 0;
+        white-space: nowrap;
+
+        .cms-badge {
+            font-size: 0.65rem;
+            background: rgba($cms-accent, 0.15);
+            color: $cms-accent;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 5px;
+        }
+    }
+
+    .header-spacer {
+        flex: 1;
+    }
+}
+
+// Sidebar overlay
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
+    z-index: 140;
+    opacity: 0;
+    transition: opacity 0.3s;
 }
 
 .cms-sidebar {
@@ -26,13 +98,12 @@ $cms-accent: $accent-color;
     border-right: 1px solid $cms-border;
     display: flex;
     flex-direction: column;
-    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    overflow: hidden;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
-    z-index: 100;
+    z-index: 200;
     box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
 
     &.collapsed {
@@ -44,31 +115,25 @@ $cms-accent: $accent-color;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1.5rem 1rem;
+    padding: 1rem;
     border-bottom: 1px solid $cms-border;
-    min-height: 70px;
+    height: 70px;
 
     .brand-logo {
-        font-size: 1.2rem;
-        font-weight: 700;
+        font-size: 1.1rem;
+        font-weight: 600;
         margin: 0;
         white-space: nowrap;
-        background: $gradient-primary;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        position: relative;
+        color: #fff;
     }
 
     .cms-badge {
-        font-size: 0.7rem;
-        background: rgba($primary-color, 0.2);
-        color: $primary-color;
+        font-size: 0.65rem;
+        background: rgba($cms-accent, 0.15);
+        color: $cms-accent;
         padding: 2px 6px;
         border-radius: 4px;
-        vertical-align: middle;
         margin-left: 5px;
-        -webkit-text-fill-color: $primary-color; // Override gradient
     }
 }
 
@@ -76,9 +141,9 @@ $cms-accent: $accent-color;
     background: transparent;
     border: none;
     color: $cms-text-muted;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -91,32 +156,30 @@ $cms-accent: $accent-color;
     }
 
     .material-icons {
-        font-size: 20px;
+        font-size: 18px;
     }
 }
 
 .sidebar-nav {
     flex: 1;
-    padding: 1rem 0.5rem;
+    padding: 0.75rem 0.5rem;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 4px;
 }
 
 .nav-item {
     display: flex;
     align-items: center;
     gap: 1rem;
-    padding: 0.8rem 1rem;
-    border-radius: 8px;
+    padding: 0.6rem 0.75rem;
+    border-radius: 6px;
     color: $cms-text-muted;
     text-decoration: none;
     transition: all 0.2s ease;
     white-space: nowrap;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     font-weight: 500;
-    position: relative;
-    overflow: hidden;
 
     &:hover {
         background: rgba($cms-accent, 0.08);
@@ -124,39 +187,24 @@ $cms-accent: $accent-color;
     }
 
     &.active {
-        background: linear-gradient(90deg, rgba($primary-color, 0.15), transparent);
-        color: $accent-color;
-        border-right: 3px solid $accent-color;
+        background: rgba($cms-accent, 0.1);
+        color: $cms-accent;
+        border-right: 3px solid $cms-accent;
     }
 
     .material-icons {
         font-size: 1.2rem;
-        min-width: 24px;
+        min-width: 20px;
         text-align: center;
     }
 }
 
-.nav-label {
-    // animate fade in
-    animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
 .sidebar-footer {
-    padding: 1rem;
+    padding: 0.75rem;
     border-top: 1px solid $cms-border;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 4px;
 }
 
 .logout-btn,
@@ -164,13 +212,13 @@ $cms-accent: $accent-color;
     display: flex;
     align-items: center;
     gap: 1rem;
-    padding: 0.8rem 1rem;
-    border-radius: 8px;
+    padding: 0.6rem 0.75rem;
+    border-radius: 6px;
     color: $cms-text-muted;
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     text-decoration: none;
     width: 100%;
     text-align: left;
@@ -183,8 +231,7 @@ $cms-accent: $accent-color;
     }
 
     .material-icons {
-        font-size: 1.2rem;
-        min-width: 24px;
+        font-size: 1.1rem;
     }
 }
 
@@ -196,10 +243,9 @@ $cms-accent: $accent-color;
 .cms-content {
     flex: 1;
     margin-left: $sidebar-width;
-    padding: 2rem;
+    padding: 1.5rem;
     transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     min-height: 100vh;
-    background-color: $cms-bg;
 
     .collapsed+& {
         margin-left: $sidebar-collapsed;
@@ -208,18 +254,35 @@ $cms-accent: $accent-color;
 
 // Mobile responsive
 @media (max-width: 768px) {
+    .mobile-header {
+        display: flex;
+    }
+
     .cms-sidebar {
-        width: $sidebar-collapsed; // Always collapsed on mobile by default or overlay? 
-        // For now, let's keep it collapsed-like or hidden
         transform: translateX(-100%);
+        width: $sidebar-width !important; // Desktop collapsed state not needed on mobile
+        z-index: 200;
 
         &.open {
             transform: translateX(0);
-            width: $sidebar-width;
+        }
+
+        .sidebar-header .toggle-btn {
+            display: none; // No manual desktop-style toggle on mobile
+        }
+    }
+
+    .sidebar-overlay {
+        .mobile-open & {
+            display: block;
+            opacity: 1;
         }
     }
 
     .cms-content {
         margin-left: 0 !important;
+        padding-top: calc($mobile-header-height + 1.5rem);
+        padding-left: 1rem;
+        padding-right: 1rem;
     }
 }

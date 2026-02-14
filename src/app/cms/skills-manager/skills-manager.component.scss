@@ -1,0 +1,221 @@
+@use '../cms-shared' as cms;
+
+.manager {
+    @include cms.manager-base;
+}
+
+.manager-header {
+    @include cms.header-base;
+}
+
+.skills-layout {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 1.5rem;
+    height: calc(100vh - 150px);
+}
+
+.column {
+    background: cms.$bg-dark;
+    border: 1px solid cms.$border-color;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    .col-header {
+        padding: 1rem;
+        background: cms.$bg-darker;
+        border-bottom: 1px solid cms.$border-color;
+
+        h2 {
+            font-size: 0.9rem;
+            color: cms.$text-secondary;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 0.75rem 0;
+        }
+
+        .add-form {
+            display: flex;
+            gap: 0.5rem;
+
+            input {
+                flex: 1;
+                background: #111;
+                border: 1px solid cms.$border-color;
+                color: cms.$text-primary;
+                padding: 0.4rem 0.6rem;
+                border-radius: 4px;
+                font-size: 0.85rem;
+
+                &:focus {
+                    outline: none;
+                    border-color: cms.$accent-blue;
+                }
+            }
+
+            button {
+                background: cms.$accent-blue;
+                color: #fff;
+                border: none;
+                border-radius: 4px;
+                width: 32px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+
+                &:disabled {
+                    opacity: 0.5;
+                    cursor: not-allowed;
+                }
+
+                &:hover:not(:disabled) {
+                    opacity: 0.9;
+                }
+
+                .material-icons {
+                    font-size: 1.2rem;
+                }
+            }
+        }
+    }
+
+    .alert {
+        padding: 1rem;
+        color: cms.$text-secondary;
+        font-size: 0.9rem;
+        text-align: center;
+        font-style: italic;
+    }
+
+    .list {
+        flex: 1;
+        overflow-y: auto;
+
+        .list-item {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid cms.$border-color;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            transition: all 0.1s;
+
+            &:hover {
+                background: rgba(255, 255, 255, 0.03);
+            }
+
+            &.active {
+                background: rgba(cms.$accent-blue, 0.1);
+                color: cms.$accent-blue;
+                border-left: 3px solid cms.$accent-blue;
+                padding-left: calc(1rem - 3px);
+            }
+
+            .btn-icon.delete {
+                background: transparent;
+                border: none;
+                color: #555;
+                cursor: pointer;
+                padding: 4px;
+                border-radius: 4px;
+                display: flex;
+
+                &:hover {
+                    color: cms.$danger;
+                    background: rgba(cms.$danger, 0.1);
+                }
+
+                .material-icons {
+                    font-size: 1.1rem;
+                }
+            }
+        }
+    }
+}
+
+.file-upload {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    color: cms.$text-secondary;
+    padding: 0.4rem;
+    border-radius: 4px;
+    background: #111;
+    border: 1px solid cms.$border-color;
+    height: 32px;
+
+    &:hover {
+        color: cms.$accent-blue;
+        border-color: cms.$accent-blue;
+    }
+
+    .material-icons {
+        font-size: 1.2rem;
+    }
+}
+
+.hidden-input {
+    display: none;
+}
+
+.skills-grid {
+    padding: 1.5rem;
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-content: flex-start;
+
+    .skill-chip {
+        background: cms.$bg-darker;
+        border: 1px solid cms.$border-color;
+        border-radius: 20px;
+        padding: 0.4rem 0.8rem 0.4rem 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+
+        .skill-icon-mini {
+            width: 18px;
+            height: 18px;
+            object-fit: contain;
+            border-radius: 2px;
+        }
+
+        .btn-icon.delete-small {
+            background: transparent;
+            border: none;
+            color: cms.$text-secondary;
+            cursor: pointer;
+            display: flex;
+            padding: 2px;
+            border-radius: 50%;
+
+            &:hover {
+                color: cms.$danger;
+                background: rgba(cms.$danger, 0.1);
+            }
+
+            .material-icons {
+                font-size: 1rem;
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .skills-layout {
+        grid-template-columns: 1fr;
+        height: auto;
+    }
+
+    .categories-col {
+        max-height: 300px;
+    }
+}

@@ -1,0 +1,46 @@
+<div class="manager">
+    <div class="manager-header">
+        <h1>Gestión de Idiomas</h1>
+    </div>
+
+    <div class="filter-bar">
+        <label>Filtro por Página/Sección:</label>
+        <div class="chips">
+            <button *ngFor="let page of pages" [class.active]="selectedPage === page" (click)="filterPage(page)">
+                {{ page | titlecase }}
+            </button>
+            <button [class.active]="selectedPage === 'dynamic'" (click)="filterPage('dynamic')">Dynamic</button>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <div class="loading" *ngIf="loading">Cargando...</div>
+
+        <table *ngIf="!loading">
+            <thead>
+                <tr>
+                    <th>Clave DataBase</th>
+                    <th *ngFor="let lang of languages">{{ lang.name }} ({{ lang.code | uppercase }})</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let key of keys">
+                    <td class="key-col">
+                        <code>{{ key.key_name }}</code>
+                        <span *ngIf="key.is_system" class="badge system">System</span>
+                    </td>
+                    <td *ngFor="let lang of languages">
+                        <textarea rows="2" [value]="getValue(key.id, lang.code)"
+                            (change)="updateValue(key.id, lang.code, $event)" placeholder="Traducción...">
+                        </textarea>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="add-row">
+            <input [(ngModel)]="newKeyName" placeholder="Nueva clave (e.g. 'title')" />
+            <button (click)="addKey()">+ Agregar a {{ selectedPage }}</button>
+        </div>
+    </div>
+</div>

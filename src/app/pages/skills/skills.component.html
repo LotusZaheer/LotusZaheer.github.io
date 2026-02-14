@@ -1,94 +1,24 @@
 <h2 class="section-title">{{ 'sections.skills' | translate }}</h2>
 <div class="tech-stack">
+    @for (cat of categories; track cat.id) {
     <div class="tech-category">
-        <h3>{{ 'skills.languages' | translate }}</h3>
-        <div class="tech-icons">
-            @for (lang of languages; track lang) {
-            <div class="tech-icon">
-                @if (getIcon(lang, languageIcons)) {
-                <img [src]="getIcon(lang, languageIcons)" [alt]="lang" class="tech-image">
-                }
-                <span>{{ lang }}</span>
-            </div>
-            }
-            <div class="tech-icon">
-                <img src="assets/images/languages/java.png" alt="Java" class="tech-image">
-                <span>Java</span>
-            </div>
-        </div>
-    </div>
+        <h3>{{ cat.name | translate }}</h3>
 
-    <div class="tech-category">
-        <h3>{{ 'skills.frameworks' | translate }}</h3>
         <div class="tech-icons">
-            @for (fw of frameworks; track fw) {
+            @for (skill of cat.skills; track skill.id) {
             <div class="tech-icon">
-                @if (getIcon(fw, frameworkIcons)) {
-                <img [src]="getIcon(fw, frameworkIcons)" [alt]="fw" class="tech-image">
+                @if (getIcon(skill)) {
+                <img [src]="getIcon(skill)" [alt]="skill.name | translate" class="tech-image">
+                } @else {
+                <!-- Fallback if needed, currently just hiding image -->
                 }
-                <span>{{ fw }}</span>
+                <span>{{ skill.name | translate }}</span>
             </div>
             }
-            <div class="tech-icon">
-                <img src="assets/images/technologies/springboot.png" alt="Spring Boot" class="tech-image">
-                <span>Spring Boot</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="tech-category">
-        <h3>{{ 'skills.markupStyles' | translate }}</h3>
-        <div class="tech-icons">
-            @for (style of markupStyles; track style) {
-            <div class="tech-icon">
-                @if (getIcon(style, markupStyleIcons)) {
-                <img [src]="getIcon(style, markupStyleIcons)" [alt]="style" class="tech-image">
-                }
-                <span>{{ style }}</span>
-            </div>
+            @if (cat.skills.length === 0) {
+            <p class="empty-category">...</p>
             }
         </div>
     </div>
-
-    <div class="tech-category">
-        <h3>{{ 'skills.libraries' | translate }}</h3>
-        <div class="tech-icons">
-            @for (lib of libraries; track lib) {
-            <div class="tech-icon">
-                @if (getIcon(lib, libraryIcons)) {
-                <img [src]="getIcon(lib, libraryIcons)" [alt]="lib" class="tech-image">
-                }
-                <span>{{ lib }}</span>
-            </div>
-            }
-        </div>
-    </div>
-
-    <div class="tech-category">
-        <h3>{{ 'skills.platforms' | translate }}</h3>
-        <div class="tech-icons">
-            @for (plat of platforms; track plat) {
-            <div class="tech-icon">
-                @if (getIcon(plat, platformIcons)) {
-                <img [src]="getIcon(plat, platformIcons)" [alt]="plat" class="tech-image">
-                }
-                <span>{{ plat }}</span>
-            </div>
-            }
-        </div>
-    </div>
-
-    <div class="tech-category">
-        <h3>{{ 'skills.apis' | translate }}</h3>
-        <div class="tech-icons">
-            @for (api of apis; track api) {
-            <div class="tech-icon">
-                @if (getIcon(api, apiIcons)) {
-                <img [src]="getIcon(api, apiIcons)" [alt]="api" class="tech-image">
-                }
-                <span>{{ api }}</span>
-            </div>
-            }
-        </div>
-    </div>
+    }
 </div>

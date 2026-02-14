@@ -40,29 +40,21 @@
                     <label>Repositorio</label>
                     <input [(ngModel)]="form.repoUrl" placeholder="https://github.com/..." />
                 </div>
-                <div class="form-group">
-                    <label>Frameworks (separados por coma)</label>
-                    <input [(ngModel)]="form.frameworks" placeholder="Angular, React" />
-                </div>
-                <div class="form-group">
-                    <label>APIs (separados por coma)</label>
-                    <input [(ngModel)]="form.apis" placeholder="Google Maps API" />
-                </div>
-                <div class="form-group">
-                    <label>Librerías (separados por coma)</label>
-                    <input [(ngModel)]="form.libraries" placeholder="RxJS, Lodash" />
-                </div>
-                <div class="form-group">
-                    <label>Plataformas (separados por coma)</label>
-                    <input [(ngModel)]="form.platforms" placeholder="Docker, AWS" />
-                </div>
-                <div class="form-group">
-                    <label>Lenguajes (separados por coma)</label>
-                    <input [(ngModel)]="form.languages" placeholder="TypeScript, Python" />
-                </div>
-                <div class="form-group">
-                    <label>Markup/Estilos (separados por coma)</label>
-                    <input [(ngModel)]="form.markupStyles" placeholder="SCSS, HTML5" />
+                <div class="form-group full">
+                    <label>Habilidades</label>
+                    <div class="skills-selector">
+                        <input [(ngModel)]="skillFilter" placeholder="Buscar habilidad..." class="skill-search">
+                        <div class="skills-list">
+                            <div *ngFor="let skill of filteredSkills" class="skill-item"
+                                [class.selected]="selectedSkillIds.has(skill.id)" (click)="toggleSkill(skill.id)">
+                                <img *ngIf="skill.icon" [src]="skill.icon" class="skill-icon-mini" [alt]="skill.name">
+                                <span>{{ skill.name | translate }}</span>
+                            </div>
+                        </div>
+                        <div class="selected-summary">
+                            <small>{{ selectedSkillIds.size }} seleccionadas</small>
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group full">
                     <label>Imágenes (URLs separadas por coma)</label>
@@ -101,14 +93,29 @@
                 <tr>
                     <th>Título</th>
                     <th>Empresa</th>
+                    <th>Habilidades</th>
                     <th>Destacado</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let p of projects">
-                    <td>{{ p.title }}</td>
+                @for (p of projects; track p.id) {
+                <tr>
+                    <td>{{ p.title | translate }}</td>
                     <td>{{ p.company || '—' }}</td>
+                    <td>
+                        <div class="skills-mini-list">
+                            @for (ps of (p.project_skills || []).slice(0, 3); track ps.id) {
+                            <span class="skill-dot" [title]="ps.skills?.name | translate">
+                                <img *ngIf="ps.skills?.icon" [src]="ps.skills.icon" [alt]="ps.skills.name">
+                                <span *ngIf="!ps.skills?.icon" class="dot"></span>
+                            </span>
+                            }
+                            @if (p.project_skills && p.project_skills.length > 3) {
+                            <small>+{{ p.project_skills.length - 3 }}</small>
+                            }
+                        </div>
+                    </td>
                     <td><span class="badge" [class.active]="p.featured">{{ p.featured ? 'Sí' : 'No' }}</span></td>
                     <td class="actions">
                         <button class="btn-edit" (click)="openEdit(p)" title="Editar">
@@ -119,6 +126,7 @@
                         </button>
                     </td>
                 </tr>
+                }
             </tbody>
         </table>
     </div>

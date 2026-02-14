@@ -1,0 +1,258 @@
+@use 'sass:color';
+
+// Supabase-inspired design tokens
+$bg-dark: #1c1c1c;
+$bg-darker: #161616;
+$border-color: #333;
+$text-primary: #ededed;
+$text-secondary: #888;
+$accent-blue: #04B2D9; // Platform blue
+$danger: #ff4d4f;
+$font-stack: 'Inter', system-ui, sans-serif;
+
+@mixin manager-base {
+    padding: 0;
+    font-family: $font-stack;
+    color: $text-primary;
+    padding-bottom: 2rem;
+}
+
+@mixin header-base {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+
+    h1 {
+        font-size: 1.5rem;
+        font-weight: 500;
+        margin: 0;
+    }
+
+    .btn-add {
+        background: $accent-blue;
+        color: #fff;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        &:hover {
+            opacity: 0.9;
+        }
+
+        .material-icons {
+            font-size: 1.1rem;
+        }
+    }
+}
+
+@mixin table-base {
+    .table-container {
+        border: 1px solid $border-color;
+        border-radius: 4px;
+        background: $bg-dark;
+        overflow-x: auto;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+    }
+
+    th {
+        text-align: left;
+        padding: 0.6rem 1rem;
+        background: $bg-darker;
+        border-bottom: 1px solid $border-color;
+        color: $text-secondary;
+        font-weight: 500;
+        white-space: nowrap;
+    }
+
+    td {
+        padding: 0.6rem 1rem;
+        border-bottom: 1px solid $border-color;
+        vertical-align: middle;
+        color: $text-primary;
+
+        &.actions {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: flex-end;
+        }
+    }
+
+    tr:last-child td {
+        border-bottom: none;
+    }
+
+    tr:hover {
+        background: rgba(255, 255, 255, 0.02);
+    }
+}
+
+@mixin form-base {
+    .form-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(2px);
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+
+        .form-panel {
+            background: $bg-dark;
+            border: 1px solid $border-color;
+            border-radius: 8px;
+            width: 600px;
+            max-width: 100%;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+
+            h2 {
+                padding: 1.25rem;
+                margin: 0;
+                border-bottom: 1px solid $border-color;
+                font-size: 1.1rem;
+                font-weight: 500;
+            }
+
+            .form-grid {
+                padding: 1.5rem;
+                overflow-y: auto;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1.25rem;
+
+                .full {
+                    grid-column: 1 / -1;
+                }
+            }
+
+            .form-group {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+
+                label {
+                    font-size: 0.8rem;
+                    color: $text-secondary;
+                }
+
+                input,
+                textarea {
+                    background: $bg-darker;
+                    border: 1px solid $border-color;
+                    color: $text-primary;
+                    padding: 0.6rem;
+                    border-radius: 4px;
+                    font-size: 0.9rem;
+                    font-family: inherit;
+                    width: 100%;
+
+                    &:focus {
+                        outline: none;
+                        border-color: $accent-blue;
+                        box-shadow: 0 0 0 1px rgba($accent-blue, 0.2);
+                    }
+
+                    &::placeholder {
+                        color: #555;
+                    }
+                }
+            }
+
+            .form-actions {
+                padding: 1rem 1.25rem;
+                border-top: 1px solid $border-color;
+                background: $bg-darker;
+                border-radius: 0 0 8px 8px;
+                display: flex;
+                justify-content: flex-end;
+                gap: 0.75rem;
+
+                button {
+                    padding: 0.5rem 1rem;
+                    border-radius: 4px;
+                    font-size: 0.85rem;
+                    font-weight: 500;
+                    cursor: pointer;
+
+                    &.btn-cancel {
+                        background: transparent;
+                        border: 1px solid $border-color;
+                        color: $text-secondary;
+
+                        &:hover {
+                            border-color: #666;
+                            color: $text-primary;
+                        }
+                    }
+
+                    &.btn-save {
+                        background: $accent-blue;
+                        border: 1px solid transparent;
+                        color: #fff;
+
+                        &:hover {
+                            opacity: 0.9;
+                        }
+
+                        &:disabled {
+                            opacity: 0.5;
+                            cursor: not-allowed;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@mixin button-icons-base {
+
+    button.btn-edit,
+    button.btn-delete,
+    button.btn-icon {
+        background: transparent;
+        border: 1px solid $border-color;
+        color: $text-secondary;
+        width: 28px;
+        height: 28px;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.1s;
+
+        .material-icons {
+            font-size: 16px;
+        }
+
+        &:hover {
+            border-color: #666;
+            color: $text-primary;
+        }
+    }
+
+    button.btn-delete:hover {
+        border-color: $danger;
+        color: $danger;
+    }
+}

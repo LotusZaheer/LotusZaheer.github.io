@@ -6,6 +6,7 @@ import { CmsDashboardComponent } from './dashboard/cms-dashboard.component';
 import { ProjectManagerComponent } from './project-manager/project-manager.component';
 import { SocialManagerComponent } from './social-manager/social-manager.component';
 import { ContactManagerComponent } from './contact-manager/contact-manager.component';
+import { SkillsManagerComponent } from './skills-manager/skills-manager.component';
 
 export const cmsRoutes: Routes = [
     { path: 'login', component: CmsLoginComponent },
@@ -16,8 +17,10 @@ export const cmsRoutes: Routes = [
         children: [
             { path: '', component: CmsDashboardComponent },
             { path: 'projects', component: ProjectManagerComponent },
+            { path: 'skills', component: SkillsManagerComponent },
             { path: 'social', component: SocialManagerComponent },
             { path: 'contacts', component: ContactManagerComponent },
+            { path: 'i18n', loadComponent: () => import('./i18n-manager/i18n-manager.component').then(m => m.I18nManagerComponent) }
         ]
     }
 ];

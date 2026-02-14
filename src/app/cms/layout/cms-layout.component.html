@@ -1,5 +1,17 @@
-<div class="cms-wrapper">
-    <aside class="cms-sidebar" [class.collapsed]="sidebarCollapsed">
+<div class="cms-wrapper" [class.mobile-open]="mobileMenuOpen">
+    <!-- Top Header for Mobile -->
+    <header class="mobile-header">
+        <button class="menu-toggle" (click)="toggleMobileMenu()">
+            <span class="material-icons">{{ mobileMenuOpen ? 'close' : 'menu' }}</span>
+        </button>
+        <h3 class="brand-logo">LotusZaheer <span class="cms-badge">CMS</span></h3>
+        <div class="header-spacer"></div>
+    </header>
+
+    <!-- Overlay Backdrop -->
+    <div class="sidebar-overlay" (click)="closeMobileMenu()"></div>
+
+    <aside class="cms-sidebar" [class.collapsed]="sidebarCollapsed" [class.open]="mobileMenuOpen">
         <div class="sidebar-header">
             <h3 *ngIf="!sidebarCollapsed" class="brand-logo">LotusZaheer <span class="cms-badge">CMS</span></h3>
             <button class="toggle-btn" (click)="toggleSidebar()">
@@ -9,14 +21,15 @@
 
         <nav class="sidebar-nav">
             <a *ngFor="let item of navItems" [routerLink]="item.route" routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: item.route === '/cms' }" class="nav-item">
+                [routerLinkActiveOptions]="{ exact: item.route === '/cms' }" (click)="closeMobileMenu()"
+                class="nav-item">
                 <span class="material-icons">{{ item.icon }}</span>
                 <span class="nav-label" *ngIf="!sidebarCollapsed">{{ item.label }}</span>
             </a>
         </nav>
 
         <div class="sidebar-footer">
-            <a class="back-btn" routerLink="/">
+            <a class="back-btn" routerLink="/" (click)="closeMobileMenu()">
                 <span class="material-icons">home</span>
                 <span class="nav-label" *ngIf="!sidebarCollapsed">Volver al sitio</span>
             </a>
