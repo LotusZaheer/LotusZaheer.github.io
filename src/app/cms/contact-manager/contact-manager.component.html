@@ -1,7 +1,9 @@
 <div class="manager">
     <div class="manager-header">
         <h1>Métodos de Contacto</h1>
-        <button class="btn-add" (click)="openNew()">+ Nuevo Método</button>
+        <button class="btn-add" (click)="openNew()">
+            <span class="material-icons">add</span> Nuevo Método
+        </button>
     </div>
 
     <div class="form-overlay" *ngIf="showForm">
@@ -53,8 +55,12 @@
                     <td>{{ item.nick || '—' }}</td>
                     <td><a [href]="item.url" target="_blank">{{ item.url | slice:0:40 }}...</a></td>
                     <td class="actions">
-                        <button class="btn-edit" (click)="openEdit(item)">✏️</button>
-                        <button class="btn-delete" (click)="delete(item.id)">🗑️</button>
+                        <button class="btn-edit" (click)="openEdit(item)" title="Editar">
+                            <span class="material-icons">edit</span>
+                        </button>
+                        <button class="btn-delete" (click)="delete(item.id)" title="Eliminar">
+                            <span class="material-icons">delete</span>
+                        </button>
                     </td>
                 </tr>
             </tbody>

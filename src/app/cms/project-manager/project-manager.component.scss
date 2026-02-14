@@ -31,9 +31,16 @@ $cms-success: #22c55e;
     font-size: 0.85rem;
     cursor: pointer;
     transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 
     &:hover {
         background: $cms-accent-hover;
+    }
+
+    .material-icons {
+        font-size: 1.2rem;
     }
 }
 
@@ -260,15 +267,24 @@ table {
         border-radius: 6px;
         padding: 0.3rem 0.5rem;
         cursor: pointer;
-        font-size: 0.8rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         transition: all 0.15s;
+        color: $cms-text-muted;
+
+        .material-icons {
+            font-size: 1.1rem;
+        }
 
         &.btn-edit:hover {
             border-color: $cms-accent;
+            color: $cms-accent;
         }
 
         &.btn-delete:hover {
             border-color: $cms-danger;
+            color: $cms-danger;
         }
     }
 }

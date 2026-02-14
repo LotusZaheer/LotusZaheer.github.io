@@ -14,10 +14,10 @@ export class CmsLayoutComponent {
     sidebarCollapsed = false;
 
     navItems = [
-        { label: 'Dashboard', icon: '📊', route: '/cms' },
-        { label: 'Proyectos', icon: '💼', route: '/cms/projects' },
-        { label: 'Redes', icon: '🌐', route: '/cms/social' },
-        { label: 'Contacto', icon: '📧', route: '/cms/contacts' },
+        { label: 'Dashboard', icon: 'dashboard', route: '/cms' },
+        { label: 'Proyectos', icon: 'work', route: '/cms/projects' },
+        { label: 'Redes', icon: 'public', route: '/cms/social' },
+        { label: 'Contacto', icon: 'contact_mail', route: '/cms/contacts' },
     ];
 
     constructor(

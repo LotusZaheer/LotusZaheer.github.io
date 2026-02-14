@@ -1,16 +1,23 @@
-$sidebar-width: 220px;
-$sidebar-collapsed: 60px;
-$cms-bg: #0a0a0a;
-$cms-sidebar-bg: #111;
-$cms-border: #2a2a2a;
-$cms-accent: #04B2D9;
-$cms-text: #fff;
-$cms-text-muted: #888;
+@use "sass:color";
+@use "../../../styles/_variables" as *;
+
+$sidebar-width: 240px;
+$sidebar-collapsed: 70px;
+
+// Use global variables mapping to CMS specific
+$cms-bg: $background-dark;
+$cms-sidebar-bg: $background-card;
+$cms-border: rgba(255, 255, 255, 0.1);
+$cms-text: $text-primary;
+$cms-text-muted: $text-secondary;
+$cms-accent: $accent-color;
 
 .cms-wrapper {
     display: flex;
     min-height: 100vh;
     background: $cms-bg;
+    color: $cms-text;
+    font-family: 'Roboto', sans-serif;
 }
 
 .cms-sidebar {
@@ -19,13 +26,14 @@ $cms-text-muted: #888;
     border-right: 1px solid $cms-border;
     display: flex;
     flex-direction: column;
-    transition: width 0.25s ease;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     overflow: hidden;
     position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
     z-index: 100;
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
 
     &.collapsed {
         width: $sidebar-collapsed;
@@ -36,58 +44,79 @@ $cms-text-muted: #888;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1rem;
+    padding: 1.5rem 1rem;
     border-bottom: 1px solid $cms-border;
-    min-height: 56px;
+    min-height: 70px;
 
-    h3 {
-        color: $cms-accent;
-        font-size: 1.1rem;
+    .brand-logo {
+        font-size: 1.2rem;
+        font-weight: 700;
         margin: 0;
         white-space: nowrap;
+        background: $gradient-primary;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        position: relative;
+    }
+
+    .cms-badge {
+        font-size: 0.7rem;
+        background: rgba($primary-color, 0.2);
+        color: $primary-color;
+        padding: 2px 6px;
+        border-radius: 4px;
+        vertical-align: middle;
+        margin-left: 5px;
+        -webkit-text-fill-color: $primary-color; // Override gradient
     }
 }
 
 .toggle-btn {
-    background: none;
-    border: 1px solid $cms-border;
+    background: transparent;
+    border: none;
     color: $cms-text-muted;
-    width: 28px;
-    height: 28px;
-    border-radius: 6px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.8rem;
     transition: all 0.2s;
-    flex-shrink: 0;
 
     &:hover {
-        border-color: $cms-accent;
-        color: $cms-accent;
+        background: rgba(255, 255, 255, 0.05);
+        color: $cms-text;
+    }
+
+    .material-icons {
+        font-size: 20px;
     }
 }
 
 .sidebar-nav {
     flex: 1;
-    padding: 0.5rem;
+    padding: 1rem 0.5rem;
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 5px;
 }
 
 .nav-item {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    padding: 0.65rem 0.75rem;
+    gap: 1rem;
+    padding: 0.8rem 1rem;
     border-radius: 8px;
     color: $cms-text-muted;
     text-decoration: none;
-    transition: all 0.15s ease;
+    transition: all 0.2s ease;
     white-space: nowrap;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    position: relative;
+    overflow: hidden;
 
     &:hover {
         background: rgba($cms-accent, 0.08);
@@ -95,35 +124,47 @@ $cms-text-muted: #888;
     }
 
     &.active {
-        background: rgba($cms-accent, 0.15);
-        color: $cms-accent;
+        background: linear-gradient(90deg, rgba($primary-color, 0.15), transparent);
+        color: $accent-color;
+        border-right: 3px solid $accent-color;
+    }
+
+    .material-icons {
+        font-size: 1.2rem;
+        min-width: 24px;
+        text-align: center;
     }
 }
 
-.nav-icon {
-    font-size: 1.1rem;
-    min-width: 24px;
-    text-align: center;
+.nav-label {
+    // animate fade in
+    animation: fadeIn 0.3s ease;
 }
 
-.nav-label {
-    overflow: hidden;
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 .sidebar-footer {
-    padding: 0.5rem;
+    padding: 1rem;
     border-top: 1px solid $cms-border;
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 5px;
 }
 
 .logout-btn,
 .back-btn {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    padding: 0.65rem 0.75rem;
+    gap: 1rem;
+    padding: 0.8rem 1rem;
     border-radius: 8px;
     color: $cms-text-muted;
     background: none;
@@ -134,27 +175,51 @@ $cms-text-muted: #888;
     width: 100%;
     text-align: left;
     white-space: nowrap;
-    transition: all 0.15s ease;
+    transition: all 0.2s ease;
 
     &:hover {
         background: rgba(255, 255, 255, 0.05);
         color: $cms-text;
     }
+
+    .material-icons {
+        font-size: 1.2rem;
+        min-width: 24px;
+    }
+}
+
+.logout-btn:hover {
+    color: $highlight-color;
+    background: rgba($highlight-color, 0.1);
 }
 
 .cms-content {
     flex: 1;
     margin-left: $sidebar-width;
     padding: 2rem;
-    transition: margin-left 0.25s ease;
+    transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     min-height: 100vh;
+    background-color: $cms-bg;
 
     .collapsed+& {
         margin-left: $sidebar-collapsed;
     }
 }
 
-// Handle collapsed state for content
-.cms-wrapper:has(.collapsed) .cms-content {
-    margin-left: $sidebar-collapsed;
+// Mobile responsive
+@media (max-width: 768px) {
+    .cms-sidebar {
+        width: $sidebar-collapsed; // Always collapsed on mobile by default or overlay? 
+        // For now, let's keep it collapsed-like or hidden
+        transform: translateX(-100%);
+
+        &.open {
+            transform: translateX(0);
+            width: $sidebar-width;
+        }
+    }
+
+    .cms-content {
+        margin-left: 0 !important;
+    }
 }

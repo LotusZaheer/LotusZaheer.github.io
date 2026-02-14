@@ -1,7 +1,9 @@
 <div class="manager">
     <div class="manager-header">
         <h1>Proyectos</h1>
-        <button class="btn-add" (click)="openNew()">+ Nuevo Proyecto</button>
+        <button class="btn-add" (click)="openNew()">
+            <span class="material-icons">add</span> Nuevo Proyecto
+        </button>
     </div>
 
     <!-- Form -->
@@ -67,7 +69,7 @@
                     <textarea [(ngModel)]="form.images" rows="2" placeholder="url1, url2, url3"></textarea>
                     <div class="upload-row">
                         <label class="upload-btn">
-                            📁 Subir imagen
+                            <span class="material-icons">upload_file</span> Subir imagen
                             <input type="file" accept="image/*" (change)="onImageUpload($event)" hidden />
                         </label>
                     </div>
@@ -109,8 +111,12 @@
                     <td>{{ p.company || '—' }}</td>
                     <td><span class="badge" [class.active]="p.featured">{{ p.featured ? 'Sí' : 'No' }}</span></td>
                     <td class="actions">
-                        <button class="btn-edit" (click)="openEdit(p)">✏️</button>
-                        <button class="btn-delete" (click)="delete(p.id)">🗑️</button>
+                        <button class="btn-edit" (click)="openEdit(p)" title="Editar">
+                            <span class="material-icons">edit</span>
+                        </button>
+                        <button class="btn-delete" (click)="delete(p.id)" title="Eliminar">
+                            <span class="material-icons">delete</span>
+                        </button>
                     </td>
                 </tr>
             </tbody>

@@ -1,29 +1,29 @@
 <div class="cms-wrapper">
     <aside class="cms-sidebar" [class.collapsed]="sidebarCollapsed">
         <div class="sidebar-header">
-            <h3 *ngIf="!sidebarCollapsed">CMS Panel</h3>
+            <h3 *ngIf="!sidebarCollapsed" class="brand-logo">LotusZaheer <span class="cms-badge">CMS</span></h3>
             <button class="toggle-btn" (click)="toggleSidebar()">
-                {{ sidebarCollapsed ? '→' : '←' }}
+                <span class="material-icons">{{ sidebarCollapsed ? 'chevron_right' : 'chevron_left' }}</span>
             </button>
         </div>
 
         <nav class="sidebar-nav">
             <a *ngFor="let item of navItems" [routerLink]="item.route" routerLinkActive="active"
                 [routerLinkActiveOptions]="{ exact: item.route === '/cms' }" class="nav-item">
-                <span class="nav-icon">{{ item.icon }}</span>
+                <span class="material-icons">{{ item.icon }}</span>
                 <span class="nav-label" *ngIf="!sidebarCollapsed">{{ item.label }}</span>
             </a>
         </nav>
 
         <div class="sidebar-footer">
-            <button class="logout-btn" (click)="logout()">
-                <span class="nav-icon">🚪</span>
-                <span class="nav-label" *ngIf="!sidebarCollapsed">Cerrar sesión</span>
-            </button>
             <a class="back-btn" routerLink="/">
-                <span class="nav-icon">🏠</span>
+                <span class="material-icons">home</span>
                 <span class="nav-label" *ngIf="!sidebarCollapsed">Volver al sitio</span>
             </a>
+            <button class="logout-btn" (click)="logout()">
+                <span class="material-icons">logout</span>
+                <span class="nav-label" *ngIf="!sidebarCollapsed">Cerrar sesión</span>
+            </button>
         </div>
     </aside>
 
