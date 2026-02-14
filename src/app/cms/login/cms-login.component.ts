@@ -12,6 +12,7 @@ import { SupabaseService } from '../../services/supabase.service';
     styleUrl: './cms-login.component.scss'
 })
 export class CmsLoginComponent {
+    email = '';
     password = '';
     error = '';
     loading = false;
@@ -20,25 +21,26 @@ export class CmsLoginComponent {
         private supabase: SupabaseService,
         private router: Router
     ) {
-        console.log('CmsLogin: Constructor');
         if (this.supabase.isAuthenticated()) {
-            console.log('CmsLogin: Authenticated, redirecting to /cms');
             this.router.navigate(['/cms']);
-        } else {
-            console.log('CmsLogin: Not authenticated');
         }
     }
 
     async onSubmit() {
+        if (!this.email || !this.password) {
+            this.error = 'Por favor ingresa email y contraseña';
+            return;
+        }
+
         this.loading = true;
         this.error = '';
 
-        const success = await this.supabase.signIn(this.password);
+        const success = await this.supabase.signIn(this.email, this.password);
 
         if (success) {
             this.router.navigate(['/cms']);
         } else {
-            this.error = 'Contraseña incorrecta';
+            this.error = 'Credenciales inválidas';
         }
 
         this.loading = false;

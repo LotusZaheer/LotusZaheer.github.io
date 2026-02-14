@@ -9,32 +9,49 @@ import { map } from 'rxjs/operators';
 })
 export class SupabaseService {
   private supabase: SupabaseClient;
+  private session: any = null;
 
   constructor() {
     this.supabase = createClient(environment.supabase.url, environment.supabase.key, {
       auth: {
-        persistSession: false,
+        persistSession: false, // Avoids local storage lock issues, but login is lost on refresh
         autoRefreshToken: false,
         detectSessionInUrl: false
       }
     });
+
+    // Recover session if exists (only works if persistSession is true, but we keep it false for stability as requested)
+    // For now, we rely on in-memory session.
   }
 
   // --- Auth ---
-  async signIn(password: string): Promise<boolean> {
-    if (password === environment.secrets.projectPassword) {
-      localStorage.setItem('cms_auth', 'true');
+  async signIn(email: string, password: string): Promise<boolean> {
+    try {
+      const { data, error } = await this.supabase.auth.signInWithPassword({
+        email,
+        password
+      });
+
+      if (error) {
+        console.error('Login error:', error.message);
+        return false;
+      }
+
+      this.session = data.session;
       return true;
+    } catch (e) {
+      console.error('Login exception:', e);
+      return false;
     }
-    return false;
   }
 
   isAuthenticated(): boolean {
-    return localStorage.getItem('cms_auth') === 'true';
+    return !!this.session;
   }
 
-  signOut() {
-    localStorage.removeItem('cms_auth');
+  async signOut() {
+    await this.supabase.auth.signOut();
+    this.session = null;
   }
 
   // --- Projects ---
