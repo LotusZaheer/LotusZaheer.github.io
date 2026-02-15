@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { Project } from '../../data/projects.data';
 import { SupabaseService } from '../../services/supabase.service';
+import { MarkdownComponent } from 'ngx-markdown';
 // Keep icons for fallback if needed, but we rely on names matching
 import { languageIcons, markupStyleIcons, libraryIcons, frameworkIcons, platformIcons, apiIcons, TechIcon } from '../../data/tech-icons.data';
 
@@ -11,7 +12,8 @@ import { languageIcons, markupStyleIcons, libraryIcons, frameworkIcons, platform
   standalone: true,
   imports: [
     CommonModule,
-    TranslateModule
+    TranslateModule,
+    MarkdownComponent
   ],
   templateUrl: './projects.component.html',
   styleUrls: ['./projects.component.scss']
@@ -41,6 +43,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
   ];
 
   projects: any[] = [];
+  selectedProject: any = null;
 
   constructor(private supabase: SupabaseService) { }
 
@@ -140,5 +143,15 @@ export class ProjectsComponent implements OnInit, OnDestroy {
     // 2. Try static mapping
     const icon = this.allIcons.find(icon => icon.name.toLowerCase() === name.toLowerCase());
     return icon ? icon.iconPath : null;
+  }
+
+  openModal(project: any) {
+    this.selectedProject = project;
+    document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+  }
+
+  closeModal() {
+    this.selectedProject = null;
+    document.body.style.overflow = 'auto';
   }
 }

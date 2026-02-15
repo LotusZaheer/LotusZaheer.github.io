@@ -48,8 +48,8 @@ export class ProjectManagerComponent implements OnInit {
             images: '',
             liveUrl: '',
             repoUrl: '',
-            featured: false
-            // Legacy fields removed
+            featured: false,
+            additional_info: ''
         };
     }
 
@@ -94,7 +94,8 @@ export class ProjectManagerComponent implements OnInit {
             images: (project.images || []).join(', '),
             liveUrl: project.liveUrl || '',
             repoUrl: project.repoUrl || '',
-            featured: project.featured || false
+            featured: project.featured || false,
+            additional_info: project.additional_info || ''
         };
 
         // Load skills
@@ -172,6 +173,7 @@ export class ProjectManagerComponent implements OnInit {
             liveUrl: this.form.liveUrl,
             repoUrl: this.form.repoUrl,
             featured: this.form.featured,
+            additional_info: this.form.additional_info || null,
         };
 
         let projectId: number | null = null;

@@ -83,8 +83,67 @@
                     {{ 'others.viewCode' | translate }}
                 </a>
                 }
+
+                <!-- SHOW MORE BUTTON -->
+                <button (click)="openModal(project)" class="link-button show-more">
+                    <span class="material-icons">add</span>
+                    {{ 'Mostrar más' }}
+                </button>
             </div>
         </div>
     </article>
     }
+</div>
+
+<!-- PROJECT DETAIL MODAL -->
+<div class="modal-overlay" *ngIf="selectedProject" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <button class="close-button" (click)="closeModal()">
+            <span class="material-icons">close</span>
+        </button>
+
+        <div class="modal-header">
+            <h2 class="modal-title">{{ selectedProject.title | translate }}</h2>
+            <div class="modal-subtitle">
+                <span class="modal-role">{{ selectedProject.role | translate }}</span>
+                <span class="separator" *ngIf="selectedProject.company">|</span>
+                <span class="modal-company" *ngIf="selectedProject.company">{{ selectedProject.company }}</span>
+            </div>
+        </div>
+
+        <div class="modal-body">
+            <!-- PROJECT LINKS -->
+            <div class="modal-links" *ngIf="selectedProject.liveUrl || selectedProject.repoUrl">
+                <a [href]="selectedProject.liveUrl" target="_blank" class="modal-link" *ngIf="selectedProject.liveUrl">
+                    <img src="assets/images/web.png" alt="Web">
+                    {{ 'others.viewSite' | translate }}
+                </a>
+                <a [href]="selectedProject.repoUrl" target="_blank" class="modal-link link-repo"
+                    *ngIf="selectedProject.repoUrl">
+                    <img src="assets/images/github.svg" alt="GitHub">
+                    {{ 'others.viewCode' | translate }}
+                </a>
+            </div>
+
+            <!-- SKILLS SECTION -->
+            <div class="modal-skills-section">
+                <div class="skill-group" *ngFor="let group of selectedProject.groupedSkills">
+                    <h3>{{ group.name | translate }}</h3>
+                    <div class="modal-tags">
+                        <div class="modal-tag" *ngFor="let skill of group.skills">
+                            <img [src]="skill.icon || getIcon(skill.name)" [alt]="skill.name"
+                                *ngIf="skill.icon || getIcon(skill.name)">
+                            <span>{{ skill.name | translate }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ADDITIONAL INFO (MARKDOWN) -->
+            <div class="modal-additional-info" *ngIf="selectedProject.additional_info">
+                <h3>Detalles del Proyecto</h3>
+                <markdown [data]="selectedProject.additional_info"></markdown>
+            </div>
+        </div>
+    </div>
 </div>

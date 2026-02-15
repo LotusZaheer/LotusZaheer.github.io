@@ -66,6 +66,12 @@
                         </label>
                     </div>
                 </div>
+                <div class="form-group full">
+                    <label>Información adicional (Markdown)</label>
+                    <textarea [(ngModel)]="form.additional_info" rows="8"
+                        placeholder="Escribe aquí el contenido en formato Markdown..."></textarea>
+                    <small class="form-hint">Soporta Markdown: **negrita**, *cursiva*, listas, tablas, etc.</small>
+                </div>
                 <div class="form-group checkbox-group">
                     <label>
                         <input type="checkbox" [(ngModel)]="form.featured" />
