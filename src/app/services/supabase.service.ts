@@ -281,6 +281,10 @@ export class SupabaseService {
     return this.supabase.from('i18n_keys').insert({ key_name: keyName, page }).select().single();
   }
 
+  async deleteKey(keyId: string) {
+    return this.supabase.from('i18n_keys').delete().eq('id', keyId);
+  }
+
   async upsertTranslationValue(keyId: string, langCode: string, value: string) {
     // Check if exists? Or use upsert with unique constraint constraint key_id+lang_code
     return this.supabase.from('i18n_values').upsert({

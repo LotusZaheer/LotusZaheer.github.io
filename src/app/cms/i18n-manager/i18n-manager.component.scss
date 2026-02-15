@@ -144,6 +144,32 @@ textarea {
     }
 }
 
+.actions-col {
+    text-align: center;
+    width: 100px;
+
+    .btn-delete {
+        background: transparent;
+        border: none;
+        color: #ff4d4f;
+        padding: 0.25rem;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .material-icons {
+            font-size: 18px;
+        }
+
+        &:hover {
+            background: rgba(#ff4d4f, 0.1);
+        }
+    }
+}
+
 .loading {
     padding: 2rem;
     text-align: center;

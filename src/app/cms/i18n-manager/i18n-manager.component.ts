@@ -99,6 +99,17 @@ export class I18nManagerComponent implements OnInit {
         }
     }
 
+    async deleteKey(keyId: string) {
+        if (confirm('¿Estás seguro de que quieres eliminar esta clave? Esta acción no se puede deshacer.')) {
+            const { error } = await this.supabase.deleteKey(keyId);
+            if (!error) {
+                this.loadKeys();
+            } else {
+                alert('Error al eliminar la clave: ' + error.message);
+            }
+        }
+    }
+
     filterPage(page: string) {
         this.selectedPage = page;
         this.loadKeys();

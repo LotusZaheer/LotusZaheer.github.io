@@ -21,6 +21,7 @@
                 <tr>
                     <th>Clave DataBase</th>
                     <th *ngFor="let lang of languages">{{ lang.name }} ({{ lang.code | uppercase }})</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,6 +34,11 @@
                         <textarea rows="2" [value]="getValue(key.id, lang.code)"
                             (change)="updateValue(key.id, lang.code, $event)" placeholder="Traducción...">
                         </textarea>
+                    </td>
+                    <td class="actions-col">
+                        <button class="btn-delete" (click)="deleteKey(key.id)" title="Eliminar" *ngIf="!key.is_system">
+                            <span class="material-icons">delete</span>
+                        </button>
                     </td>
                 </tr>
             </tbody>

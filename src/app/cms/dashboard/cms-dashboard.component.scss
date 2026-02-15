@@ -17,47 +17,61 @@
 
 .stats-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 0.75rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
 }
 
 .stat-card {
-    background: cms.$bg-dark;
+    background: cms.$bg-secondary;
     border: 1px solid cms.$border-color;
-    border-radius: 8px;
-    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    padding: 1.5rem;
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 1.25rem;
     text-decoration: none;
-    transition: all 0.2s ease;
+    color: inherit;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 
     &:hover {
+        transform: translateY(-4px);
         border-color: cms.$accent-blue;
-        transform: translateY(-1px);
-        background: cms.$bg-darker;
+        background: rgba(cms.$accent-blue, 0.05);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     }
-}
 
-.stat-icon {
-    font-size: 1.5rem;
-    color: cms.$accent-blue;
-}
+    .stat-icon {
+        font-size: 2.5rem;
+        color: cms.$accent-blue;
+        background: rgba(cms.$accent-blue, 0.1);
+        padding: 0.75rem;
+        border-radius: 10px;
+    }
 
-.stat-info {
-    display: flex;
-    flex-direction: column;
-}
+    .stat-info {
+        display: flex;
+        flex-direction: column;
 
-.stat-count {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: cms.$text-primary;
-    line-height: 1.2;
-}
+        .stat-count {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: cms.$text-primary;
+            line-height: 1.2;
+        }
 
-.stat-label {
-    color: cms.$text-secondary;
-    font-size: 0.75rem;
-    margin-top: 0.1rem;
+        .stat-label {
+            font-size: 0.9rem;
+            color: cms.$text-secondary;
+            font-weight: 500;
+        }
+
+        .stat-sublabel {
+            font-size: 0.8rem;
+            color: cms.$accent-blue;
+            margin-top: 0.25rem;
+            opacity: 0.8;
+            font-weight: 400;
+        }
+    }
 }

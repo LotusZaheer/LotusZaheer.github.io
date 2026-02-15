@@ -8,6 +8,16 @@
             <div class="stat-info">
                 <span class="stat-count">{{ projectCount }}</span>
                 <span class="stat-label">Proyectos</span>
+                <span class="stat-sublabel">{{ featuredProjectCount }} Destacados</span>
+            </div>
+        </a>
+
+        <a routerLink="/cms/skills" class="stat-card">
+            <span class="material-icons stat-icon">code</span>
+            <div class="stat-info">
+                <span class="stat-count">{{ skillCount }}</span>
+                <span class="stat-label">Habilidades</span>
+                <span class="stat-sublabel">{{ skillCategoryCount }} Categorías</span>
             </div>
         </a>
 
@@ -23,7 +33,16 @@
             <span class="material-icons stat-icon">contact_mail</span>
             <div class="stat-info">
                 <span class="stat-count">{{ contactCount }}</span>
-                <span class="stat-label">Métodos de Contacto</span>
+                <span class="stat-label">Contacto</span>
+            </div>
+        </a>
+
+        <a routerLink="/cms/i18n" class="stat-card">
+            <span class="material-icons stat-icon">translate</span>
+            <div class="stat-info">
+                <span class="stat-count">{{ keyCount }}</span>
+                <span class="stat-label">Traducciones</span>
+                <span class="stat-sublabel">{{ languageCount }} Idiomas</span>
             </div>
         </a>
     </div>
