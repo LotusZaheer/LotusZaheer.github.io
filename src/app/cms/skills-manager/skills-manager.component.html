@@ -17,6 +17,10 @@
             </div>
 
             <div class="list">
+                <div class="list-item" [class.active]="!selectedCategory" (click)="selectCategory(null)">
+                    <span class="material-icons" style="font-size: 1rem; margin-right: 0.3rem;">apps</span>
+                    <span class="name">Todas</span>
+                </div>
                 <div *ngFor="let cat of categories" class="list-item" [class.active]="selectedCategory?.id === cat.id"
                     (click)="selectCategory(cat)">
                     <span class="name">{{ cat.name | translate }}</span>
@@ -49,7 +53,24 @@
                 </div>
             </div>
 
-            <div class="skills-grid">
+            <!-- Grouped view when "Todas" is selected -->
+            <div *ngIf="!selectedCategory" class="skills-grouped">
+                <div *ngFor="let cat of categories" class="skill-group">
+                    <h3 class="group-title">{{ cat.name | translate }}</h3>
+                    <div class="skills-grid">
+                        <div *ngFor="let skill of getSkillsByCategory(cat.id)" class="skill-chip">
+                            <img *ngIf="skill.icon" [src]="skill.icon" class="skill-icon-mini" [alt]="skill.name">
+                            <span class="name">{{ skill.name | translate }}</span>
+                            <button class="btn-icon delete-small" (click)="deleteSkill(skill.id)">
+                                <span class="material-icons">close</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Flat view when a specific category is selected -->
+            <div *ngIf="selectedCategory" class="skills-grid">
                 <div *ngFor="let skill of filteredSkills" class="skill-chip">
                     <img *ngIf="skill.icon" [src]="skill.icon" class="skill-icon-mini" [alt]="skill.name">
                     <span class="name">{{ skill.name | translate }}</span>

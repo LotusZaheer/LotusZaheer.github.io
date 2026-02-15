@@ -209,6 +209,26 @@
     }
 }
 
+.skills-grouped {
+    padding: 1rem;
+    flex: 1;
+    overflow-y: auto;
+
+    .skill-group {
+        margin-bottom: 1.5rem;
+
+        .group-title {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: cms.$accent-blue;
+            margin: 0 0 0.75rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid cms.$border-color;
+        }
+    }
+}
+
 @media (max-width: 768px) {
     .skills-layout {
         grid-template-columns: 1fr;

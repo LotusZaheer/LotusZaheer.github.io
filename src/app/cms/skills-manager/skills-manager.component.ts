@@ -58,6 +58,10 @@ export class SkillsManagerComponent implements OnInit {
         return this.skills.filter(s => s.categoryId === this.selectedCategory.id);
     }
 
+    getSkillsByCategory(categoryId: number) {
+        return this.skills.filter(s => s.categoryId === categoryId);
+    }
+
     private generateKey(prefix: string, name: string): string {
         const slug = name.toLowerCase().replace(/[^a-z0-9]/g, '_');
         const suffix = Date.now().toString(36);
