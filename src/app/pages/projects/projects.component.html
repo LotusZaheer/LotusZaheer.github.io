@@ -141,7 +141,7 @@
 
             <!-- ADDITIONAL INFO (MARKDOWN) -->
             <div class="modal-additional-info" *ngIf="selectedProject.additional_info">
-                <h3>Detalles del Proyecto</h3>
+                <h3>{{ 'others.additional_info' | translate }}</h3>
                 <markdown [data]="selectedProject.additional_info"></markdown>
             </div>
         </div>

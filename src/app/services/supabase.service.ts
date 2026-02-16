@@ -185,7 +185,7 @@ export class SupabaseService {
   async getProjectSkills(projectId: number): Promise<any[]> {
     const { data, error } = await this.supabase
       .from('project_skills')
-      .select('skill_id, skills(*, skill_categories(*))')
+      .select('skillId, skills(*, skill_categories(*))')
       .eq('projectId', projectId);
 
     if (error) {

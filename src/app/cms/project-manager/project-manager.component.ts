@@ -102,7 +102,7 @@ export class ProjectManagerComponent implements OnInit {
         this.selectedSkillIds.clear();
         this.skillFilter = '';
         const skills = await this.supabase.getProjectSkills(project.id);
-        skills.forEach(s => this.selectedSkillIds.add(s.skill_id));
+        skills.forEach(s => this.selectedSkillIds.add(s.skillId));
 
         this.showForm = true;
     }
