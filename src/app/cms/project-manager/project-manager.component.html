@@ -68,8 +68,18 @@
                 </div>
                 <div class="form-group full">
                     <label>Información adicional (Markdown)</label>
-                    <textarea [(ngModel)]="form.additional_info" rows="8"
-                        placeholder="Escribe aquí el contenido en formato Markdown..."></textarea>
+                    
+                    <div class="tabs">
+                        <button type="button" class="tab-btn" [class.active]="activeInfoTab === 'es'" (click)="activeInfoTab = 'es'">Español</button>
+                        <button type="button" class="tab-btn" [class.active]="activeInfoTab === 'en'" (click)="activeInfoTab = 'en'">English</button>
+                    </div>
+
+                    <div *ngIf="activeInfoTab === 'es'">
+                        <textarea [(ngModel)]="additionalInfoES" rows="8" placeholder="Escribe aquí el contenido en formato Markdown (Español)..."></textarea>
+                    </div>
+                    <div *ngIf="activeInfoTab === 'en'">
+                        <textarea [(ngModel)]="additionalInfoEN" rows="8" placeholder="Write here the content in Markdown format (English)..."></textarea>
+                    </div>
                     <small class="form-hint">Soporta Markdown: **negrita**, *cursiva*, listas, tablas, etc.</small>
                 </div>
                 <div class="form-group checkbox-group">

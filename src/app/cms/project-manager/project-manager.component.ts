@@ -23,6 +23,11 @@ export class ProjectManagerComponent implements OnInit {
     selectedSkillIds: Set<number> = new Set();
     skillFilter = '';
 
+    // i18n Additional Info
+    activeInfoTab: 'es' | 'en' = 'es';
+    additionalInfoES = '';
+    additionalInfoEN = '';
+
     form: any = this.emptyForm();
 
     constructor(
@@ -49,7 +54,7 @@ export class ProjectManagerComponent implements OnInit {
             liveUrl: '',
             repoUrl: '',
             featured: false,
-            additional_info: ''
+            // additional_info will be handled by separate variables ES/EN
         };
     }
 
@@ -72,6 +77,9 @@ export class ProjectManagerComponent implements OnInit {
         this.form = this.emptyForm();
         this.selectedSkillIds.clear();
         this.skillFilter = '';
+        this.activeInfoTab = 'es';
+        this.additionalInfoES = '';
+        this.additionalInfoEN = '';
         this.showForm = true;
     }
 
@@ -94,9 +102,21 @@ export class ProjectManagerComponent implements OnInit {
             images: (project.images || []).join(', '),
             liveUrl: project.liveUrl || '',
             repoUrl: project.repoUrl || '',
-            featured: project.featured || false,
-            additional_info: project.additional_info || ''
+            featured: project.featured || false
         };
+
+        // Load Additional Info (Markdown)
+        // Check if it's a key or raw text
+        const infoVal = project.additional_info || '';
+        if (infoVal.startsWith('proj_info_')) {
+            // It's a key, load both
+            this.additionalInfoES = await this.supabase.getTranslationValue(infoVal, 'es') || '';
+            this.additionalInfoEN = await this.supabase.getTranslationValue(infoVal, 'en') || '';
+        } else {
+            // Raw text (legacy), assume ES
+            this.additionalInfoES = infoVal;
+            this.additionalInfoEN = '';
+        }
 
         // Load skills
         this.selectedSkillIds.clear();
@@ -118,7 +138,9 @@ export class ProjectManagerComponent implements OnInit {
     }
 
     private generateKey(prefix: string, text: string): string {
-        const slug = text.slice(0, 20).toLowerCase().replace(/[^a-z0-9]/g, '_');
+        // Ensure slug is valid for key
+        const safeText = text || 'info';
+        const slug = safeText.slice(0, 20).toLowerCase().replace(/[^a-z0-9]/g, '_');
         return `${prefix}_${slug}_${Date.now().toString(36)}`;
     }
 
@@ -129,39 +151,61 @@ export class ProjectManagerComponent implements OnInit {
         const processField = async (currentKeyOrText: string, prefix: string, originalKey?: string) => {
             if (!currentKeyOrText) return '';
 
-            let finalKey = originalKey;
             const isExistingKey = originalKey && originalKey.startsWith('proj_');
 
-            // If we are editing and have an existing key, we update the value
             if (isExistingKey) {
                 await this.supabase.upsertTranslationValue(originalKey!, 'es', currentKeyOrText);
-                await this.supabase.upsertTranslationValue(originalKey!, 'en', currentKeyOrText);
-                // Refresh local translations
-                const lang = this.translate.currentLang || 'es';
-                await this.translate.reloadLang(lang).toPromise();
-                this.translate.use(lang);
                 return originalKey;
             }
 
-            // If it's a new project OR existing project had raw text
-            // Logic: If current input looks like a key, assume it is one? No, user inputs text.
-            // We generate a NEW key.
-            finalKey = this.generateKey(prefix, currentKeyOrText);
+            // Create New Key
+            const finalKey = this.generateKey(prefix, currentKeyOrText);
             const { data } = await this.supabase.createKey(finalKey, 'projects');
             if (data) {
                 await this.supabase.upsertTranslationValue(data.id, 'es', currentKeyOrText);
-                await this.supabase.upsertTranslationValue(data.id, 'en', currentKeyOrText);
-                // Refresh local translations
-                const lang = this.translate.currentLang || 'es';
-                await this.translate.reloadLang(lang).toPromise();
-                this.translate.use(lang);
+                await this.supabase.upsertTranslationValue(data.id, 'en', currentKeyOrText); // Mirror
             }
             return finalKey;
         };
 
+        // Process Additional Info Separately (Dual Language)
+        let infoKey = this.editing?.additional_info;
+        const infoHasKey = infoKey && infoKey.startsWith('proj_info_');
+
+
+        if (infoHasKey) {
+            // Update existing key
+            await this.supabase.upsertTranslationValue(infoKey, 'es', this.additionalInfoES);
+            await this.supabase.upsertTranslationValue(infoKey, 'en', this.additionalInfoEN);
+        } else {
+            // Create new key if we have content
+            if (this.additionalInfoES || this.additionalInfoEN) {
+                // Generate key based on ES content (or EN if ES missing)
+                const baseText = this.additionalInfoES || 'info';
+                // Need to use generateKey properly
+                const newInfoKey = this.generateKey('proj_info', baseText);
+
+                const { data } = await this.supabase.createKey(newInfoKey, 'projects');
+                if (data) {
+                    await this.supabase.upsertTranslationValue(data.id, 'es', this.additionalInfoES);
+                    await this.supabase.upsertTranslationValue(data.id, 'en', this.additionalInfoEN);
+                    infoKey = newInfoKey;
+                }
+            } else {
+                infoKey = null;
+            }
+        }
+
         const titleKey = await processField(this.form.title, 'proj_title', this.editing?.title);
         const descKey = await processField(this.form.description, 'proj_desc', this.editing?.description);
         const roleKey = await processField(this.form.role, 'proj_role', this.editing?.role);
+
+        // Refresh translations globally after updates
+        const lang = this.translate.currentLang || 'es';
+        await this.translate.reloadLang(lang).toPromise();
+        const otherLang = lang === 'es' ? 'en' : 'es';
+        await this.translate.reloadLang(otherLang).toPromise();
+        this.translate.use(lang);
 
         const data = {
             title: titleKey,
@@ -173,7 +217,7 @@ export class ProjectManagerComponent implements OnInit {
             liveUrl: this.form.liveUrl,
             repoUrl: this.form.repoUrl,
             featured: this.form.featured,
-            additional_info: this.form.additional_info || null,
+            additional_info: infoKey,
         };
 
         let projectId: number | null = null;
