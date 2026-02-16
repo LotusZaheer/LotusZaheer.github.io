@@ -4,6 +4,7 @@ import { ScrollService } from '../services/scroll.service';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { SupabaseService } from '../../services/supabase.service';
 
 @Component({
   selector: 'app-navbar',
@@ -19,7 +20,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   displayName = 'Andrés Uribe';
   currentLang: string;
 
-  constructor(private scrollService: ScrollService, private translate: TranslateService) {
+  constructor(private scrollService: ScrollService, private translate: TranslateService, private supabase: SupabaseService) {
     this.subscription = this.scrollService.activeSection$.subscribe(
       section => this.activeSection = section
     );
@@ -39,8 +40,16 @@ export class NavbarComponent implements OnInit, OnDestroy {
     }
   }
 
-  downloadCV() {
+  async downloadCV() {
     const currentLanguage = this.translate.currentLang || this.translate.defaultLang || 'es';
+
+    // Try to get dynamic URL
+    const dynamicUrl = await this.supabase.getCVUrl(currentLanguage);
+    if (dynamicUrl) {
+      window.open(dynamicUrl, '_blank');
+      return;
+    }
+
     const fileName = currentLanguage === 'en' ? 'ENG_HV_Andres_Uribe_Garcia.pdf' : 'ESP_HV_Andres_Uribe_Garcia.pdf';
     const pdfPath = `assets/pdf/${fileName}`;
 

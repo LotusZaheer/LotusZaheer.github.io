@@ -1,0 +1,39 @@
+<div class="manager">
+    <div class="manager-header">
+        <h1>Gestión de CVs / Resumes</h1>
+        <p>Sube archivos PDF para cada idioma. Estos reemplazarán los enlaces de descarga en el sitio.</p>
+    </div>
+
+    <div class="loading" *ngIf="loading">Cargando idiomas...</div>
+
+    <div class="cv-grid" *ngIf="!loading">
+        <div class="cv-card" *ngFor="let lang of languages">
+            <div class="card-header">
+                <h2>{{ lang.name }} ({{ lang.code | uppercase }})</h2>
+                <div class="status-indicator" [class.active]="cvUrls[lang.code]">
+                    {{ cvUrls[lang.code] ? 'Activo' : 'Sin archivo' }}
+                </div>
+            </div>
+
+            <div class="card-body">
+                <div class="current-file" *ngIf="cvUrls[lang.code]">
+                    <span class="label">Archivo actual:</span>
+                    <a [href]="cvUrls[lang.code]" target="_blank" class="file-link">
+                        <span class="material-icons">description</span> Ver PDF
+                    </a>
+                </div>
+
+                <div class="upload-section">
+                    <label class="upload-btn" [class.disabled]="uploading[lang.code]">
+                        <span class="material-icons" *ngIf="!uploading[lang.code]">upload_file</span>
+                        <span class="spinner" *ngIf="uploading[lang.code]"></span>
+                        {{ uploading[lang.code] ? 'Subiendo...' : (cvUrls[lang.code] ? 'Reemplazar CV' : 'Subir CV') }}
+                        <input type="file" accept=".pdf" (change)="onFileSelected($event, lang.code)"
+                            [disabled]="uploading[lang.code]" hidden>
+                    </label>
+                    <small class="hint">Solo archivos PDF</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

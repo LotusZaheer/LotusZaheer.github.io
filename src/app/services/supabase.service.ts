@@ -151,6 +151,19 @@ export class SupabaseService {
     return publicUrlData.publicUrl;
   }
 
+  async uploadFile(file: File, folder: string = 'resumes'): Promise<string | null> {
+    const fileName = `${folder}/${Date.now()}_${file.name}`;
+    const { data, error } = await this.supabase.storage.from('portfolio-assets').upload(fileName, file);
+
+    if (error) {
+      console.error('Upload error:', error);
+      return null;
+    }
+
+    const { data: publicUrlData } = this.supabase.storage.from('portfolio-assets').getPublicUrl(fileName);
+    return publicUrlData.publicUrl;
+  }
+
   // --- Skill Categories ---
   getSkillCategories(): Observable<any[]> {
     return from(this.supabase.from('skill_categories').select('*').order('displayOrder', { ascending: true })).pipe(
@@ -303,5 +316,33 @@ export class SupabaseService {
       .maybeSingle();
 
     return data ? data.value : null;
+  }
+
+  async ensureKey(keyName: string, page: string = 'system'): Promise<string | null> {
+    // Check if exists
+    const { data } = await this.supabase
+      .from('i18n_keys')
+      .select('id')
+      .eq('key_name', keyName)
+      .maybeSingle();
+
+    if (data) return data.id;
+
+    // Create if not
+    const { data: newKey, error } = await this.supabase
+      .from('i18n_keys')
+      .insert({ key_name: keyName, page })
+      .select()
+      .single();
+
+    if (error) {
+      console.error('Error ensuring key:', error);
+      return null;
+    }
+    return newKey.id;
+  }
+
+  async getCVUrl(langCode: string): Promise<string | null> {
+    return this.getTranslationValue('cv_url', langCode);
   }
 }

@@ -27,6 +27,7 @@ export class CmsLayoutComponent implements OnInit, OnDestroy {
         { label: 'Redes', icon: 'public', route: '/cms/social' },
         { label: 'Contacto', icon: 'contact_mail', route: '/cms/contacts' },
         { label: 'Idiomas', icon: 'translate', route: '/cms/i18n' },
+        { label: 'CVs / Resumes', icon: 'description', route: '/cms/resumes' },
     ];
 
     constructor(

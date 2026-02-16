@@ -23,7 +23,7 @@
 
                     @if (project.repoUrl) {
                     <a [href]="project.repoUrl" target="_blank" class="link-button link-repo">
-                        <img src="assets/images/github.svg">
+                        <img src="assets/images/github.png">
                         {{ 'others.viewCode' | translate }}
                     </a>
                     }
@@ -81,7 +81,7 @@
 
                 @if (project.repoUrl) {
                 <a [href]="project.repoUrl" target="_blank" class="link-button link-repo">
-                    <img src="assets/images/github.svg">
+                    <img src="assets/images/github.png">
                     {{ 'others.viewCode' | translate }}
                 </a>
                 }
@@ -125,7 +125,7 @@
                 </a>
                 <a [href]="selectedProject.repoUrl" target="_blank" class="modal-link link-repo"
                     *ngIf="selectedProject.repoUrl">
-                    <img src="assets/images/github.svg" alt="GitHub">
+                    <img src="assets/images/github.png" alt="GitHub">
                     {{ 'others.viewCode' | translate }}
                 </a>
             </div>

@@ -60,8 +60,15 @@ export class AboutComponent implements OnInit {
         }
     }
 
-    downloadCV() {
+    async downloadCV() {
         const currentLanguage = this.translateService.currentLang || this.translateService.defaultLang || 'es';
+
+        const dynamicUrl = await this.supabase.getCVUrl(currentLanguage);
+        if (dynamicUrl) {
+            window.open(dynamicUrl, '_blank');
+            return;
+        }
+
         const fileName = currentLanguage === 'en' ? 'ENG_HV_Andres_Uribe_Garcia.pdf' : 'ESP_HV_Andres_Uribe_Garcia.pdf';
         const pdfPath = `assets/pdf/${fileName}`;
 

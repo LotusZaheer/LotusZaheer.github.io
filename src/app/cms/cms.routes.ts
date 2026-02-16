@@ -20,7 +20,8 @@ export const cmsRoutes: Routes = [
             { path: 'skills', component: SkillsManagerComponent },
             { path: 'social', component: SocialManagerComponent },
             { path: 'contacts', component: ContactManagerComponent },
-            { path: 'i18n', loadComponent: () => import('./i18n-manager/i18n-manager.component').then(m => m.I18nManagerComponent) }
+            { path: 'i18n', loadComponent: () => import('./i18n-manager/i18n-manager.component').then(m => m.I18nManagerComponent) },
+            { path: 'resumes', loadComponent: () => import('./resumes-manager/resumes-manager.component').then(m => m.ResumesManagerComponent) }
         ]
     }
 ];
