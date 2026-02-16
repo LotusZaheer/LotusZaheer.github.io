@@ -143,6 +143,17 @@
             font-size: 0.9rem;
             font-weight: 600;
             margin: 0;
+
+            &.company-link {
+                text-decoration: none;
+                cursor: pointer;
+                transition: color 0.3s ease;
+
+                &:hover {
+                    color: lighten($accent-color, 15%);
+                    text-decoration: underline;
+                }
+            }
         }
 
         .role-name {
@@ -460,6 +471,20 @@
 
         .separator {
             opacity: 0.3;
+        }
+
+        .modal-company {
+            &.company-link {
+                color: $accent-color;
+                text-decoration: none;
+                cursor: pointer;
+                transition: all 0.2s ease;
+
+                &:hover {
+                    color: lighten($accent-color, 15%);
+                    text-decoration: underline;
+                }
+            }
         }
     }
 }

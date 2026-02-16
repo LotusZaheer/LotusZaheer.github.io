@@ -39,7 +39,9 @@
             <div class="main-info">
                 <h3 class="project-title">{{ project.title | translate }}</h3>
                 <div class="detail-section" *ngIf="project.company">
-                    <p class="company-name">{{ project.company }}</p>
+                    <a *ngIf="project.companyUrl" [href]="project.companyUrl" target="_blank"
+                        class="company-name company-link" (click)="$event.stopPropagation()">{{ project.company }}</a>
+                    <span *ngIf="!project.companyUrl" class="company-name">{{ project.company }}</span>
                 </div>
                 <div class="detail-section">
                     <p class="role-name">{{ project.role | translate }}</p>
@@ -107,7 +109,10 @@
             <div class="modal-subtitle">
                 <span class="modal-role">{{ selectedProject.role | translate }}</span>
                 <span class="separator" *ngIf="selectedProject.company">|</span>
-                <span class="modal-company" *ngIf="selectedProject.company">{{ selectedProject.company }}</span>
+                <a *ngIf="selectedProject.company && selectedProject.companyUrl" [href]="selectedProject.companyUrl"
+                    target="_blank" class="modal-company company-link">{{ selectedProject.company }}</a>
+                <span class="modal-company" *ngIf="selectedProject.company && !selectedProject.companyUrl">{{
+                    selectedProject.company }}</span>
             </div>
         </div>
 
