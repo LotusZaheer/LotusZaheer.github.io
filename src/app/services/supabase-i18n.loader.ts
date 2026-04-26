@@ -1,17 +1,15 @@
 import { TranslateLoader } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { SupabaseService } from './supabase.service';
 import { Injectable } from '@angular/core';
+import { I18nService } from './i18n.service';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class SupabaseTranslationLoader implements TranslateLoader {
-    constructor(private supabase: SupabaseService) { }
+    constructor(private i18n: I18nService) { }
 
     getTranslation(lang: string): Observable<any> {
-        return this.supabase.getTranslations(lang).pipe(
+        return this.i18n.getTranslations(lang).pipe(
             map(flat => this.unflatten(flat))
         );
     }
