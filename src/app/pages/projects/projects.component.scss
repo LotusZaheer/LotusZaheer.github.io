@@ -109,9 +109,15 @@
 
     .progress-bar {
         height: 100%;
+        width: 0;
         background: $accent-color;
-        transition: width 0.1s linear;
+        animation: carouselProgress 3s linear infinite;
     }
+}
+
+@keyframes carouselProgress {
+    from { width: 0%; }
+    to { width: 100%; }
 }
 
 .project-content {

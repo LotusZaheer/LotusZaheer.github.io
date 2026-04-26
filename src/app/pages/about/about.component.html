@@ -17,7 +17,7 @@
         <div class="social-icons">
             @for (network of socialNetworks; track network.name) {
             <a [href]="network.url" target="_blank" class="social-icon">
-                <img [src]="network.icon || network.iconPath" [alt]="network.name">
+                <img [src]="network.icon || network.iconPath" [alt]="network.name" loading="lazy" decoding="async">
             </a>
             }
         </div>
@@ -26,7 +26,7 @@
         <div class="image-container">
             <div class="profile-placeholder">
                 <img src="https://avatars.githubusercontent.com/u/53977185?v=4" alt="Andrés Uribe"
-                    class="profile-image">
+                    class="profile-image" fetchpriority="high" decoding="async">
             </div>
         </div>
     </div>

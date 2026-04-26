@@ -10,7 +10,8 @@
             @for (method of contactMethods; track method.name) {
             <a [href]="method.url" target="_blank" class="social-item">
                 <div class="icon-box">
-                    <img [src]="method.icon || method.iconPath" [alt]="method.name" class="social-icon">
+                    <img [src]="method.icon || method.iconPath" [alt]="method.name" class="social-icon"
+                        loading="lazy" decoding="async">
                 </div>
                 <div class="social-info">
                     <span class="social-name">{{ method.name }}</span>
@@ -44,7 +45,7 @@
                         <div class="country-selector" [class.open]="isDropdownOpen">
                             <div class="selected-country" (click)="toggleDropdown()">
                                 <img [src]="'https://flagcdn.com/' + selectedCountry.flag + '.svg'"
-                                    [alt]="selectedCountry.name" class="flag-icon">
+                                    [alt]="selectedCountry.name" class="flag-icon" loading="lazy" decoding="async">
                                 <span class="prefix">{{ selectedCountry.code }}</span>
                                 <i class="fas fa-chevron-down"></i>
                             </div>
@@ -61,7 +62,7 @@
                                     <div class="country-option" [class.active]="country.flag === selectedCountry.flag"
                                         (click)="selectCountry(country)">
                                         <img [src]="'https://flagcdn.com/' + country.flag + '.svg'" [alt]="country.name"
-                                            class="flag-icon">
+                                            class="flag-icon" loading="lazy" decoding="async">
                                         <span class="country-name">{{ country.name }}</span>
                                         <span class="country-code">{{ country.code }}</span>
                                     </div>

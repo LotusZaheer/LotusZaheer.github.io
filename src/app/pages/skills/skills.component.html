@@ -8,7 +8,8 @@
             @for (skill of cat.skills; track skill.id) {
             <div class="tech-icon">
                 @if (getIcon(skill)) {
-                <img [src]="getIcon(skill)" [alt]="skill.name | translate" class="tech-image">
+                <img [src]="getIcon(skill)" [alt]="skill.name | translate" class="tech-image"
+                    loading="lazy" decoding="async">
                 } @else {
                 <!-- Fallback if needed, currently just hiding image -->
                 }

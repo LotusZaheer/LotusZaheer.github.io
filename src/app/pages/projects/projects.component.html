@@ -6,7 +6,8 @@
                 [style.background]="!hasValidImage(project) ? getFallbackBackground(project) : 'none'">
 
                 @if (hasValidImage(project)) {
-                <img [src]="getCurrentImage(project)" [alt]="project.title" class="project-image">
+                <img [src]="getCurrentImage(project)" [alt]="project.title" class="project-image"
+                    loading="lazy" decoding="async">
                 } @else {
                 <div class="fallback-content">
                     <span class="project-initial">{{ project.title.charAt(0) }}</span>
@@ -16,21 +17,21 @@
                 <div class="project-links">
                     @if (project.liveUrl) {
                     <a [href]="project.liveUrl" target="_blank" class="link-button">
-                        <img src="assets/images/web.png">
+                        <img src="assets/images/web.png" alt="" loading="lazy" decoding="async">
                         {{ 'others.viewSite' | translate }}
                     </a>
                     }
 
                     @if (project.repoUrl) {
                     <a [href]="project.repoUrl" target="_blank" class="link-button link-repo">
-                        <img src="assets/images/github.png">
+                        <img src="assets/images/github.png" alt="" loading="lazy" decoding="async">
                         {{ 'others.viewCode' | translate }}
                     </a>
                     }
                 </div>
 
                 <div class="carousel-progress" *ngIf="project.images?.length > 1">
-                    <div class="progress-bar" [style.width.%]="getProgressWidth(project)"></div>
+                    <div class="progress-bar" [attr.data-image-index]="project.currentImageIndex"></div>
                 </div>
             </div>
         </div>
@@ -61,7 +62,8 @@
                         @for (skill of group.skills; track skill.id) {
                         <span class="tag">
                             @if (skill.icon || getIcon(skill.name)) {
-                            <img [src]="skill.icon || getIcon(skill.name)" [alt]="skill.name" class="tech-icon">
+                            <img [src]="skill.icon || getIcon(skill.name)" [alt]="skill.name" class="tech-icon"
+                                loading="lazy" decoding="async">
                             }
                             {{ skill.name | translate }}
                         </span>
@@ -120,12 +122,12 @@
             <!-- PROJECT LINKS -->
             <div class="modal-links" *ngIf="selectedProject.liveUrl || selectedProject.repoUrl">
                 <a [href]="selectedProject.liveUrl" target="_blank" class="modal-link" *ngIf="selectedProject.liveUrl">
-                    <img src="assets/images/web.png" alt="Web">
+                    <img src="assets/images/web.png" alt="Web" loading="lazy" decoding="async">
                     {{ 'others.viewSite' | translate }}
                 </a>
                 <a [href]="selectedProject.repoUrl" target="_blank" class="modal-link link-repo"
                     *ngIf="selectedProject.repoUrl">
-                    <img src="assets/images/github.png" alt="GitHub">
+                    <img src="assets/images/github.png" alt="GitHub" loading="lazy" decoding="async">
                     {{ 'others.viewCode' | translate }}
                 </a>
             </div>
@@ -137,7 +139,7 @@
                     <div class="modal-tags">
                         <div class="modal-tag" *ngFor="let skill of group.skills">
                             <img [src]="skill.icon || getIcon(skill.name)" [alt]="skill.name"
-                                *ngIf="skill.icon || getIcon(skill.name)">
+                                *ngIf="skill.icon || getIcon(skill.name)" loading="lazy" decoding="async">
                             <span>{{ skill.name | translate }}</span>
                         </div>
                     </div>

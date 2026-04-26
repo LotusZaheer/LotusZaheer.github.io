@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, NgZone, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { Project } from '../../data/projects.data';
@@ -20,9 +20,7 @@ import { languageIcons, markupStyleIcons, libraryIcons, frameworkIcons, platform
 })
 export class ProjectsComponent implements OnInit, OnDestroy {
   private carouselIntervals: { [key: number]: any } = {};
-  private progressIntervals: { [key: number]: any } = {};
   readonly CAROUSEL_INTERVAL = 3000;
-  readonly PROGRESS_INTERVAL = 30;
 
   // Icons Registry for fallback lookup
   allIcons: TechIcon[] = [
@@ -45,7 +43,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
   projects: any[] = [];
   selectedProject: any = null;
 
-  constructor(private supabase: SupabaseService) { }
+  constructor(private supabase: SupabaseService, private zone: NgZone) { }
 
   ngOnInit() {
     this.supabase.getProjects().subscribe(data => {
@@ -83,7 +81,6 @@ export class ProjectsComponent implements OnInit, OnDestroy {
         return {
           ...p,
           currentImageIndex: p.currentImageIndex || 0,
-          progress: p.progress || 0,
           groupedSkills, // New processed property
           // Keep legacy arrays for backward compatibility if data exists there
           languages: p.languages || [],
@@ -99,34 +96,26 @@ export class ProjectsComponent implements OnInit, OnDestroy {
   }
 
   private startCarousels() {
-    this.projects.forEach(project => {
-      if (!project.images || project.images.length === 0) return;
+    this.zone.runOutsideAngular(() => {
+      this.projects.forEach(project => {
+        if (!project.images || project.images.length <= 1) return;
 
-      this.carouselIntervals[project.id] = setInterval(() => {
-        if (project.images && project.images.length > 0) {
-          project.currentImageIndex = (project.currentImageIndex + 1) % project.images.length;
-        }
-        project.progress = 0;
-      }, this.CAROUSEL_INTERVAL);
-
-      this.progressIntervals[project.id] = setInterval(() => {
-        const increment = (100 / (this.CAROUSEL_INTERVAL / this.PROGRESS_INTERVAL));
-        project.progress = Math.min(100, project.progress + increment);
-      }, this.PROGRESS_INTERVAL);
+        this.carouselIntervals[project.id] = setInterval(() => {
+          this.zone.run(() => {
+            project.currentImageIndex = (project.currentImageIndex + 1) % project.images.length;
+          });
+        }, this.CAROUSEL_INTERVAL);
+      });
     });
   }
 
   private stopCarousels() {
     Object.values(this.carouselIntervals).forEach(interval => clearInterval(interval));
-    Object.values(this.progressIntervals).forEach(interval => clearInterval(interval));
+    this.carouselIntervals = {};
   }
 
   getCurrentImage(project: any): string {
     return project.images && project.images.length > 0 ? project.images[project.currentImageIndex] : '';
-  }
-
-  getProgressWidth(project: any): string {
-    return `${project.progress}%`;
   }
 
   getFallbackBackground(project: any): string {
