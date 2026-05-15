@@ -24,6 +24,7 @@ export class CmsLayoutComponent implements OnInit, OnDestroy {
         { label: 'Dashboard', icon: 'dashboard', route: '/cms' },
         { label: 'Proyectos', icon: 'work', route: '/cms/projects' },
         { label: 'Habilidades', icon: 'psychology', route: '/cms/skills' },
+        { label: 'Experiencia', icon: 'history_edu', route: '/cms/experience' },
         { label: 'Redes', icon: 'public', route: '/cms/social' },
         { label: 'Contacto', icon: 'contact_mail', route: '/cms/contacts' },
         { label: 'Idiomas', icon: 'translate', route: '/cms/i18n' },

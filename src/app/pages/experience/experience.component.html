@@ -1,0 +1,53 @@
+<div class="container">
+    <div class="section-header">
+        <div class="section-eyebrow">03 · {{ 'experience.eyebrow' | translate }}</div>
+        <h2 class="section-title">{{ 'sections.experience' | translate }}</h2>
+        <p class="section-subtitle">{{ 'experience.subtitle' | translate }}</p>
+    </div>
+
+    <div class="experience-wrap">
+        <aside class="experience-side">
+            <div class="label">{{ 'experience.summaryLabel' | translate }}</div>
+            <div class="years">5<span class="plus">+</span></div>
+            <div class="years-sub">{{ 'experience.yearsSub' | translate }}</div>
+            <div class="total">{{ 'experience.summary' | translate }}</div>
+        </aside>
+
+        <div class="timeline">
+            @for (item of experiences; track item.id) {
+            <div class="exp-item" [class.current]="item.is_current">
+                <div class="exp-dot"></div>
+                <div class="exp-body">
+                    <div class="exp-meta">
+                        <span class="dur">{{ item.duration_key | translate }}</span>
+                        <span class="sep"></span>
+                        <span>{{ item.location_key | translate }}</span>
+                    </div>
+                    <div class="exp-role">{{ item.role_key | translate }}</div>
+                    <div class="exp-company">
+                        <span class="at">&#64;</span>
+                        @if (item.company_url) {
+                        <a [href]="item.company_url" target="_blank" rel="noopener">{{ item.company }}</a>
+                        } @else {
+                        {{ item.company }}
+                        }
+                    </div>
+                    <p class="exp-desc">{{ item.description_key | translate }}</p>
+                    @if (item.bullets_keys?.length) {
+                    <ul class="exp-bullets">
+                        @for (bulletKey of item.bullets_keys; track bulletKey) {
+                        <li>{{ bulletKey | translate }}</li>
+                        }
+                    </ul>
+                    }
+                    <div class="exp-stack">
+                        @for (tech of item.stack; track tech) {
+                        <span>{{ tech }}</span>
+                        }
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</div>

@@ -7,6 +7,7 @@ import { ProjectManagerComponent } from './project-manager/project-manager.compo
 import { SocialManagerComponent } from './social-manager/social-manager.component';
 import { ContactManagerComponent } from './contact-manager/contact-manager.component';
 import { SkillsManagerComponent } from './skills-manager/skills-manager.component';
+import { ExperienceManagerComponent } from './experience-manager/experience-manager.component';
 
 export const cmsRoutes: Routes = [
     { path: 'login', component: CmsLoginComponent },
@@ -18,6 +19,7 @@ export const cmsRoutes: Routes = [
             { path: '', component: CmsDashboardComponent },
             { path: 'projects', component: ProjectManagerComponent },
             { path: 'skills', component: SkillsManagerComponent },
+            { path: 'experience', component: ExperienceManagerComponent },
             { path: 'social', component: SocialManagerComponent },
             { path: 'contacts', component: ContactManagerComponent },
             { path: 'i18n', loadComponent: () => import('./i18n-manager/i18n-manager.component').then(m => m.I18nManagerComponent) },

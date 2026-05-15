@@ -1,0 +1,174 @@
+<div class="manager">
+    <div class="manager-header">
+        <h1>Experiencia laboral</h1>
+        <button class="btn-add" (click)="openNew()">
+            <span class="material-icons">add</span> Nueva experiencia
+        </button>
+    </div>
+
+    <!-- Form -->
+    <div class="form-overlay" *ngIf="showForm">
+        <div class="form-panel">
+            <h2>{{ editing ? 'Editar' : 'Nueva' }} experiencia</h2>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Empresa</label>
+                    <input [(ngModel)]="form.company" placeholder="OrusXpert SAS" />
+                </div>
+                <div class="form-group">
+                    <label>URL de la empresa</label>
+                    <input [(ngModel)]="form.company_url" placeholder="https://..." />
+                </div>
+
+                <div class="form-group full">
+                    <div class="tabs">
+                        <button type="button" class="tab-btn" [class.active]="activeTab === 'es'"
+                            (click)="activeTab = 'es'">Español</button>
+                        <button type="button" class="tab-btn" [class.active]="activeTab === 'en'"
+                            (click)="activeTab = 'en'">English</button>
+                    </div>
+                </div>
+
+                <ng-container *ngIf="activeTab === 'es'">
+                    <div class="form-group">
+                        <label>Rol (ES)</label>
+                        <input [(ngModel)]="form.role_es" placeholder="Desarrollador de Software" />
+                    </div>
+                    <div class="form-group">
+                        <label>Duración (ES)</label>
+                        <input [(ngModel)]="form.duration_es" placeholder="Julio 2022 — Diciembre 2025" />
+                    </div>
+                    <div class="form-group full">
+                        <label>Ubicación (ES)</label>
+                        <input [(ngModel)]="form.location_es" placeholder="Bucaramanga, Colombia" />
+                    </div>
+                    <div class="form-group full">
+                        <label>Descripción corta (ES)</label>
+                        <textarea [(ngModel)]="form.description_es" rows="2"
+                            placeholder="Línea de presentación de la experiencia"></textarea>
+                    </div>
+                </ng-container>
+
+                <ng-container *ngIf="activeTab === 'en'">
+                    <div class="form-group">
+                        <label>Role (EN)</label>
+                        <input [(ngModel)]="form.role_en" placeholder="Software Developer" />
+                    </div>
+                    <div class="form-group">
+                        <label>Duration (EN)</label>
+                        <input [(ngModel)]="form.duration_en" placeholder="July 2022 — December 2025" />
+                    </div>
+                    <div class="form-group full">
+                        <label>Location (EN)</label>
+                        <input [(ngModel)]="form.location_en" placeholder="Bucaramanga, Colombia" />
+                    </div>
+                    <div class="form-group full">
+                        <label>Short description (EN)</label>
+                        <textarea [(ngModel)]="form.description_en" rows="2"
+                            placeholder="Short summary of the experience"></textarea>
+                    </div>
+                </ng-container>
+
+                <div class="form-group full">
+                    <div class="bullets-header">
+                        <label>Logros / responsabilidades</label>
+                        <button type="button" class="btn-mini" (click)="addBullet()">
+                            <span class="material-icons">add</span> Agregar
+                        </button>
+                    </div>
+                    <div class="bullets-list">
+                        @for (b of form.bullets; track $index) {
+                        <div class="bullet-row">
+                            <div class="bullet-index">{{ $index + 1 }}</div>
+                            <div class="bullet-fields">
+                                <textarea *ngIf="activeTab === 'es'" [(ngModel)]="b.es" rows="2"
+                                    placeholder="Logro o responsabilidad (ES)"></textarea>
+                                <textarea *ngIf="activeTab === 'en'" [(ngModel)]="b.en" rows="2"
+                                    placeholder="Achievement or responsibility (EN)"></textarea>
+                            </div>
+                            <div class="bullet-actions">
+                                <button type="button" class="btn-icon" (click)="moveBullet($index, -1)"
+                                    [disabled]="$index === 0" title="Subir">
+                                    <span class="material-icons">arrow_upward</span>
+                                </button>
+                                <button type="button" class="btn-icon" (click)="moveBullet($index, 1)"
+                                    [disabled]="$index === form.bullets.length - 1" title="Bajar">
+                                    <span class="material-icons">arrow_downward</span>
+                                </button>
+                                <button type="button" class="btn-icon danger" (click)="removeBullet($index)"
+                                    title="Eliminar">
+                                    <span class="material-icons">close</span>
+                                </button>
+                            </div>
+                        </div>
+                        }
+                        <p *ngIf="form.bullets.length === 0" class="hint">Sin logros aún. Usa "Agregar" para añadir el
+                            primero.</p>
+                    </div>
+                </div>
+
+                <div class="form-group full">
+                    <label>Stack (separado por coma)</label>
+                    <input [(ngModel)]="form.stack" placeholder="Angular, Python, Docker" />
+                </div>
+                <div class="form-group">
+                    <label>Orden</label>
+                    <input type="number" [(ngModel)]="form.sort_order" placeholder="0" />
+                </div>
+                <div class="form-group checkbox-group">
+                    <label>
+                        <input type="checkbox" [(ngModel)]="form.is_current" />
+                        Es el rol actual
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button class="btn-cancel" (click)="cancel()">Cancelar</button>
+                <button class="btn-save" (click)="save()" [disabled]="saving || !form.company.trim()">
+                    {{ saving ? 'Guardando...' : 'Guardar' }}
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Table -->
+    <div class="table-container" *ngIf="!loading; else loadingTpl">
+        <div class="empty-state" *ngIf="items.length === 0">
+            <p>No hay experiencias aún. ¡Agrega la primera!</p>
+        </div>
+        <table *ngIf="items.length > 0">
+            <thead>
+                <tr>
+                    <th>Empresa</th>
+                    <th>Rol</th>
+                    <th>Duración</th>
+                    <th>Actual</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (it of items; track it.id) {
+                <tr>
+                    <td>{{ it.company }}</td>
+                    <td>{{ (it.role_key | translate) || '—' }}</td>
+                    <td>{{ (it.duration_key | translate) || '—' }}</td>
+                    <td><span class="badge" [class.active]="it.is_current">{{ it.is_current ? 'Sí' : 'No' }}</span></td>
+                    <td class="actions">
+                        <button class="btn-edit" (click)="openEdit(it)" title="Editar">
+                            <span class="material-icons">edit</span>
+                        </button>
+                        <button class="btn-delete" (click)="delete(it.id)" title="Eliminar">
+                            <span class="material-icons">delete</span>
+                        </button>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <ng-template #loadingTpl>
+        <div class="loading">Cargando experiencias...</div>
+    </ng-template>
+</div>

@@ -5,13 +5,14 @@ import { ProjectsService } from './projects.service';
 import { SkillsService } from './skills.service';
 import { SocialNetworksService } from './social-networks.service';
 import { ContactMethodsService } from './contact-methods.service';
+import { ExperienceService } from './experience.service';
 import { StorageService } from './storage.service';
 import { I18nService } from './i18n.service';
 
 /**
  * Backwards-compatible facade. Prefer injecting the domain service directly
  * (AuthService, ProjectsService, SkillsService, SocialNetworksService,
- * ContactMethodsService, StorageService, I18nService) in new code.
+ * ContactMethodsService, ExperienceService, StorageService, I18nService) in new code.
  */
 @Injectable({ providedIn: 'root' })
 export class SupabaseService {
@@ -21,6 +22,7 @@ export class SupabaseService {
     private skillsService: SkillsService,
     private socialNetworksService: SocialNetworksService,
     private contactMethodsService: ContactMethodsService,
+    private experienceService: ExperienceService,
     private storageService: StorageService,
     private i18nService: I18nService
   ) { }
@@ -60,6 +62,12 @@ export class SupabaseService {
   createContactMethod(data: any) { return this.contactMethodsService.createContactMethod(data); }
   updateContactMethod(id: number, data: any) { return this.contactMethodsService.updateContactMethod(id, data); }
   deleteContactMethod(id: number) { return this.contactMethodsService.deleteContactMethod(id); }
+
+  // --- Experiences ---
+  getExperiences(): Observable<any[]> { return this.experienceService.getExperiences(); }
+  createExperience(data: any) { return this.experienceService.createExperience(data); }
+  updateExperience(id: number, data: any) { return this.experienceService.updateExperience(id, data); }
+  deleteExperience(id: number) { return this.experienceService.deleteExperience(id); }
 
   // --- Storage ---
   uploadImage(file: File, folder: string = 'projects') { return this.storageService.uploadImage(file, folder); }

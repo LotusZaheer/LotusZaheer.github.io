@@ -17,6 +17,8 @@ export class CmsDashboardComponent implements OnInit {
     contactCount = 0;
     skillCount = 0;
     skillCategoryCount = 0;
+    experienceCount = 0;
+    currentExperienceCount = 0;
     languageCount = 0;
     keyCount = 0;
 
@@ -31,6 +33,10 @@ export class CmsDashboardComponent implements OnInit {
         this.supabase.getContactMethods().subscribe(c => this.contactCount = c.length);
         this.supabase.getSkills().subscribe(s => this.skillCount = s.length);
         this.supabase.getSkillCategories().subscribe(s => this.skillCategoryCount = s.length);
+        this.supabase.getExperiences().subscribe(e => {
+            this.experienceCount = e.length;
+            this.currentExperienceCount = e.filter(it => it.is_current).length;
+        });
         this.supabase.getLanguages().subscribe(l => this.languageCount = l.length);
         this.supabase.getKeys().then(k => this.keyCount = k.length);
     }

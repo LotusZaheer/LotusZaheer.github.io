@@ -1,0 +1,182 @@
+@use '../cms-shared' as cms;
+
+.manager {
+    @include cms.manager-base;
+}
+
+.manager-header {
+    @include cms.header-base;
+}
+
+@include cms.table-base;
+@include cms.form-base;
+@include cms.button-icons-base;
+
+.badge {
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 11px;
+    background: #333;
+    color: #aaa;
+
+    &.active {
+        background: rgba(cms.$accent-blue, 0.15);
+        color: cms.$accent-blue;
+    }
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+
+    input[type="checkbox"] {
+        width: auto;
+        accent-color: cms.$accent-blue;
+    }
+}
+
+.empty-state {
+    padding: 3rem;
+    text-align: center;
+    color: cms.$text-secondary;
+    border: 1px dashed cms.$border-color;
+    border-radius: 4px;
+}
+
+.tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+
+    .tab-btn {
+        background: transparent;
+        border: 1px solid cms.$border-color;
+        border-radius: 4px;
+        color: cms.$text-secondary;
+        padding: 5px 12px;
+        cursor: pointer;
+        font-size: 0.85rem;
+        transition: all 0.2s;
+
+        &:hover {
+            border-color: cms.$accent-blue;
+            color: #fff;
+        }
+
+        &.active {
+            background: cms.$accent-blue;
+            border-color: cms.$accent-blue;
+            color: #fff;
+        }
+    }
+}
+
+.bullets-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+
+    label {
+        margin: 0;
+    }
+}
+
+.btn-mini {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: transparent;
+    border: 1px solid cms.$accent-blue;
+    color: cms.$accent-blue;
+    border-radius: 4px;
+    padding: 4px 10px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    .material-icons {
+        font-size: 1rem;
+    }
+
+    &:hover {
+        background: cms.$accent-blue;
+        color: #fff;
+    }
+}
+
+.bullets-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    border: 1px solid cms.$border-color;
+    border-radius: 4px;
+    padding: 0.75rem;
+    background: cms.$bg-darker;
+}
+
+.bullet-row {
+    display: grid;
+    grid-template-columns: 28px 1fr auto;
+    gap: 0.5rem;
+    align-items: start;
+}
+
+.bullet-index {
+    font-family: monospace;
+    color: cms.$text-secondary;
+    font-size: 0.85rem;
+    padding-top: 0.5rem;
+    text-align: center;
+}
+
+.bullet-fields textarea {
+    width: 100%;
+}
+
+.bullet-actions {
+    display: flex;
+    gap: 2px;
+}
+
+.btn-icon {
+    background: transparent;
+    border: 1px solid cms.$border-color;
+    color: cms.$text-secondary;
+    border-radius: 4px;
+    padding: 4px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+
+    .material-icons {
+        font-size: 1rem;
+    }
+
+    &:hover:not(:disabled) {
+        border-color: cms.$accent-blue;
+        color: cms.$accent-blue;
+    }
+
+    &.danger:hover:not(:disabled) {
+        border-color: #e74c3c;
+        color: #e74c3c;
+    }
+
+    &:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+    }
+}
+
+.hint {
+    color: cms.$text-secondary;
+    font-size: 0.85rem;
+    margin: 0;
+    padding: 0.5rem 0;
+}
