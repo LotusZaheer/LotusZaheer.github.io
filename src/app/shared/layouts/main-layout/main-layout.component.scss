@@ -1,46 +1,11 @@
-@use "sass:color";
-@use "../../../../styles/_variables" as *;
-
 :host {
     display: block;
     min-height: 100vh;
-    font-family: 'Roboto', sans-serif;
-    background-color: $background-dark;
-    color: $text-primary;
+    background: var(--bg-0);
+    color: var(--fg-1);
 }
 
 .main-content {
-    padding-top: 0;
-    padding-bottom: 50px;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding-left: 2rem;
-    padding-right: 2rem;
-    margin-bottom: 30px;
-}
-
-.github-footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 30px;
-    background-color: $primary-color;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding-right: 20px;
-    z-index: 1000;
-
-    a {
-        color: $text-primary;
-        text-decoration: none;
-        font-size: 0.7rem;
-        font-weight: 500;
-        transition: opacity 0.3s ease;
-
-        &:hover {
-            opacity: 0.8;
-        }
-    }
+    position: relative;
+    z-index: 1;
 }

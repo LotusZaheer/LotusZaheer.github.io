@@ -56,4 +56,9 @@ export class SkillsComponent implements OnInit {
         const found = this.allIcons.find(icon => icon.name.toLowerCase() === skill.name.toLowerCase());
         return found ? found.iconPath : null;
     }
+
+    getColumnClass(index: number, total: number): string {
+        // First 3 categories take 4 cols (3-up row); the rest take 6 (2-up rows).
+        return index < 3 ? 'col-4' : 'col-6';
+    }
 }

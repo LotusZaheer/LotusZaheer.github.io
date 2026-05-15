@@ -1,24 +1,15 @@
-@use "sass:color";
-@use "../../../styles/_variables" as *;
+@use '../cms-shared' as cms;
 
 $sidebar-width: 240px;
 $sidebar-collapsed: 70px;
 $mobile-header-height: 60px;
 
-// Use global variables mapping to CMS specific
-$cms-bg: $background-dark;
-$cms-sidebar-bg: #141414; // Matching dark card bg
-$cms-border: #2a2a2a;
-$cms-text: #ededed;
-$cms-text-muted: #888;
-$cms-accent: #04B2D9; // Brand Blue
-
 .cms-wrapper {
     display: flex;
     min-height: 100vh;
-    background: $cms-bg;
-    color: $cms-text;
-    font-family: 'Inter', system-ui, sans-serif;
+    background: cms.$bg-0;
+    color: cms.$text-primary;
+    font-family: cms.$font-stack;
 }
 
 // Mobile-only header
@@ -29,8 +20,10 @@ $cms-accent: #04B2D9; // Brand Blue
     left: 0;
     right: 0;
     height: $mobile-header-height;
-    background: $cms-sidebar-bg;
-    border-bottom: 1px solid $cms-border;
+    background: rgba(14, 16, 20, 0.85);
+    backdrop-filter: saturate(180%) blur(16px);
+    -webkit-backdrop-filter: saturate(180%) blur(16px);
+    border-bottom: 1px solid cms.$border-color;
     z-index: 150;
     align-items: center;
     padding: 0 1rem;
@@ -39,16 +32,17 @@ $cms-accent: #04B2D9; // Brand Blue
     .menu-toggle {
         background: transparent;
         border: none;
-        color: $cms-text;
+        color: cms.$text-primary;
         cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
         padding: 5px;
-        border-radius: 4px;
+        border-radius: 8px;
+        transition: background 180ms cms.$ease;
 
         &:hover {
-            background: rgba(255, 255, 255, 0.05);
+            background: cms.$bg-hover;
         }
 
         .material-icons {
@@ -57,18 +51,23 @@ $cms-accent: #04B2D9; // Brand Blue
     }
 
     .brand-logo {
-        font-size: 1.1rem;
+        font-size: 1.05rem;
         font-weight: 600;
         margin: 0;
         white-space: nowrap;
+        color: cms.$text-primary;
+        letter-spacing: -0.015em;
 
         .cms-badge {
             font-size: 0.65rem;
-            background: rgba($cms-accent, 0.15);
-            color: $cms-accent;
-            padding: 2px 6px;
-            border-radius: 4px;
-            margin-left: 5px;
+            font-family: cms.$font-mono;
+            background: cms.$accent-soft;
+            color: cms.$accent-blue;
+            padding: 2px 8px;
+            border-radius: 100px;
+            margin-left: 6px;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
         }
     }
 
@@ -85,8 +84,8 @@ $cms-accent: #04B2D9; // Brand Blue
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(2px);
+    background: rgba(8, 9, 11, 0.6);
+    backdrop-filter: blur(8px);
     z-index: 140;
     opacity: 0;
     transition: opacity 0.3s;
@@ -94,17 +93,16 @@ $cms-accent: #04B2D9; // Brand Blue
 
 .cms-sidebar {
     width: $sidebar-width;
-    background: $cms-sidebar-bg;
-    border-right: 1px solid $cms-border;
+    background: cms.$bg-dark;
+    border-right: 1px solid cms.$border-color;
     display: flex;
     flex-direction: column;
-    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: width 0.3s cms.$ease, transform 0.3s cms.$ease;
     position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
     z-index: 200;
-    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
 
     &.collapsed {
         width: $sidebar-collapsed;
@@ -115,44 +113,48 @@ $cms-accent: #04B2D9; // Brand Blue
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1rem;
-    border-bottom: 1px solid $cms-border;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid cms.$border-color;
     height: 70px;
 
     .brand-logo {
-        font-size: 1.1rem;
+        font-size: 1.05rem;
         font-weight: 600;
         margin: 0;
         white-space: nowrap;
-        color: #fff;
+        color: cms.$text-primary;
+        letter-spacing: -0.015em;
     }
 
     .cms-badge {
         font-size: 0.65rem;
-        background: rgba($cms-accent, 0.15);
-        color: $cms-accent;
-        padding: 2px 6px;
-        border-radius: 4px;
-        margin-left: 5px;
+        font-family: cms.$font-mono;
+        background: cms.$accent-soft;
+        color: cms.$accent-blue;
+        padding: 2px 8px;
+        border-radius: 100px;
+        margin-left: 6px;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
     }
 }
 
 .toggle-btn {
     background: transparent;
     border: none;
-    color: $cms-text-muted;
-    width: 28px;
-    height: 28px;
-    border-radius: 4px;
+    color: cms.$text-muted;
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.2s;
+    transition: all 180ms cms.$ease;
 
     &:hover {
-        background: rgba(255, 255, 255, 0.05);
-        color: $cms-text;
+        background: cms.$bg-hover;
+        color: cms.$text-primary;
     }
 
     .material-icons {
@@ -165,7 +167,7 @@ $cms-accent: #04B2D9; // Brand Blue
     padding: 0.75rem 0.5rem;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 2px;
 }
 
 .nav-item {
@@ -173,38 +175,50 @@ $cms-accent: #04B2D9; // Brand Blue
     align-items: center;
     gap: 1rem;
     padding: 0.6rem 0.75rem;
-    border-radius: 6px;
-    color: $cms-text-muted;
+    border-radius: 8px;
+    color: cms.$text-secondary;
     text-decoration: none;
-    transition: all 0.2s ease;
+    transition: all 180ms cms.$ease;
     white-space: nowrap;
-    font-size: 0.9rem;
+    font-size: 0.875rem;
     font-weight: 500;
+    position: relative;
 
     &:hover {
-        background: rgba($cms-accent, 0.08);
-        color: $cms-text;
+        background: cms.$bg-hover;
+        color: cms.$text-primary;
     }
 
     &.active {
-        background: rgba($cms-accent, 0.1);
-        color: $cms-accent;
-        border-right: 3px solid $cms-accent;
+        background: cms.$accent-soft;
+        color: cms.$accent-blue;
+
+        &::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 18px;
+            background: cms.$accent-blue;
+            border-radius: 0 2px 2px 0;
+        }
     }
 
     .material-icons {
-        font-size: 1.2rem;
+        font-size: 1.15rem;
         min-width: 20px;
         text-align: center;
     }
 }
 
 .sidebar-footer {
-    padding: 0.75rem;
-    border-top: 1px solid $cms-border;
+    padding: 0.75rem 0.5rem;
+    border-top: 1px solid cms.$border-color;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 2px;
 }
 
 .logout-btn,
@@ -213,8 +227,8 @@ $cms-accent: #04B2D9; // Brand Blue
     align-items: center;
     gap: 1rem;
     padding: 0.6rem 0.75rem;
-    border-radius: 6px;
-    color: $cms-text-muted;
+    border-radius: 8px;
+    color: cms.$text-secondary;
     background: none;
     border: none;
     cursor: pointer;
@@ -223,11 +237,12 @@ $cms-accent: #04B2D9; // Brand Blue
     width: 100%;
     text-align: left;
     white-space: nowrap;
-    transition: all 0.2s ease;
+    transition: all 180ms cms.$ease;
+    font-family: inherit;
 
     &:hover {
-        background: rgba(255, 255, 255, 0.05);
-        color: $cms-text;
+        background: cms.$bg-hover;
+        color: cms.$text-primary;
     }
 
     .material-icons {
@@ -236,16 +251,17 @@ $cms-accent: #04B2D9; // Brand Blue
 }
 
 .logout-btn:hover {
-    color: $highlight-color;
-    background: rgba($highlight-color, 0.1);
+    color: cms.$danger;
+    background: rgba(cms.$danger, 0.08);
 }
 
 .cms-content {
     flex: 1;
     margin-left: $sidebar-width;
-    padding: 1.5rem;
-    transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 1.75rem 2rem;
+    transition: margin-left 0.3s cms.$ease;
     min-height: 100vh;
+    position: relative;
 
     .collapsed+& {
         margin-left: $sidebar-collapsed;
@@ -260,7 +276,7 @@ $cms-accent: #04B2D9; // Brand Blue
 
     .cms-sidebar {
         transform: translateX(-100%);
-        width: $sidebar-width !important; // Desktop collapsed state not needed on mobile
+        width: $sidebar-width !important;
         z-index: 200;
 
         &.open {
@@ -268,7 +284,7 @@ $cms-accent: #04B2D9; // Brand Blue
         }
 
         .sidebar-header .toggle-btn {
-            display: none; // No manual desktop-style toggle on mobile
+            display: none;
         }
     }
 
@@ -281,7 +297,7 @@ $cms-accent: #04B2D9; // Brand Blue
 
     .cms-content {
         margin-left: 0 !important;
-        padding-top: calc($mobile-header-height + 1.5rem);
+        padding-top: calc($mobile-header-height + 1.25rem);
         padding-left: 1rem;
         padding-right: 1rem;
     }

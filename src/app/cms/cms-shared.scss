@@ -1,15 +1,31 @@
 @use 'sass:color';
 
-// Supabase-inspired design tokens
-$bg-dark: #1c1c1c;
-$bg-darker: #161616;
-$bg-secondary: #252525;
-$border-color: #333;
-$text-primary: #ededed;
-$text-secondary: #888;
-$accent-blue: #04B2D9; // Platform blue
-$danger: #ff4d4f;
-$font-stack: 'Inter', system-ui, sans-serif;
+// Tokens aligned with the new portfolio design system (see styles.scss)
+$bg-0: #08090B; // page background (matches --bg-0)
+$bg-dark: #0E1014; // surfaces / cards (matches --bg-1)
+$bg-darker: #08090B; // headers / nested surfaces
+$bg-secondary: #14171D; // inputs / nested surfaces (matches --bg-2)
+$bg-hover: #1A1E26; // hover states (matches --bg-3)
+
+$border-color: #21262E; // matches --border
+$border-strong: #2C323D; // matches --border-strong
+
+$text-primary: #F2F4F8; // matches --fg-0
+$text-secondary: #8A92A0; // matches --fg-2
+$text-muted: #5C6573; // matches --fg-3
+
+$accent-blue: #3B82F6; // matches --accent
+$accent-hover: #5B9BFF; // matches --accent-hover
+$accent-soft: rgba(59, 130, 246, 0.12); // matches --accent-soft
+$accent-line: rgba(59, 130, 246, 0.35); // matches --accent-line
+
+$danger: #ef4444;
+$success: #34D399;
+
+$font-stack: "Geist", "Inter", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+$font-mono: "Geist Mono", "JetBrains Mono", ui-monospace, "SF Mono", monospace;
+
+$ease: cubic-bezier(0.22, 1, 0.36, 1);
 
 @mixin manager-base {
     padding: 0;
@@ -23,32 +39,40 @@ $font-stack: 'Inter', system-ui, sans-serif;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
 
     h1 {
         font-size: 1.5rem;
-        font-weight: 500;
+        font-weight: 600;
         margin: 0;
+        color: $text-primary;
+        letter-spacing: -0.02em;
     }
 
     .btn-add {
         background: $accent-blue;
         color: #fff;
         border: none;
-        padding: 0.5rem 1rem;
-        border-radius: 4px;
-        font-size: 0.9rem;
+        padding: 0.55rem 1.1rem;
+        border-radius: 100px;
+        font-size: 0.85rem;
         font-weight: 500;
         cursor: pointer;
-        display: flex;
+        display: inline-flex;
         align-items: center;
         gap: 0.5rem;
+        transition: all 200ms $ease;
+        font-family: inherit;
 
         &:hover {
-            opacity: 0.9;
+            background: $accent-hover;
+            transform: translateY(-1px);
+            box-shadow: 0 8px 24px -8px rgba(59, 130, 246, 0.5);
         }
 
         .material-icons {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
         }
     }
 }
@@ -56,7 +80,7 @@ $font-stack: 'Inter', system-ui, sans-serif;
 @mixin table-base {
     .table-container {
         border: 1px solid $border-color;
-        border-radius: 4px;
+        border-radius: 12px;
         background: $bg-dark;
         overflow-x: auto;
     }
@@ -69,19 +93,24 @@ $font-stack: 'Inter', system-ui, sans-serif;
 
     th {
         text-align: left;
-        padding: 0.6rem 1rem;
+        padding: 0.75rem 1rem;
         background: $bg-darker;
         border-bottom: 1px solid $border-color;
-        color: $text-secondary;
+        color: $text-muted;
         font-weight: 500;
         white-space: nowrap;
+        font-family: $font-mono;
+        font-size: 11px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
     }
 
     td {
-        padding: 0.6rem 1rem;
+        padding: 0.75rem 1rem;
         border-bottom: 1px solid $border-color;
         vertical-align: middle;
         color: $text-primary;
+        font-size: 13.5px;
 
         &.actions {
             display: flex;
@@ -94,6 +123,10 @@ $font-stack: 'Inter', system-ui, sans-serif;
         border-bottom: none;
     }
 
+    tr {
+        transition: background 150ms $ease;
+    }
+
     tr:hover {
         background: rgba(255, 255, 255, 0.02);
     }
@@ -102,12 +135,10 @@ $font-stack: 'Inter', system-ui, sans-serif;
 @mixin form-base {
     .form-overlay {
         position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.7);
-        backdrop-filter: blur(2px);
+        inset: 0;
+        background: rgba(8, 9, 11, 0.75);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
         z-index: 1000;
         display: flex;
         align-items: center;
@@ -117,20 +148,22 @@ $font-stack: 'Inter', system-ui, sans-serif;
         .form-panel {
             background: $bg-dark;
             border: 1px solid $border-color;
-            border-radius: 8px;
+            border-radius: 16px;
             width: 600px;
             max-width: 100%;
             max-height: 90vh;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 32px 64px -16px rgba(0, 0, 0, 0.6);
 
             h2 {
-                padding: 1.25rem;
+                padding: 1.25rem 1.5rem;
                 margin: 0;
                 border-bottom: 1px solid $border-color;
-                font-size: 1.1rem;
-                font-weight: 500;
+                font-size: 1.05rem;
+                font-weight: 600;
+                color: $text-primary;
+                letter-spacing: -0.015em;
             }
 
             .form-grid {
@@ -151,56 +184,65 @@ $font-stack: 'Inter', system-ui, sans-serif;
                 gap: 0.5rem;
 
                 label {
-                    font-size: 0.8rem;
-                    color: $text-secondary;
+                    font-family: $font-mono;
+                    font-size: 11px;
+                    color: $text-muted;
+                    letter-spacing: 0.06em;
+                    text-transform: uppercase;
                 }
 
                 input,
-                textarea {
-                    background: $bg-darker;
+                textarea,
+                select {
+                    background: $bg-secondary;
                     border: 1px solid $border-color;
                     color: $text-primary;
-                    padding: 0.6rem;
-                    border-radius: 4px;
+                    padding: 0.7rem 0.85rem;
+                    border-radius: 8px;
                     font-size: 0.9rem;
                     font-family: inherit;
                     width: 100%;
+                    transition: all 180ms $ease;
+                    outline: none;
 
                     &:focus {
-                        outline: none;
                         border-color: $accent-blue;
-                        box-shadow: 0 0 0 1px rgba($accent-blue, 0.2);
+                        background: $bg-hover;
+                        box-shadow: 0 0 0 3px $accent-soft;
                     }
 
                     &::placeholder {
-                        color: #555;
+                        color: $text-muted;
                     }
                 }
             }
 
             .form-actions {
-                padding: 1rem 1.25rem;
+                padding: 1rem 1.5rem;
                 border-top: 1px solid $border-color;
                 background: $bg-darker;
-                border-radius: 0 0 8px 8px;
+                border-radius: 0 0 16px 16px;
                 display: flex;
                 justify-content: flex-end;
                 gap: 0.75rem;
 
                 button {
-                    padding: 0.5rem 1rem;
-                    border-radius: 4px;
+                    padding: 0.55rem 1.1rem;
+                    border-radius: 100px;
                     font-size: 0.85rem;
                     font-weight: 500;
                     cursor: pointer;
+                    transition: all 200ms $ease;
+                    font-family: inherit;
 
                     &.btn-cancel {
                         background: transparent;
-                        border: 1px solid $border-color;
+                        border: 1px solid $border-strong;
                         color: $text-secondary;
 
                         &:hover {
-                            border-color: #666;
+                            background: $bg-secondary;
+                            border-color: $accent-line;
                             color: $text-primary;
                         }
                     }
@@ -211,12 +253,16 @@ $font-stack: 'Inter', system-ui, sans-serif;
                         color: #fff;
 
                         &:hover {
-                            opacity: 0.9;
+                            background: $accent-hover;
+                            transform: translateY(-1px);
+                            box-shadow: 0 8px 24px -8px rgba(59, 130, 246, 0.5);
                         }
 
                         &:disabled {
                             opacity: 0.5;
                             cursor: not-allowed;
+                            transform: none;
+                            box-shadow: none;
                         }
                     }
                 }
@@ -233,27 +279,29 @@ $font-stack: 'Inter', system-ui, sans-serif;
         background: transparent;
         border: 1px solid $border-color;
         color: $text-secondary;
-        width: 28px;
-        height: 28px;
-        border-radius: 4px;
+        width: 30px;
+        height: 30px;
+        border-radius: 8px;
         display: flex;
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        transition: all 0.1s;
+        transition: all 180ms $ease;
 
         .material-icons {
             font-size: 16px;
         }
 
         &:hover {
-            border-color: #666;
+            background: $bg-hover;
+            border-color: $accent-line;
             color: $text-primary;
         }
     }
 
     button.btn-delete:hover {
-        border-color: $danger;
+        border-color: rgba($danger, 0.5);
+        background: rgba($danger, 0.08);
         color: $danger;
     }
 }

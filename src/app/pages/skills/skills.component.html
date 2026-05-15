@@ -1,25 +1,36 @@
-<h2 class="section-title">{{ 'sections.skills' | translate }}</h2>
-<div class="tech-stack">
-    @for (cat of categories; track cat.id) {
-    <div class="tech-category">
-        <h3>{{ cat.name | translate }}</h3>
-
-        <div class="tech-icons">
-            @for (skill of cat.skills; track skill.id) {
-            <div class="tech-icon">
-                @if (getIcon(skill)) {
-                <img [src]="getIcon(skill)" [alt]="skill.name | translate" class="tech-image"
-                    loading="lazy" decoding="async">
-                } @else {
-                <!-- Fallback if needed, currently just hiding image -->
-                }
-                <span>{{ skill.name | translate }}</span>
-            </div>
-            }
-            @if (cat.skills.length === 0) {
-            <p class="empty-category">...</p>
-            }
-        </div>
+<div class="container">
+    <div class="section-header">
+        <div class="section-eyebrow">02 · {{ 'skills.eyebrow' | translate }}</div>
+        <h2 class="section-title">{{ 'sections.skills' | translate }}</h2>
+        <p class="section-subtitle">{{ 'skills.subtitle' | translate }}</p>
     </div>
-    }
+
+    <div class="skills-grid">
+        @for (cat of categories; track cat.id) {
+        <div class="skill-card" [class]="getColumnClass($index, categories.length)">
+            <div class="skill-head">
+                <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="16 18 22 12 16 6" />
+                    <polyline points="8 6 2 12 8 18" />
+                </svg>
+                {{ cat.name | translate }}
+                <span class="count">{{ cat.skills.length.toString().padStart(2, '0') }}</span>
+            </div>
+            <div class="skill-items">
+                @for (skill of cat.skills; track skill.id) {
+                <span class="skill-tag">
+                    @if (getIcon(skill)) {
+                    <img [src]="getIcon(skill)" [alt]="skill.name | translate" class="skill-tech-icon"
+                        loading="lazy" decoding="async">
+                    }
+                    {{ skill.name | translate }}
+                </span>
+                }
+                @if (cat.skills.length === 0) {
+                <span class="skill-tag empty">…</span>
+                }
+            </div>
+        </div>
+        }
+    </div>
 </div>

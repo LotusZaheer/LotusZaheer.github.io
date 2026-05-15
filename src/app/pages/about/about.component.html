@@ -1,32 +1,81 @@
-<div class="container">
-    <div class="type1-content">
-        <h1>{{ 'home.greeting' | translate }} <span class="text-gradient">{{ 'home.name' | translate }}</span></h1>
-        <h2>{{ 'home.title' | translate }}</h2>
-        <p class="type1-description">
-            {{ 'home.description' | translate }}
-        </p>
-        <div class="type1-buttons">
-            <a href="#projects" class="btn btn-primary" (click)="scrollToSection('projects')">
-                {{ 'home.viewProjects' | translate }}
-            </a>
-            <a href="#contact" class="btn btn-outline" (click)="scrollToSection('contact')">
-                {{ 'home.contact' | translate }}
-            </a>
+<div class="hero">
+    <div class="container">
+        <div class="hero-grid">
+            <div class="hero-left">
+                <div class="hero-status">
+                    <span class="pulse"></span>
+                    {{ 'home.status' | translate }}
+                </div>
+
+                <h1 class="hero-title">
+                    {{ 'home.greeting' | translate }} <span class="accent">{{ displayName }}</span>
+                </h1>
+
+                <div class="hero-role">
+                    {{ 'home.title' | translate }}
+                </div>
+
+                <p class="hero-bio">{{ 'home.description' | translate }}</p>
+
+                <div class="hero-actions">
+                    <a href="#projects" class="btn btn-primary btn-lg" (click)="scrollToSection('projects'); $event.preventDefault()">
+                        {{ 'home.viewProjects' | translate }}
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14" />
+                            <path d="m12 5 7 7-7 7" />
+                        </svg>
+                    </a>
+                    <a href="#contact" class="btn btn-ghost btn-lg" (click)="scrollToSection('contact'); $event.preventDefault()">
+                        {{ 'home.contact' | translate }}
+                    </a>
+                </div>
+
+                <div class="hero-socials">
+                    @for (network of socialNetworks; track network.name) {
+                    <a [href]="network.url" target="_blank" [attr.aria-label]="network.name">
+                        <img [src]="network.icon || network.iconPath" [alt]="network.name" loading="lazy"
+                            decoding="async">
+                    </a>
+                    }
+                </div>
+            </div>
+
+            <div class="hero-right">
+                <div class="portrait">
+                    <div class="portrait-frame"></div>
+                    <div class="portrait-img">
+                        <img src="https://avatars.githubusercontent.com/u/53977185?v=4" alt="Andrés Uribe"
+                            class="profile-image" fetchpriority="high" decoding="async">
+                    </div>
+                    <div class="portrait-tag tag-1">
+                        <span class="key">role</span>
+                        <span>Full Stack</span>
+                    </div>
+                    <div class="portrait-tag tag-2">
+                        <span class="key">stack</span>
+                        <span>Angular · Python</span>
+                    </div>
+                    <div class="portrait-tag tag-3">
+                        <span class="key">loc</span>
+                        <span>BOG</span>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="social-icons">
-            @for (network of socialNetworks; track network.name) {
-            <a [href]="network.url" target="_blank" class="social-icon">
-                <img [src]="network.icon || network.iconPath" [alt]="network.name" loading="lazy" decoding="async">
-            </a>
-            }
-        </div>
-    </div>
-    <div class="type1-image">
-        <div class="image-container">
-            <div class="profile-placeholder">
-                <img src="https://avatars.githubusercontent.com/u/53977185?v=4" alt="Andrés Uribe"
-                    class="profile-image" fetchpriority="high" decoding="async">
+        <div class="hero-meta">
+            <div class="hero-meta-item">
+                <div class="num">5+</div>
+                <div class="label">{{ 'home.metaYears' | translate }}</div>
+            </div>
+            <div class="hero-meta-item">
+                <div class="num">20+</div>
+                <div class="label">{{ 'home.metaProjects' | translate }}</div>
+            </div>
+            <div class="hero-meta-item">
+                <div class="num">3</div>
+                <div class="label">{{ 'home.metaIndustries' | translate }}</div>
             </div>
         </div>
     </div>
