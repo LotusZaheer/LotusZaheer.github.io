@@ -1,0 +1,93 @@
+{
+  "about": {
+    "downloadCV": "Download CV"
+  },
+  "contact": {
+    "eyebrow": "Let's talk",
+    "socialDescription": "Follow me on social media or reach out directly.",
+    "socialTitle": "Connect with me",
+    "subtitle": "Got a project in mind or just want to say hi? Any channel works."
+  },
+  "experience": {
+    "eyebrow": "Career",
+    "items": {
+      "orusxpert": {
+        "bullet1": "Designed and defined the frontend architecture in Angular, making key technical decisions and building a scalable application with geospatial visualization capable of handling thousands of points in real time.",
+        "bullet2": "Built route processing and optimization in Python and C++ (GeoPandas, SciPy), implementing clustering for datasets of >10,000 clients under operational constraints.",
+        "bullet3": "Improved system performance, achieving 10x faster route generation, +11% visit effectiveness, +12% productivity, and -24% operational costs.",
+        "bullet4": "Built the corporate landing as a SPA in React with technical SEO and Docker deployment.",
+        "description": "Development of BeatRide, a platform for optimization and visualization of commercial and logistics routes.",
+        "duration": "July 2022 — December 2025",
+        "location": "Bucaramanga, Colombia",
+        "role": "Software Developer"
+      }
+    },
+    "subtitle": "Roles where I have built real product with small teams, delivering under constraint.",
+    "summary": "From logistics optimization to geospatial platforms. Full-stack roles with emphasis on Angular frontend and Python services.",
+    "summaryLabel": "Summary",
+    "yearsSub": "years building product"
+  },
+  "footer": {
+    "backToTop": "Back to top",
+    "tagline": "Made with care in Bucaramanga"
+  },
+  "home": {
+    "contact": "Contact",
+    "description": "Full Stack Engineer with experience in designing and developing scalable, high-performance web applications. Specialized in frontend architecture with Angular and backend development with Python, focused on performance, maintainability, and engineering best practices. Experienced in logistics optimization and geospatial data analysis solutions, understanding both their technical dimension and business impact.",
+    "greeting": "Hi! I'm",
+    "metaIndustries": "Industries (logistics, geo, edu)",
+    "metaProjects": "Projects delivered",
+    "metaYears": "Years of experience",
+    "name": "Andres Uribe",
+    "status": "Available for projects · Bucaramanga, CO",
+    "title": "Software Engineer",
+    "viewProjects": "View Projects"
+  },
+  "others": {
+    "additional_info": "Project Details",
+    "company": "Company",
+    "role": "Role",
+    "viewCode": "View code",
+    "viewSite": "View site"
+  },
+  "projects": {
+    "eyebrow": "Selected work",
+    "featured": "Featured",
+    "items": {
+      "beatrideLanding": {
+        "description": "I designed and developed BeatRide’s corporate landing page, a commercial route optimization platform. The site was built as a Single Page Application (SPA) using React, focused on clearly and effectively communicating the product’s value proposition: optimization of sales routes, distribution, and field execution.",
+        "details": "### 1. Frontend Development with React\nI built the entire landing page as a SPA using **React**, prioritizing:\n- A modern, responsive design adapted to all devices.\n- Reusable components.\n- Performance optimization for fast and smooth loading.\n\n### 2. SEO and Meta Tags\nI implemented **technical SEO** best practices to improve the site's visibility in search engines and social media platforms.\n\n### 3. Styling and Visual Design\nI used **SCSS** to create a modular and maintainable styling system, with a visual aesthetic aligned with BeatRide’s brand identity.\n\n### 4. Deployment with Docker\nI configured the deployment environment using **Docker**, ensuring portability and consistency across development and production environments.\n",
+        "role": "Frontend Developer",
+        "title": "BeatRide - Landing Page"
+      },
+      "beatridePlatform": {
+        "description": "BeatRide is an advanced commercial and logistics routing platform. In this project, I led the design and implementation of the frontend architecture, and actively participated in backend optimization for large-scale data handling and logistics clustering algorithms.",
+        "details": "### 1. Frontend Architecture from Scratch\nI designed and implemented the complete frontend architecture using **Angular**, based on visual designs from Figma. The main challenge was building a modular, scalable, and maintainable structure capable of integrating complex geospatial visualization layers.\n\n### 2. High-Performance Data Visualization\nI developed a system capable of rendering **thousands of clients and points of interest simultaneously** on the map without degrading the user experience. This was achieved through:\n- Optimization of Angular’s rendering cycle.\n- Efficient layer management within the Google Maps API.\n- Minimizing the DOM footprint to ensure smooth interactivity (high FPS).\n\n### 3. Data & Geospatial Processing\n\nI supported the backend team by creating **Python** scripts focused on preparing and structuring geospatial data for the routing engine:\n\n- **OpenStreetMap (OSM) processing**: Extraction, cleaning, and transformation of cartographic data for integration into the routing system.\n- **Geospatial and numerical analysis**: Use of **NumPy**, **Pandas**, and **GeoPandas** for efficient processing of client location data and generation of optimized structures for subsequent computation.\n\n### 4. Optimization & Routing Algorithms\n\nI participated in the research and development of core technical business logic in **C++** and **Python**, focused on geospatial optimization and computational efficiency applied to logistics problems.\n\n- **Distance and route optimization**: Implementation of algorithms such as Dijkstra, along with the use of **SciPy** to compute distances between key points, applying strategic approximations to reduce computational cost and improve overall system performance.\n\n- **Modeling under operational constraints**: Design of solutions considering dynamic variables such as vehicle capacity, employee assignment, and operational workload.\n\n- **Large-scale logistics clustering**: Development of clustering processes over datasets exceeding 10,000 clients for multi-employee teams. The strategy followed a hierarchical segmentation approach: first by category (product type or zone: rural, urban, etc.), and then by employee, taking into account real-world geography and effective route distances.\n\n- **High-performance implementation**: Creation of optimized scripts used by the backend to execute complex calculations efficiently, ensuring balanced routes and minimizing operational costs.\n\n## Results & Impact\nThanks to the new frontend architecture and data optimization:\n- Loading times for large-scale scenarios were significantly reduced.\n- The platform now enables real-time decision-making over thousands of geospatial points.\n- The clustering engine delivers more precise logistics solutions aligned with real-world terrain conditions.\n",
+        "role": "Full Stack Engineer",
+        "title": "BeatRide – Logistics Management Platform"
+      }
+    },
+    "subtitle": "A selection of products I have worked on, from landing pages to management platforms."
+  },
+  "sections": {
+    "about": "About me",
+    "contact": "Contact",
+    "experience": "Experience",
+    "projects": "Projects",
+    "skills": "Skills"
+  },
+  "skills": {
+    "categories": {
+      "apis": "APIs",
+      "cicd": "CI/CD",
+      "frameworks": "Frameworks",
+      "languages": "Languages",
+      "libraries": "Libraries",
+      "markup": "Markup & Styles",
+      "platforms": "Platforms",
+      "tools": "Herramientas"
+    },
+    "eyebrow": "Tech stack",
+    "subtitle": "The tools I work with daily, grouped by domain."
+  }
+}
