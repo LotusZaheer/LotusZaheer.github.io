@@ -3,13 +3,15 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { animateNameRewrite } from '../../shared/functions/utils';
 import { cvUrl, socialNetworks } from '../../data/portfolio';
+import { LotusComponent } from '../../shared/lotus/lotus.component';
 
 @Component({
     selector: 'app-about',
     standalone: true,
     imports: [
         CommonModule,
-        TranslateModule
+        TranslateModule,
+        LotusComponent
     ],
     templateUrl: './about.component.html',
     styleUrl: './about.component.scss'

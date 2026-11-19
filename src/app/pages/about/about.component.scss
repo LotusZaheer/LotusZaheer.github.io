@@ -186,10 +186,9 @@
     position: relative;
     z-index: 1;
 
-    .profile-image {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+    .portrait-logo {
+        width: 54%;
+        --lotus-gap: var(--bg-2);
     }
 }
 

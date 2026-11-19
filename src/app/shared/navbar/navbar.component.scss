@@ -32,11 +32,9 @@
 }
 
 .brand-logo {
-    width: 22px;
-    height: 22px;
-    object-fit: contain;
+    width: 30px;
     flex-shrink: 0;
-    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.6)) drop-shadow(0 0 12px rgba(255, 255, 255, 0.25));
+    --lotus-gap: var(--bg-1);
     transition: transform 240ms var(--ease);
 }
 
@@ -45,8 +43,10 @@
 }
 
 .brand-name {
+    font-family: "JetBrains Mono", var(--font-mono);
+    font-size: 14px;
+    letter-spacing: 0;
     white-space: nowrap;
-    min-width: 13ch;
 }
 
 .nav-links {
