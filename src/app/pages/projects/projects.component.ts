@@ -1,11 +1,13 @@
 import { Component, NgZone, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { Project } from '../../data/projects.data';
-import { SupabaseService } from '../../services/supabase.service';
 import { MarkdownComponent } from 'ngx-markdown';
-// Keep icons for fallback if needed, but we rely on names matching
-import { languageIcons, markupStyleIcons, libraryIcons, frameworkIcons, platformIcons, apiIcons, TechIcon } from '../../data/tech-icons.data';
+import { Project, Skill, projects, skillCategories } from '../../data/portfolio';
+
+interface ProjectView extends Project {
+  currentImageIndex: number;
+  groupedSkills: { name: string; skills: Skill[] }[];
+}
 
 @Component({
   selector: 'app-projects',
@@ -19,18 +21,8 @@ import { languageIcons, markupStyleIcons, libraryIcons, frameworkIcons, platform
   styleUrls: ['./projects.component.scss']
 })
 export class ProjectsComponent implements OnInit, OnDestroy {
-  private carouselIntervals: { [key: number]: any } = {};
+  private carouselIntervals: { [key: string]: any } = {};
   readonly CAROUSEL_INTERVAL = 3000;
-
-  // Icons Registry for fallback lookup
-  allIcons: TechIcon[] = [
-    ...languageIcons,
-    ...markupStyleIcons,
-    ...libraryIcons,
-    ...frameworkIcons,
-    ...platformIcons,
-    ...apiIcons
-  ];
 
   readonly fallbackColors = [
     'linear-gradient(135deg, #004466 0%, #00778A 100%)',
@@ -40,55 +32,26 @@ export class ProjectsComponent implements OnInit, OnDestroy {
     'linear-gradient(135deg, #FFA93C 0%, #004466 100%)'
   ];
 
-  projects: any[] = [];
-  selectedProject: any = null;
+  // Each project's skills, grouped by the categories of the Skills section (same order).
+  projects: ProjectView[] = projects.map(p => ({
+    ...p,
+    currentImageIndex: 0,
+    groupedSkills: skillCategories
+      .map(cat => ({ name: cat.name, skills: cat.skills.filter(s => p.skills?.includes(s.name)) }))
+      .filter(group => group.skills.length > 0)
+  }));
+  selectedProject: ProjectView | null = null;
 
-  constructor(private supabase: SupabaseService, private zone: NgZone) { }
+  // The last regular card spans the full row when it would otherwise sit alone in it.
+  readonly wideProjectId = (() => {
+    const regular = this.projects.filter(p => !p.featured);
+    return regular.length % 2 === 1 ? regular[regular.length - 1].id : null;
+  })();
+
+  constructor(private zone: NgZone) { }
 
   ngOnInit() {
-    this.supabase.getProjects().subscribe(data => {
-      this.projects = data.map((p: any) => {
-        // Process Skills
-        const rawSkills = p.project_skills || [];
-        const skills = rawSkills.map((ps: any) => ps.skills); // Flatten
-
-        // Group by Category
-        const groups: { [key: string]: any[] } = {};
-        const groupOrder: { [key: string]: number } = {};
-
-        skills.forEach((skill: any) => {
-          if (skill && skill.skill_categories) {
-            const catName = skill.skill_categories.name;
-            const order = skill.skill_categories.displayOrder || 99;
-
-            if (!groups[catName]) {
-              groups[catName] = [];
-              groupOrder[catName] = order;
-            }
-            groups[catName].push(skill);
-          }
-        });
-
-        // Convert to Array and Sort by DisplayOrder
-        const groupedSkills = Object.keys(groups)
-          .map(name => ({
-            name,
-            skills: groups[name],
-            order: groupOrder[name]
-          }))
-          .sort((a, b) => a.order - b.order);
-
-        return {
-          ...p,
-          currentImageIndex: p.currentImageIndex || 0,
-          groupedSkills, // New processed property
-          // Keep legacy arrays for backward compatibility if data exists there
-          languages: p.languages || [],
-          // etc...
-        };
-      });
-      this.startCarousels();
-    });
+    this.startCarousels();
   }
 
   ngOnDestroy() {
@@ -102,7 +65,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
 
         this.carouselIntervals[project.id] = setInterval(() => {
           this.zone.run(() => {
-            project.currentImageIndex = (project.currentImageIndex + 1) % project.images.length;
+            project.currentImageIndex = (project.currentImageIndex + 1) % project.images!.length;
           });
         }, this.CAROUSEL_INTERVAL);
       });
@@ -114,27 +77,19 @@ export class ProjectsComponent implements OnInit, OnDestroy {
     this.carouselIntervals = {};
   }
 
-  getCurrentImage(project: any): string {
+  getCurrentImage(project: ProjectView): string {
     return project.images && project.images.length > 0 ? project.images[project.currentImageIndex] : '';
   }
 
-  getFallbackBackground(project: any): string {
+  getFallbackBackground(project: ProjectView): string {
     return this.fallbackColors[project.currentImageIndex % this.fallbackColors.length];
   }
 
-  hasValidImage(project: any): boolean {
-    const imageUrl = this.getCurrentImage(project);
-    return typeof imageUrl === 'string' && imageUrl.trim() !== '';
+  hasValidImage(project: ProjectView): boolean {
+    return this.getCurrentImage(project).trim() !== '';
   }
 
-  getIcon(name: string): string | null {
-    // 1. Try DB icon if available (not implemented in this logic yet, assuming icon property on skill object)
-    // 2. Try static mapping
-    const icon = this.allIcons.find(icon => icon.name.toLowerCase() === name.toLowerCase());
-    return icon ? icon.iconPath : null;
-  }
-
-  openModal(project: any) {
+  openModal(project: ProjectView) {
     this.selectedProject = project;
     document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
   }

@@ -12,9 +12,5 @@ export const routes: Routes = [
             }
         ]
     },
-    {
-        path: 'cms',
-        loadChildren: () => import('./cms/cms.routes').then(m => m.cmsRoutes)
-    },
     { path: '**', redirectTo: '' }
 ];

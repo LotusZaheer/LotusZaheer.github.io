@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { animateNameRewrite } from '../../shared/functions/utils';
-import { SupabaseService } from '../../services/supabase.service';
+import { cvUrl, socialNetworks } from '../../data/portfolio';
 
 @Component({
     selector: 'app-about',
@@ -15,7 +15,7 @@ import { SupabaseService } from '../../services/supabase.service';
     styleUrl: './about.component.scss'
 })
 export class AboutComponent implements OnInit {
-    socialNetworks: any[] = [];
+    socialNetworks = socialNetworks;
     nameA = '@LotusZaheer';
     nameB = 'Andrés Uribe';
     displayName = ''; //intercambiar por home.name
@@ -23,20 +23,13 @@ export class AboutComponent implements OnInit {
     private targetName = '';
     private blinkChar = '■';
 
-    constructor(
-        private translateService: TranslateService,
-        private supabase: SupabaseService
-    ) { }
+    constructor(private translateService: TranslateService) { }
 
     ngOnInit() {
         this.currentName = this.nameA;
         this.targetName = this.nameB;
         this.displayName = this.currentName;
         this.runAnimation();
-
-        this.supabase.getSocialNetworks().subscribe(data => {
-            this.socialNetworks = data;
-        });
     }
 
     runAnimation() {
@@ -60,24 +53,8 @@ export class AboutComponent implements OnInit {
         }
     }
 
-    async downloadCV() {
-        const currentLanguage = this.translateService.currentLang || this.translateService.defaultLang || 'es';
-
-        const dynamicUrl = await this.supabase.getCVUrl(currentLanguage);
-        if (dynamicUrl) {
-            window.open(dynamicUrl, '_blank');
-            return;
-        }
-
-        const fileName = currentLanguage === 'en' ? 'ENG_HV_Andres_Uribe_Garcia.pdf' : 'ESP_HV_Andres_Uribe_Garcia.pdf';
-        const pdfPath = `assets/pdf/${fileName}`;
-
-        // Crear un enlace temporal para descargar el archivo
-        const link = document.createElement('a');
-        link.href = pdfPath;
-        link.download = fileName;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+    downloadCV() {
+        const lang = this.translateService.currentLang || this.translateService.defaultLang || 'es';
+        window.open(cvUrl[lang] ?? cvUrl['es'], '_blank');
     }
 }

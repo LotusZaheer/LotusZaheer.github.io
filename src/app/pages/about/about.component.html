@@ -34,7 +34,7 @@
                 <div class="hero-socials">
                     @for (network of socialNetworks; track network.name) {
                     <a [href]="network.url" target="_blank" [attr.aria-label]="network.name">
-                        <img [src]="network.icon || network.iconPath" [alt]="network.name" loading="lazy"
+                        <img [src]="network.icon" [alt]="network.name" loading="lazy"
                             decoding="async">
                     </a>
                     }

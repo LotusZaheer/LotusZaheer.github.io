@@ -1,21 +1,22 @@
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { routes } from './app.routes';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, provideHttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { SupabaseTranslationLoader } from './services/supabase-i18n.loader';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { provideMarkdown } from 'ngx-markdown';
+import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
+    provideHttpClient(),
     provideMarkdown(),
     importProvidersFrom(
-      HttpClientModule,
       TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: SupabaseTranslationLoader
+          useFactory: (http: HttpClient) => new TranslateHttpLoader(http, 'i18n/', '.json'),
+          deps: [HttpClient]
         }
       })
     )

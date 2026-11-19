@@ -7,7 +7,8 @@
 
     <div class="projects-grid">
         @for (project of projects; track project.id) {
-        <article class="project-card" [class.featured]="project.featured" (click)="openModal(project)">
+        <article class="project-card" [class.featured]="project.featured"
+            [class.wide]="project.id === wideProjectId" (click)="openModal(project)">
             <div class="project-media">
                 @if (hasValidImage(project)) {
                 <img [src]="getCurrentImage(project)" [alt]="project.title | translate" class="project-image"
@@ -32,7 +33,7 @@
                 </a>
                 }
 
-                @if (project.images?.length > 1) {
+                @if ((project.images?.length ?? 0) > 1) {
                 <div class="carousel-progress">
                     <div class="progress-bar"></div>
                 </div>
@@ -46,20 +47,16 @@
                     <span class="dot"></span>
                     <span>{{ project.company }}</span>
                     }
-                    @if (project.year) {
-                    <span class="dot"></span>
-                    <span>{{ project.year }}</span>
-                    }
                 </div>
 
                 <h3 class="project-title">{{ project.title | translate }}</h3>
                 <p class="project-desc">{{ project.description | translate }}</p>
 
-                @if (project.groupedSkills?.length) {
+                @if (project.groupedSkills.length) {
                 <div class="project-stack">
                     @for (group of project.groupedSkills; track group.name) {
-                    @for (skill of group.skills; track skill.id) {
-                    <span>{{ skill.name | translate }}</span>
+                    @for (skill of group.skills; track skill.name) {
+                    <span>{{ skill.name }}</span>
                     }
                     }
                 </div>
@@ -120,19 +117,19 @@
             </div>
             }
 
-            @if (selectedProject.groupedSkills?.length) {
+            @if (selectedProject.groupedSkills.length) {
             <div class="modal-skills">
                 @for (group of selectedProject.groupedSkills; track group.name) {
                 <div class="skill-group">
                     <h3>{{ group.name | translate }}</h3>
                     <div class="modal-tags">
-                        @for (skill of group.skills; track skill.id) {
+                        @for (skill of group.skills; track skill.name) {
                         <div class="modal-tag">
-                            @if (skill.icon || getIcon(skill.name)) {
-                            <img [src]="skill.icon || getIcon(skill.name)" [alt]="skill.name"
+                            @if (skill.icon) {
+                            <img [src]="skill.icon" [alt]="skill.name"
                                 loading="lazy" decoding="async">
                             }
-                            <span>{{ skill.name | translate }}</span>
+                            <span>{{ skill.name }}</span>
                         </div>
                         }
                     </div>

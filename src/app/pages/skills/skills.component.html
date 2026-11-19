@@ -6,7 +6,7 @@
     </div>
 
     <div class="skills-grid">
-        @for (cat of categories; track cat.id) {
+        @for (cat of categories; track cat.name) {
         <div class="skill-card" [class]="getColumnClass($index, categories.length)">
             <div class="skill-head">
                 <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -17,13 +17,13 @@
                 <span class="count">{{ cat.skills.length.toString().padStart(2, '0') }}</span>
             </div>
             <div class="skill-items">
-                @for (skill of cat.skills; track skill.id) {
+                @for (skill of cat.skills; track skill.name) {
                 <span class="skill-tag">
-                    @if (getIcon(skill)) {
-                    <img [src]="getIcon(skill)" [alt]="skill.name | translate" class="skill-tech-icon"
+                    @if (skill.icon) {
+                    <img [src]="skill.icon" [alt]="skill.name" class="skill-tech-icon"
                         loading="lazy" decoding="async">
                     }
-                    {{ skill.name | translate }}
+                    {{ skill.name }}
                 </span>
                 }
                 @if (cat.skills.length === 0) {

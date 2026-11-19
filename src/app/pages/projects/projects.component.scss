@@ -27,7 +27,8 @@
         }
     }
 
-    &.featured {
+    &.featured,
+    &.wide {
         grid-column: span 2;
     }
 }
@@ -38,7 +39,8 @@
     background: var(--bg-2);
     overflow: hidden;
 
-    .project-card.featured & {
+    .project-card.featured &,
+    .project-card.wide & {
         aspect-ratio: 32 / 8;
     }
 
@@ -212,7 +214,8 @@
         grid-template-columns: 1fr;
     }
 
-    .project-card.featured {
+    .project-card.featured,
+    .project-card.wide {
         grid-column: span 1;
     }
 }

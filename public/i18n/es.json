@@ -1,0 +1,93 @@
+{
+  "about": {
+    "downloadCV": "Descargar CV"
+  },
+  "contact": {
+    "eyebrow": "Hablemos",
+    "socialDescription": "Sígueme en mis redes sociales o contáctame directamente.",
+    "socialTitle": "Medios de contacto",
+    "subtitle": "¿Tienes un proyecto en mente o simplemente quieres saludar? Cualquier canal funciona."
+  },
+  "experience": {
+    "eyebrow": "Trayectoria",
+    "items": {
+      "orusxpert": {
+        "bullet1": "Diseñé y definí la arquitectura frontend en Angular, tomando decisiones técnicas clave y construyendo una aplicación escalable con visualización geoespacial capaz de manejar miles de puntos en tiempo real.",
+        "bullet2": "Desarrollé procesamiento y optimización de rutas en Python y C++ (GeoPandas, SciPy), implementando clustering para datasets >10.000 clientes bajo restricciones operativas.",
+        "bullet3": "Mejoré el rendimiento del sistema logrando generación de rutas 10x más rápida, +11% efectividad de visitas, +12% productividad y -24% costos operativos.",
+        "bullet4": "Construí la landing corporativa como SPA en React con SEO técnico y despliegue en Docker.",
+        "description": "Desarrollo de BeatRide, plataforma de optimización y visualización de rutas comerciales y logísticas.",
+        "duration": "Julio 2022 — Diciembre 2025",
+        "location": "Bucaramanga, Colombia",
+        "role": "Desarrollador de Software"
+      }
+    },
+    "subtitle": "Roles donde he construido producto real con equipos pequeños y entregando bajo restricción.",
+    "summary": "De optimización logística a plataformas geoespaciales. Roles full stack con énfasis en frontend Angular y servicios Python.",
+    "summaryLabel": "Resumen",
+    "yearsSub": "años en producto"
+  },
+  "footer": {
+    "backToTop": "Volver arriba",
+    "tagline": "Hecho con cuidado en Bucaramanga"
+  },
+  "home": {
+    "contact": "Contacto",
+    "description": "Full Stack Engineer con experiencia en diseño y desarrollo de aplicaciones web escalables y de alto rendimiento. Especializado en arquitectura frontend con Angular y desarrollo backend con Python, enfocado en rendimiento, mantenibilidad y buenas prácticas de ingeniería. He trabajado en soluciones orientadas a optimización logística y análisis de datos geoespaciales, comprendiendo tanto su dimensión técnica como su impacto en el negocio.",
+    "greeting": "¡Hola! Soy",
+    "metaIndustries": "Industrias (logística, geo, edu)",
+    "metaProjects": "Proyectos entregados",
+    "metaYears": "Años de experiencia",
+    "name": "Andrés Uribe",
+    "status": "Disponible para proyectos · Bucaramanga, CO",
+    "title": "Ingeniero de Software",
+    "viewProjects": "Ver Proyectos"
+  },
+  "others": {
+    "additional_info": "Detalles del Proyecto",
+    "company": "Compañía",
+    "role": "Rol",
+    "viewCode": "Ver código",
+    "viewSite": "Ver sitio"
+  },
+  "projects": {
+    "eyebrow": "Trabajo seleccionado",
+    "featured": "Destacado",
+    "items": {
+      "beatrideLanding": {
+        "description": "Diseñé y desarrollé la landing page corporativa de BeatRide, una plataforma de optimización de rutas comerciales. El sitio fue construido como una Single Page Application (SPA) con React, enfocado en comunicar de forma clara y atractiva la propuesta de valor del producto: optimización de rutas de venta, distribución y ejecución en campo.",
+        "details": "\n### 1. Desarrollo Frontend con React\nConstruí la landing page completa como una SPA en **React**, priorizando:\n- Diseño moderno y responsive adaptado a todos los dispositivos.\n- Componentes reutilizables.\n- Optimización de rendimiento para una carga rápida y fluida.\n\n### 2. SEO y Meta Tags\nImplementé buenas prácticas de **SEO técnico** mejorar la presencia del sitio en buscadores y redes sociales.\n\n### 3. Estilos y Diseño Visual\nUtilicé **SCSS** para crear un sistema de estilos modular y mantenible, con una estética visual alineada a la identidad de marca de BeatRide.\n\n### 4. Despliegue con Docker\nConfiguré el entorno de despliegue utilizando **Docker**, garantizando portabilidad y consistencia entre ambientes de desarrollo y producción.\n",
+        "role": "Frontend Developer",
+        "title": "BeatRide - Landing Page"
+      },
+      "beatridePlatform": {
+        "description": "BeatRide es una plataforma avanzada de ruteo comercial y logístico. En este proyecto, lideré el diseño y la implementación de la arquitectura del frontend, además de participar activamente en la optimización del backend para el manejo de datos a gran escala y algoritmos de clustering logístico.",
+        "details": "### 1. Arquitectura de Frontend desde Cero\nDiseñé e implementé la arquitectura completa del frontend utilizando **Angular**, tomando como base los diseños visuales de Figma. El reto principal fue crear una estructura modular, escalable y mantenible que permitiera integrar complejas capas de visualización geográfica.\n\n### 2. Visualización de Datos de Alto Rendimiento\nDesarrollé un sistema capaz de representar **miles de clientes y puntos de interés simultáneamente** en el mapa sin degradar la experiencia del usuario. Esto se logró mediante:\n- Optimización del ciclo de renderizado de Angular.\n- Gestión eficiente de capas en Google Maps API.\n- Minimizando el DOM footprint para asegurar una interactividad fluida (high FPS).\n\n### 3. Data & Geospatial Processing\n\nApoyé al equipo de backend mediante la creación de scripts en **Python** enfocados en la preparación y estructuración de datos geoespaciales para el motor de ruteo:\n\n- **Procesamiento de OpenStreetMaps (OSM)**: Extracción, limpieza y transformación de datos cartográficos para su integración en el sistema de ruteo.\n- **Análisis geoespacial y numérico**: Uso de **NumPy**, **Pandas** y **GeoPandas** para el tratamiento eficiente de datos de ubicaciones de clientes y generación de estructuras optimizadas para cálculo posterior.\n\n\n### 4. Optimization & Routing Algorithms\n\nParticipé en la investigación y desarrollo de la lógica de negocio técnica en **C++** y **Python**, enfocada en optimización geoespacial y eficiencia computacional aplicada a problemas logísticos.\n\n- **Optimización de distancias y rutas**: Implementación de algoritmos como Dijkstra y uso de **SciPy** para calcular distancias entre puntos clave, utilizando aproximaciones estratégicas para reducir el costo computacional y mejorar el rendimiento general del sistema.\n\n- **Modelado bajo restricciones operativas**: Diseño de soluciones considerando variables dinámicas como capacidad de vehículos, asignación de empleados y carga operativa.\n\n- **Clustering logístico a gran escala**: Desarrollo de procesos de clusterización sobre datasets de más de 10 000 clientes para equipos de múltiples empleados. La estrategia consistía en una segmentación jerárquica: primero por categoría (tipo de producto o zona: rural, urbana, etc.) y posteriormente por empleado, considerando geografía real y distancias de ruta efectivas.\n\n- **Implementación de alto rendimiento**: Creación de scripts optimizados que el backend utiliza para ejecutar cálculos complejos de manera eficiente, garantizando rutas equilibradas y minimización de costos operativos.\n\n\n## Resultados e Impacto\nGracias a la nueva arquitectura de frontend y la optimización de datos:\n - El tiempo de carga de escenarios masivos se redujo significativamente.\n - La plataforma permite ahora una toma de decisiones en tiempo real sobre miles de puntos geoespaciales.\n - El motor de clustering proporciona soluciones logísticas más precisas y adaptadas a la realidad del terreno.\n",
+        "role": "Full Stack Engineer",
+        "title": "BeatRide – Plataforma de Gestión Logística"
+      }
+    },
+    "subtitle": "Una selección de productos en los que he participado, desde landing pages hasta plataformas de gestión."
+  },
+  "sections": {
+    "about": "Sobre mi",
+    "contact": "Contacto",
+    "experience": "Experiencia",
+    "projects": "Proyectos",
+    "skills": "Habilidades"
+  },
+  "skills": {
+    "categories": {
+      "apis": "APIs",
+      "cicd": "CI/CD",
+      "frameworks": "Frameworks",
+      "languages": "Lenguajes",
+      "libraries": "Librerías",
+      "markup": "Markup y Estilos",
+      "platforms": "Plataformas",
+      "tools": "Herramientas"
+    },
+    "eyebrow": "Stack técnico",
+    "subtitle": "Las herramientas con las que trabajo a diario, agrupadas por dominio."
+  }
+}

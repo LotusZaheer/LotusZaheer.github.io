@@ -4,7 +4,7 @@ import { ScrollService } from '../services/scroll.service';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
-import { SupabaseService } from '../../services/supabase.service';
+import { cvUrl } from '../../data/portfolio';
 
 @Component({
   selector: 'app-navbar',
@@ -20,7 +20,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   displayName = 'Andrés Uribe';
   currentLang: string;
 
-  constructor(private scrollService: ScrollService, private translate: TranslateService, private supabase: SupabaseService) {
+  constructor(private scrollService: ScrollService, private translate: TranslateService) {
     this.subscription = this.scrollService.activeSection$.subscribe(
       section => this.activeSection = section
     );
@@ -28,7 +28,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   toggleMobileMenu() {
-    console.log('toggleMobileMenu');
     this.mobileMenuOpen = !this.mobileMenuOpen;
   }
 
@@ -40,26 +39,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
     }
   }
 
-  async downloadCV() {
-    const currentLanguage = this.translate.currentLang || this.translate.defaultLang || 'es';
-
-    // Try to get dynamic URL
-    const dynamicUrl = await this.supabase.getCVUrl(currentLanguage);
-    if (dynamicUrl) {
-      window.open(dynamicUrl, '_blank');
-      return;
-    }
-
-    const fileName = currentLanguage === 'en' ? 'ENG_HV_Andres_Uribe_Garcia.pdf' : 'ESP_HV_Andres_Uribe_Garcia.pdf';
-    const pdfPath = `assets/pdf/${fileName}`;
-
-    // Crear un enlace temporal para descargar el archivo
-    const link = document.createElement('a');
-    link.href = pdfPath;
-    link.download = fileName;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  downloadCV() {
+    const lang = this.translate.currentLang || this.translate.defaultLang || 'es';
+    window.open(cvUrl[lang] ?? cvUrl['es'], '_blank');
   }
 
   nameA = 'Andrés Uribe';
